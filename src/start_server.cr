@@ -13,4 +13,5 @@ Signal::INT.trap do
   app_server.close
 end
 
+STDERR.puts "Listening on #{ENV["HOST"]}:#{ENV["PORT"]}"
 app_server.listen
