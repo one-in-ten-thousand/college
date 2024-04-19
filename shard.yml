@@ -30,6 +30,8 @@ dependencies:
   jwt:
     github: crystal-community/jwt
     version: ~> 1.6.0
+  baked_file_system_mounter:
+    github: crystal-china/baked_file_system_mounter
 development_dependencies:
   lucky_flow:
     github: luckyframework/lucky_flow
