@@ -16,6 +16,7 @@ AppDatabase.configure do |settings|
       password: ENV["DB_PASSWORD"]? || "postgres"
     )
   end
+  p! settings.credentials.url
 end
 
 Avram.configure do |settings|
