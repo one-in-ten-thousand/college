@@ -1,0 +1,20 @@
+[Unit]
+Description=Awesome description of college
+After=nginx.service
+
+[Service]
+Type=simple
+# User=deploy
+Environment="LUCKY_ENV=production"
+Environment="SECRET_KEY_BASE=0j3b0927cnKA4ZuwzrianvDtePtCJvJgW7K0n3LGf2Q="
+Environment="SEND_GRID_KEY=unused"
+Environment="DATABASE_URL=postgres://postgres:postgres@127.0.0.1/college_production"
+Environment="HOST=127.0.0.1"
+Environment="PORT=3000"
+Environment="APP_DOMAIN=https://college.zw963.top"
+WorkingDirectory=/root/college
+ExecStart=/root/college/bin/college
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
