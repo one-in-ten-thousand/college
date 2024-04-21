@@ -8,6 +8,17 @@ class Db::Seed::SampleData < LuckyTask::Task
   summary "Add sample database records helpful for development"
 
   def call
+    Signal::INT.trap do
+      print_exit("\n按下 Ctrl C")
+    end
+
+    print "重置所有开发数据？（y/yes 继续）"
+    input = gets.try &.rstrip
+
+    print_exit("拒绝执行") unless input.to_s.downcase.in? ["y", "yes"]
+
+    ProvinceQuery.truncate(cascade: true)
+
     # Using an Avram::Factory:
     #
     # Use the defaults, but override just the email
@@ -26,5 +37,11 @@ class Db::Seed::SampleData < LuckyTask::Task
     # end
     # ```
     puts "Done adding sample data"
+  end
+
+  def print_exit(reason)
+    STDERR.puts reason
+    STDERR.puts "退出 ..."
+    exit
   end
 end
