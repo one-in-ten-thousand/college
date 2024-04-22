@@ -2,6 +2,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@materializecss/materialize": "^2.0.4",
     "@rails/ujs": "^7.1.0",
     "modern-normalize": "^2.0.0"
   },
