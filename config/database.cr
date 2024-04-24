@@ -1,3 +1,5 @@
+require "../db/migrations/**"
+
 database_name = "college_#{LuckyEnv.environment}"
 
 AppDatabase.configure do |settings|
@@ -27,4 +29,8 @@ Avram.configure do |settings|
   # Always parse `Time` values with these specific formats.
   # Used for both database values, and datetime input fields.
   # settings.time_formats << "%F"
+end
+
+if !LuckyEnv.task?
+  Avram::Migrator::Runner.new.run_pending_migrations
 end

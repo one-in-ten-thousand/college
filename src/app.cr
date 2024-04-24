@@ -22,9 +22,4 @@ require "./actions/**"
 require "./components/base_component"
 require "./components/**"
 require "./pages/**"
-require "../db/migrations/**"
 require "./app_server"
-
-if !LuckyEnv.task?
-  Avram::Migrator::Runner.new.run_pending_migrations
-end
