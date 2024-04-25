@@ -1,8 +1,8 @@
 class Universities::Create < BrowserAction
   post "/universities" do
-    SaveUniversity.upsert(params) do |operation, university|
+    SaveUniversity.create(params) do |operation, university|
       if university
-        flash.success = "The record has been saved"
+        flash.success = "创建成功"
         redirect Show.with(university.id)
       else
         flash.failure = "It looks like the form is not valid"
