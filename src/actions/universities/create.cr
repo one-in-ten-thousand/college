@@ -5,7 +5,7 @@ class Universities::Create < BrowserAction
         flash.success = "创建成功"
         redirect Show.with(university.id)
       else
-        flash.failure = "It looks like the form is not valid"
+        flash.failure = "出错了"
         html NewPage, operation: operation
       end
     end
