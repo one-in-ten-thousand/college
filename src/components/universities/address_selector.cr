@@ -15,6 +15,9 @@ class Universities::AddressSelector < BaseComponent
       ) do
         text "点击选择省、市：    #{operation.province_name.value} #{operation.city_name.value}"
       end
+
+      mount Shared::FieldErrors, operation.province_name
+      mount Shared::FieldErrors, operation.city_name
     end
 
     raw <<-'HEREDOC'
