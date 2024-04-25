@@ -9,9 +9,6 @@ class Shared::LayoutHead < BaseComponent
       js_link asset("js/app.js"), defer: "true"
       csrf_meta_tags
       responsive_meta_tag
-      js_link "/js/iosSelect.js"
-      js_link "/js/areaData_v2.js"
-      css_link "/css/iosSelect.css"
 
       # Development helper used with the `lucky watch` command.
       # Reloads the browser when files are updated.
