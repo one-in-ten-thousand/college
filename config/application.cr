@@ -22,3 +22,7 @@
 # # In your application, call
 # # `Application.settings.support_email` anywhere you need it.
 # ```
+
+Lucky::Redirectable.configure do |config|
+  config.redirect_status = 303
+end
