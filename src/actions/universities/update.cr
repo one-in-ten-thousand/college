@@ -7,7 +7,7 @@ class Universities::Update < BrowserAction
         redirect Show.with(updated_university.id)
       else
         flash.failure = "出错了"
-        html EditPage, operation: operation
+        html EditPage, operation: operation, university: updated_university
       end
     end
   end

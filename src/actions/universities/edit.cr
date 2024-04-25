@@ -13,6 +13,6 @@ class Universities::Edit < BrowserAction
       city_code: university.city.code
     )
 
-    html EditPage, operation: op
+    html EditPage, operation: op, university: university
   end
 end
