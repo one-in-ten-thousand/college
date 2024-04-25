@@ -11,6 +11,7 @@ class SaveUniversity < University::SaveOperation
     validate_required city_name
 
     validate_uniqueness_of name
+    validate_uniqueness_of code
 
     province = SaveProvince.upsert!(name: province_name.value.to_s)
     city = SaveCity.upsert!(name: city_name.value.to_s, province_id: province.id)

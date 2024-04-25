@@ -17,7 +17,13 @@ class Db::Seed::SampleData < LuckyTask::Task
 
     print_exit("拒绝执行") unless input.to_s.downcase.in? ["y", "yes"]
 
+    UserQuery.truncate
     ProvinceQuery.truncate(cascade: true)
+
+    SignUpUser.create!(email: "zw963@163.com", password: "temp1234", password_confirmation: "temp1234")
+
+    # province = SaveProvince.create!(name: "北京市")
+    # SaveCity.create!(name: "北京市", province_id: province.id)
 
     # Using an Avram::Factory:
     #

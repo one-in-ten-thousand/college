@@ -4,7 +4,7 @@ class CreateUniversities::V20240420041990 < Avram::Migrator::Migration::V1
     create table_for(University) do
       primary_key id : Int64
       add name : String, index: true, unique: true            # 大学名称, 必须唯一
-      add code : Int32, index: true, unique: true             # 大学的报考编码
+      add code : Int32?, index: true, unique: true            # 大学的报考编码
       add description : String?                               # 一些其他补充信息
       add score_2023_max : Int32?, index: true                # 2023 最高分
       add score_2023_mix : Int32?, index: true                # 2023 最低分
