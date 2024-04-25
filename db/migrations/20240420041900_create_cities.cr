@@ -4,6 +4,7 @@ class CreateCities::V20240420041900 < Avram::Migrator::Migration::V1
     create table_for(City) do
       primary_key id : Int64
       add name : String, index: true, unique: true
+      add code : Int32, index: true, unique: true
       add_belongs_to province : Province, on_delete: :cascade
       add_timestamps
     end
