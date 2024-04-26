@@ -1,6 +1,8 @@
 class SaveUniversity < University::SaveOperation
   upsert_lookup_columns name
-  permit_columns name, description, code, is_211, is_985, is_good
+  permit_columns name, description, code,
+    is_211, is_985, is_good,
+    batch_number, score_2023_mix, ranking_2023_mix
 
   attribute province_code : Int32
   attribute province_name : String
