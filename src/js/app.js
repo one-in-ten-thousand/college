@@ -7,6 +7,8 @@ Rails.start();
 import M from '@materializecss/materialize';
 import { iosProvinces, iosCitys } from './areaData_v2.js';
 import IosSelect from "iosselect";
+import 'htmx.org';
+window.htmx = require('htmx.org');
 
 var selectAddress = document.getElementById('select_address');
 var showAddress = document.getElementById('show_address');
