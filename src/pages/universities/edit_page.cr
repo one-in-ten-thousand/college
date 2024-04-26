@@ -5,7 +5,10 @@ class Universities::EditPage < MainLayout
   quick_def page_title, "编辑 #{university.name}"
 
   def content
-    link "Back to all Universities", Index
+    br
+    br
+
+    link "返回大学列表", Index
 
     form_for Update.with(university.id) do
       mount FormFields, operation
