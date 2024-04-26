@@ -8,11 +8,11 @@ class University < BaseModel
     column is_985 : Bool
     column is_good : Bool
 
-    # column score_2023_max : Number?
-    # column ranking_2023_max : Number?
+    # column score_2023_max : Int32?
+    # column ranking_2023_max : Int32?
 
-    column score_2023_mix : Int32?
-    column ranking_2023_mix : Int32?
+    column score_2023_min : Int32?
+    column ranking_2023_min : Int32?
 
     belongs_to province : Province
     belongs_to city : City
