@@ -3,7 +3,7 @@ class Universities::Create < BrowserAction
     SaveUniversity.create(params) do |operation, university|
       if university
         flash.success = "创建成功"
-        redirect Show.with(university.id)
+        redirect New
       else
         flash.failure = "出错了"
         html NewPage, operation: operation
