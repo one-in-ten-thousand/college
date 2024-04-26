@@ -10,14 +10,13 @@ import IosSelect from "iosselect";
 import 'htmx.org';
 window.htmx = require('htmx.org');
 
-var selectAddress = document.getElementById('select_address');
 var showAddress = document.getElementById('show_address');
 var provinceCode = document.getElementById('province-code');
 var provinceName = document.getElementById('province-name');
 var cityCode = document.getElementById('city-code');
 var cityName = document.getElementById('city-name');
 
-selectAddress.addEventListener('click', function () {
+document.getElementById('select_address')?.addEventListener('click', function () {
     var oneLevelId = showAddress.getAttribute('data-province-code');
     var twoLevelId = showAddress.getAttribute('data-city-code');
 
