@@ -3,7 +3,15 @@ class Universities::FormFields < BaseComponent
 
   def render
     div do
-      mount Shared::Field, operation.code, "学校代码(唯一)", &.number_input(placeholder: "输入数字, 懒得话, 可以先不填")
+      mount Shared::Field, operation.code, "学校代码(唯一)" do |tag|
+        tag.number_input(
+          placeholder: "输入数字, 这个可以自动查询大学是否已存在",
+          "hx-get": "/htmx/v1/universities/find_code",
+          "hx-target": "next .error",
+          "hx-trigger": "change, keyup delay:400ms changed"
+        )
+      end
+
       mount Shared::Field, operation.name, "大学名称(不可重复, 唯一)", &.text_input(placeholder: "大学完整名称")
       mount Shared::Field, operation.batch_number, "学校所属的录取批次", &.text_input(placeholder: "例如, A1")
       mount Shared::Field, operation.score_2023_min, "2023学校录取最低分", &.number_input(placeholder: "录取最低分")
