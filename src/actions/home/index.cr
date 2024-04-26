@@ -3,7 +3,7 @@ class Home::Index < BrowserAction
 
   get "/" do
     if current_user?
-      redirect Me::Show
+      redirect Universities::Index
     else
       # When you're ready change this line to:
       #
