@@ -46,7 +46,7 @@ class University < BaseModel
     column description : String?
     column code : Int32?
     column batch_number : String?
-    column batch_level : Int32?
+    column batch_level : Int32
     column is_211 : Bool
     column is_985 : Bool
     column is_good : Bool
