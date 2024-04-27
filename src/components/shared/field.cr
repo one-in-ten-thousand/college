@@ -43,11 +43,13 @@ class Shared::Field(T) < BaseComponent
     #    tag_defaults field: attribute, class: "input"
     #
     # Will add the class "input" to the generated HTML.
-    tag_defaults field: attribute do |tag_builder|
-      yield tag_builder
-    end
+    div class: "input-field" do
+      tag_defaults field: attribute do |tag_builder|
+        yield tag_builder
+      end
 
-    mount Shared::FieldErrors, attribute
+      mount Shared::FieldErrors, attribute
+    end
   end
 
   # Use a text_input by default
