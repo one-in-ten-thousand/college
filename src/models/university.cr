@@ -45,7 +45,6 @@ class University < BaseModel
     column name : String
     column description : String?
     column code : Int32?
-    column batch_number : String?
     column batch_level : University::BatchNumber
     column is_211 : Bool
     column is_985 : Bool
