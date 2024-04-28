@@ -15,7 +15,7 @@ class PaginationLinks < Lucky::BaseComponent
 
   def material_icon(name, link)
     li class: "waves-effect" do
-      i class: "material-icons", "hx-get": link || "#!", "hx-target": "body" do
+      i class: "material-icons", "hx-get": link || "#!", "hx-target": "body", "hx-push-url": "true" do
         text name
       end
     end
@@ -29,7 +29,7 @@ class PaginationLinks < Lucky::BaseComponent
 
   def render_page_item(page : Lucky::Paginator::Page)
     li class: "waves-effect" do
-      a page.number, href: page.path, "hx-target": "body", "hx-get": page.path
+      a page.number, href: page.path, "hx-target": "body", "hx-get": page.path, "hx-push-url": "true"
     end
   end
 
