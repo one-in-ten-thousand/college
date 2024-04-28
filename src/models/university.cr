@@ -25,17 +25,17 @@ class University < BaseModel
     end
 
     def self.checkbox_level_one
-      values = [] of Tuple(String, Int32)
+      values = [] of Tuple(String, University::BatchNumber)
 
-      BatchNumber.each { |bn| values << {bn.to_s, bn.value} if bn.to_s.starts_with?("一本") }
+      BatchNumber.each { |bn| values << {bn.to_s, bn} if bn.to_s.starts_with?("一本") }
 
       values
     end
 
     def self.checkbox_level_two
-      values = [] of Tuple(String, Int32)
+      values = [] of Tuple(String, University::BatchNumber)
 
-      BatchNumber.each { |bn| values << {bn.to_s, bn.value} if bn.to_s.starts_with?("二本") }
+      BatchNumber.each { |bn| values << {bn.to_s, bn} if bn.to_s.starts_with?("二本") }
 
       values
     end
@@ -46,7 +46,7 @@ class University < BaseModel
     column description : String?
     column code : Int32?
     column batch_number : String?
-    column batch_level : Int32
+    column batch_level : University::BatchNumber
     column is_211 : Bool
     column is_985 : Bool
     column is_good : Bool
