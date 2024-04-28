@@ -1,11 +1,24 @@
 class Universities::IndexPage < MainLayout
   needs universities : UniversityQuery
+  needs pages : Lucky::Paginator
   quick_def page_title, "All Universities"
 
   def content
     h1 "所有大学"
     link "新增", New
+    render_search
     render_universities
+    mount PaginationLinks, pages
+  end
+
+  def render_search
+    raw <<-'HEREDOC'
+<label for="search">搜索</label>
+<input placeholder="搜索大学名称" type="search" id="search" name="q" value="value">
+<button hx-get="/index" hx-target="#main" hx-include="#search">
+  Search the Contacts
+</button>
+HEREDOC
   end
 
   def render_universities
@@ -24,7 +37,6 @@ class Universities::IndexPage < MainLayout
           tr do
             td university.id
             td university.code.to_s
-            # # link university.name, Show.with(university)
             td university.name.to_s
             td university.batch_level.to_s
           end

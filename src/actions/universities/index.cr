@@ -1,5 +1,6 @@
 class Universities::Index < BrowserAction
   get "/universities" do
-    html IndexPage, universities: UniversityQuery.new
+    pages, universities = paginate(UniversityQuery.new.id.asc_order)
+    html IndexPage, universities: universities, pages: pages
   end
 end
