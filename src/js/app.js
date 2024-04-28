@@ -10,7 +10,7 @@ import IosSelect from "iosselect";
 import 'htmx.org';
 window.htmx = require('htmx.org');
 
-document.addEventListener('DOMContentLoaded', function() {
+function init () {
     document.getElementById('select_address')?.addEventListener('click', function () {
         var showAddress = document.getElementById('show_address');
         var provinceCode = document.getElementById('province-code');
@@ -46,4 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.FormSelect.init(elems, {
         // specify options here
     });
+}
+
+// htmx.onLoad(function (target) {
+//     init();
+// });
+
+document.addEventListener('DOMContentLoaded', function() {
+    init();
 });
