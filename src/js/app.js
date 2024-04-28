@@ -2,8 +2,8 @@
 
 // Rails Unobtrusive JavaScript (UJS) is *required* for links in Lucky that use DELETE, POST and PUT.
 // Though it says "Rails" it actually works with any framework.
-import Rails from "@rails/ujs";
-Rails.start();
+// import Rails from "@rails/ujs";
+// Rails.start();
 import { M } from '@materializecss/materialize';
 import { iosProvinces, iosCitys } from './areaData_v2.js';
 import IosSelect from "iosselect";

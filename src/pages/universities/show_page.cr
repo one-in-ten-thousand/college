@@ -13,9 +13,16 @@ class Universities::ShowPage < MainLayout
     section do
       link "编辑", Edit.with(university.id)
       text " | "
-      link "删除",
+      link(
+        "删除",
         Delete.with(university.id),
-        data_confirm: "确定删除吗?"
+        "hx-target": "body",
+        "hx-confirm": "确定删除吗?",
+        "hx-push-url": "true",
+        "hx-delete": Delete.with(university.id).path,
+        "hx-include": "next input"
+      )
+      input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
     end
   end
 
