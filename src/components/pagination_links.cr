@@ -34,7 +34,7 @@ class PaginationLinks < Lucky::BaseComponent
   end
 
   def render_page_item(page : Lucky::Paginator::CurrentPage)
-    li class: "active", style: "color: white;" do
+    li class: "active", style: "color: white; width: 2em; height: 1.5em;" do
       text page.number
     end
   end
