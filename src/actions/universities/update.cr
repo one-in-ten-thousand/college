@@ -4,7 +4,7 @@ class Universities::Update < BrowserAction
     SaveUniversity.update(university, params) do |operation, updated_university|
       if operation.saved?
         flash.success = "修改成功"
-        redirect Show.with(updated_university.id)
+        redirect Edit.with(updated_university.id)
       else
         flash.failure = "出错了"
         html EditPage, operation: operation, university: updated_university
