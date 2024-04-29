@@ -30,6 +30,7 @@ HEREDOC
           th "报考编码"
           th "大学名称"
           th "录取批次"
+          th "修改时间"
         end
       end
 
@@ -38,8 +39,11 @@ HEREDOC
           tr do
             td university.id
             td university.code.to_s
-            td university.name.to_s
+            td do
+              link university.name, Edit.with(university)
+            end
             td university.batch_level.display_name
+            td university.updated_at.to_s("%m月%d日 %H:%M:%S")
           end
         end
       end
