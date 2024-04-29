@@ -7,6 +7,7 @@ class Universities::IndexPage < MainLayout
     h1 "所有大学"
     link "新增", New
     render_search
+    mount PaginationLinks, pages
     render_universities
     mount PaginationLinks, pages
   end
