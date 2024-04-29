@@ -7,11 +7,12 @@ class Universities::FormFields < BaseComponent
         tag.number_input(
           placeholder: "输入数字, 这个可以自动查询大学是否已存在",
           "hx-get": "/htmx/v1/universities/find_code",
-          "hx-target": "next .error",
+          "hx-target": "next span",
           "hx-trigger": "change, keyup delay:400ms changed"
         )
       end
-
+      span do
+      end
       div class: "input-field" do
         label_for op.batch_level, "选择学校所属的录取批次"
         select_input op.batch_level do
