@@ -32,7 +32,18 @@ class CreateUniversity < University::SaveOperation
   before_save code_and_batch_level_must_uniq
 
   def code_and_batch_level_must_uniq
-    if UniversityQuery.new.code(code.value.not_nil!).batch_level(batch_level.value.not_nil!).first?
+    code_value = code.value
+    batch_level_value = batch_level.value
+
+    if code_value.nil?
+      return code.add_error("不可以为空")
+    end
+
+    if batch_level_value.nil?
+      return batch_level.add_error("不可以为空")
+    end
+
+    if UniversityQuery.new.code(code_value).batch_level(batch_level_value).first?
       code.add_error("编码和批次的组合, 必须唯一")
     end
   end

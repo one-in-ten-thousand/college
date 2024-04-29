@@ -47,9 +47,8 @@ class Shared::Field(T) < BaseComponent
       tag_defaults field: attribute do |tag_builder|
         yield tag_builder
       end
-
-      mount Shared::FieldErrors, attribute
     end
+    mount Shared::FieldErrors, attribute
   end
 
   # Use a text_input by default
