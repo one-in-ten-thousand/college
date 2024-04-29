@@ -17,10 +17,10 @@ class Universities::FormFields < BaseComponent
       end
 
       div class: "row" do
-        label_for op.batch_level, "选择学校所属的录取批次"
+        label_for op.batch_level, "学校所属的录取批次"
         div class: "s12 m8 input-field" do
           select_input op.batch_level do
-            select_prompt("选择学校所属的录取批次") if op.record.nil?
+            select_prompt("点击选择学校所属的录取批次") if op.record.nil?
             optgroup label: "一本" do
               options_for_select(op.batch_level, University::BatchLevel.checkbox_level_one)
             end
@@ -29,6 +29,7 @@ class Universities::FormFields < BaseComponent
             end
           end
         end
+        mount Shared::FieldErrors, op.batch_level
       end
       div class: "row" do
         mount Shared::Field, op.name, "大学名称", &.text_input(placeholder: "大学完整名称")
