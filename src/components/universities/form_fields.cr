@@ -18,10 +18,10 @@ class Universities::FormFields < BaseComponent
         select_input op.batch_level do
           select_prompt("选择学校所属的录取批次") if op.record.nil?
           optgroup label: "一本" do
-            options_for_select(op.batch_level, University::BatchNumber.checkbox_level_one)
+            options_for_select(op.batch_level, University::BatchLevel.checkbox_level_one)
           end
           optgroup label: "二本" do
-            options_for_select(op.batch_level, University::BatchNumber.checkbox_level_two)
+            options_for_select(op.batch_level, University::BatchLevel.checkbox_level_two)
           end
         end
       end

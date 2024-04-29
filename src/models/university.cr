@@ -1,5 +1,5 @@
 class University < BaseModel
-  enum BatchNumber
+  enum BatchLevel
     LevelOne_A
     LevelOne_A1
     LevelOne_B
@@ -7,7 +7,7 @@ class University < BaseModel
     LevelTwo_B
     LevelTwo_C
 
-    def to_s
+    def display_name
       case self
       in LevelOne_A
         "一本A"
@@ -25,17 +25,17 @@ class University < BaseModel
     end
 
     def self.checkbox_level_one
-      values = [] of Tuple(String, University::BatchNumber)
+      values = [] of Tuple(String, BatchLevel)
 
-      BatchNumber.each { |bn| values << {bn.to_s, bn} if bn.to_s.starts_with?("一本") }
+      BatchLevel.each { |bn| values << {bn.display_name, bn} if bn.display_name.starts_with?("一本") }
 
       values
     end
 
     def self.checkbox_level_two
-      values = [] of Tuple(String, University::BatchNumber)
+      values = [] of Tuple(String, BatchLevel)
 
-      BatchNumber.each { |bn| values << {bn.to_s, bn} if bn.to_s.starts_with?("二本") }
+      BatchLevel.each { |bn| values << {bn.display_name, bn} if bn.display_name.starts_with?("二本") }
 
       values
     end
@@ -45,7 +45,7 @@ class University < BaseModel
     column name : String
     column description : String?
     column code : Int32?
-    column batch_level : University::BatchNumber
+    column batch_level : University::BatchLevel
     column is_211 : Bool
     column is_985 : Bool
     column is_good : Bool

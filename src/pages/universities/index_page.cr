@@ -39,7 +39,7 @@ HEREDOC
             td university.id
             td university.code.to_s
             td university.name.to_s
-            td university.batch_level.to_s
+            td university.batch_level.display_name
           end
         end
       end
