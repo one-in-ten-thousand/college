@@ -1,4 +1,6 @@
 class University < BaseModel
+  skip_schema_enforcer
+
   enum BatchLevel
     LevelOne_A
     LevelOne_A1
