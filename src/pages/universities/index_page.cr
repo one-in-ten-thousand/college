@@ -7,9 +7,9 @@ class Universities::IndexPage < MainLayout
     h1 "所有大学"
     link "新增", New
     render_search
-    mount PaginationLinks, pages
+    mount PaginationLinks, pages unless pages.one_page?
     render_universities
-    mount PaginationLinks, pages
+    mount PaginationLinks, pages unless pages.one_page?
   end
 
   def render_search
