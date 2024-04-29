@@ -53,6 +53,6 @@ Avram.configure do |settings|
   settings.i18n_backend = MyI18n.new
 end
 
-if !LuckyEnv.task?
+if !LuckyEnv.task? && LuckyEnv.production?
   Avram::Migrator::Runner.new.run_pending_migrations
 end
