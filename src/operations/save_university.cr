@@ -11,26 +11,29 @@ class SaveUniversity < University::SaveOperation
   attribute city_name : String
 
   before_save do
-    validate_required name
+    validate_required province_code
+    validate_required province_name
 
-    validate_uniqueness_of name
-    validate_uniqueness_of code
+    province = SaveProvince.upsert!(
+      name: province_name.value.to_s,
+      code: province_code.value.as(Int32)
+    )
 
-    if province_code.value.nil? || province_name.value.nil?
-    else
-      province = SaveProvince.upsert!(
-        name: province_name.value.to_s,
-        code: province_code.value.as(Int32)
-      )
+    city = SaveCity.upsert!(
+      name: city_name.value.to_s,
+      code: city_code.value.as(Int32),
+      province_id: province.id
+    )
 
-      city = SaveCity.upsert!(
-        name: city_name.value.to_s,
-        code: city_code.value.as(Int32),
-        province_id: province.id
-      )
+    province_id.value = province.id
+    city_id.value = city.id
+  end
 
-      province_id.value = province.id
-      city_id.value = city.id
+  before_save code_and_batch_level_must_uniq
+
+  def code_and_batch_level_must_uniq
+    if UniversityQuery.new.code(code.value.not_nil!).batch_level(batch_level.value.not_nil!).first?
+      code.add_error("编码和批次的组合, 必须唯一")
     end
   end
 end
