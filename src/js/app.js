@@ -48,10 +48,10 @@ function init () {
     });
 }
 
-// htmx.onLoad(function (target) {
-//     init();
-// });
-
-document.addEventListener('DOMContentLoaded', function() {
+htmx.onLoad(function (target) {
     init();
 });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     init();
+// });
