@@ -1,5 +1,5 @@
 class Universities::NewPage < MainLayout
-  needs operation : SaveUniversity
+  needs operation : CreateUniversity
   quick_def page_title, "新增学校"
 
   def content

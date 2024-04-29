@@ -1,5 +1,5 @@
 class Universities::EditPage < MainLayout
-  needs operation : SaveUniversity
+  needs operation : CreateUniversity
   needs university : University
 
   quick_def page_title, "编辑 #{university.name}"

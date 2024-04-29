@@ -1,4 +1,4 @@
-class SaveUniversity < University::SaveOperation
+class CreateUniversity < University::SaveOperation
   upsert_lookup_columns name
   permit_columns name, description, code,
     is_211, is_985, is_good,

@@ -1,6 +1,6 @@
 class Universities::Create < BrowserAction
   post "/universities" do
-    SaveUniversity.create(params) do |operation, university|
+    CreateUniversity.create(params) do |operation, university|
       if university
         flash.success = "创建成功"
         redirect New

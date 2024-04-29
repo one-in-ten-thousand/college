@@ -1,5 +1,5 @@
 class Universities::FormFields < BaseComponent
-  needs op : SaveUniversity
+  needs op : CreateUniversity
 
   def render
     div do
