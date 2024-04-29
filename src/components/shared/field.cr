@@ -43,7 +43,7 @@ class Shared::Field(T) < BaseComponent
     #    tag_defaults field: attribute, class: "input"
     #
     # Will add the class "input" to the generated HTML.
-    div class: "input-field" do
+    div class: "s12 m8 input-field outlined" do
       tag_defaults field: attribute do |tag_builder|
         yield tag_builder
       end
