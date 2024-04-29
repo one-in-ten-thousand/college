@@ -5,7 +5,7 @@ class Universities::Edit < BrowserAction
       .preload_city
       .find(university_id)
 
-    op = CreateUniversity.new(
+    op = SaveUniversity.new(
       university,
       province_name: university.province.name,
       province_code: university.province.code,

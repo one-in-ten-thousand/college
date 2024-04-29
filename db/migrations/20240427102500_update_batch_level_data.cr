@@ -2,7 +2,7 @@ class UpdateBatchLevelData::V20240427102500 < Avram::Migrator::Migration::V1
   def migrate
     UniversityQuery.new.each do |university|
       # if university.batch_number == "A"
-      #   CreateUniversity.update!(university, batch_level: University::BatchNumber::LevelOne_A)
+      #   SaveUniversity.update!(university, batch_level: University::BatchNumber::LevelOne_A)
       # end
     end
 

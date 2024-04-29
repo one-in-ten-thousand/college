@@ -1,6 +1,6 @@
 class Universities::New < BrowserAction
   get "/universities/new" do
-    op = CreateUniversity.new(
+    op = SaveUniversity.new(
       province_code: 110000,
       province_name: "北京市",
       city_code: 110100,

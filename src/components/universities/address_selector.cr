@@ -1,5 +1,5 @@
 class Universities::AddressSelector < BaseComponent
-  needs operation : CreateUniversity
+  needs operation : SaveUniversity
 
   def render
     div id: "select_address", class: "s12 m8 input-field" do
