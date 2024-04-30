@@ -7,26 +7,36 @@ class Universities::IndexPage < MainLayout
     h1 "所有大学"
     link "新增", New
     render_search
-    mount PaginationLinks, pages unless pages.one_page?
-    render_universities
-    mount PaginationLinks, pages unless pages.one_page?
+    div id: "main" do
+      mount PaginationLinks, pages unless pages.one_page?
+      render_universities
+      mount PaginationLinks, pages unless pages.one_page?
+    end
   end
 
   def render_search
     # form(method: "get", class: "tool-bar", action: Index.path) do
     #   search_input(op.search, attrs: [:required], class: "custom-input")
     # end
+
     raw <<-'HEREDOC'
-<form action="/universities" method="get" class="tool-bar">
-  <input id="search" type="search" name="q" value=""
+<form action="/universities" method="get">
+<div class="row">
+  <input
+id="search"
+type="search"
+name="q"
+class="s12 m8 input-field"
+value=""
 placeholder="输入大学名称模糊搜索"
-         hx-get="/universities"
-         hx-target="tbody"
-         hx-select="tbody tr"
-         hx-trigger="search, keyup delay:500ms changed"
-         hx-push-url="true"
+hx-get="/universities"
+hx-target="#main"
+hx-select="#main"
+hx-trigger="search, keyup delay:400ms changed"
+hx-push-url="true"
 />
   <input type="submit" value="搜索"/>
+</div>
 </form>
 HEREDOC
   end
