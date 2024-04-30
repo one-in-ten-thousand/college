@@ -29,7 +29,7 @@ abstract class MainLayout
     html lang: "en" do
       mount Shared::LayoutHead, page_title: page_title
 
-      body do
+      body "lx-boost": true do
         mount Shared::FlashMessages, context.flash
         render_signed_in_user
         content

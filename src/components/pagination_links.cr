@@ -29,7 +29,7 @@ class PaginationLinks < Lucky::BaseComponent
 
   def render_page_item(page : Lucky::Paginator::Page)
     li class: "waves-effect" do
-      a page.number, href: page.path, "hx-target": "body", "hx-get": page.path, "hx-push-url": "true"
+      a page.number, href: page.path
     end
   end
 
