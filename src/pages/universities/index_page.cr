@@ -23,7 +23,9 @@ placeholder="输入大学名称模糊搜索"
          hx-get="/universities"
          hx-target="tbody"
          hx-select="tbody tr"
-         hx-trigger="search, keyup delay:500ms changed"/>
+         hx-trigger="search, keyup delay:500ms changed"
+         hx-push-url="true"
+/>
   <input type="submit" value="搜索"/>
 </form>
 HEREDOC
