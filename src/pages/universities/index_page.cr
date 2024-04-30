@@ -15,30 +15,23 @@ class Universities::IndexPage < MainLayout
   end
 
   def render_search
-    # form(method: "get", class: "tool-bar", action: Index.path) do
-    #   search_input(op.search, attrs: [:required], class: "custom-input")
-    # end
-
-    raw <<-'HEREDOC'
-<form action="/universities" method="get">
-<div class="row">
-  <input
-id="search"
-type="search"
-name="q"
-class="s12 m8 input-field"
-value=""
-placeholder="输入大学名称模糊搜索"
-hx-get="/universities"
-hx-target="#main"
-hx-select="#main"
-hx-trigger="search, keyup delay:400ms changed"
-hx-push-url="true"
-/>
-  <input type="submit" value="搜索"/>
-</div>
-</form>
-HEREDOC
+    form(method: "get", class: "tool-bar", action: Index.path) do
+      div class: "row" do
+        input(
+          type: "search",
+          value: "",
+          name: "q",
+          class: "s12 m8 input-field",
+          placeholder: "输入大学名称模糊搜索",
+          "hx-get": "/universities",
+          "hx-target": "#main",
+          "hx-select": "#main",
+          "hx-trigger": "search, keyup delay:400ms changed",
+          "hx-push-url": "true",
+        )
+        submit("搜索", class: "btn")
+      end
+    end
   end
 
   def render_universities
