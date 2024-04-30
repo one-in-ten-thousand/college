@@ -3,7 +3,7 @@ class Universities::Index < BrowserAction
     q = params.get?(:q)
 
     builder = Avram::QueryBuilder.new(table: :universities)
-    builder = builder.where(Avram::Where::Raw.new("name &@~ ?", q)) if q
+    builder = builder.where(Avram::Where::Raw.new("name &@~ ?", q)) unless q.blank?
     query = UniversityQuery.new
     query.query = builder
     pages, universities = paginate(query.id.desc_order, per_page: 50)
