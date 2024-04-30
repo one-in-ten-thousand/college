@@ -13,12 +13,19 @@ class Universities::IndexPage < MainLayout
   end
 
   def render_search
+    # form(method: "get", class: "tool-bar", action: Index.path) do
+    #   search_input(op.search, attrs: [:required], class: "custom-input")
+    # end
     raw <<-'HEREDOC'
-<label for="search">搜索</label>
-<input placeholder="搜索大学名称" type="search" id="search" name="q" value="value">
-<button hx-get="/index" hx-target="#main" hx-include="#search">
-  Search the Contacts
-</button>
+<form action="/universities" method="get" class="tool-bar">
+  <input id="search" type="search" name="q" value=""
+placeholder="输入大学名称模糊搜索"
+         hx-get="/universities"
+         hx-target="tbody"
+         hx-select="tbody tr"
+         hx-trigger="search, keyup delay:500ms changed"/>
+  <input type="submit" value="搜索"/>
+</form>
 HEREDOC
   end
 
@@ -28,8 +35,9 @@ HEREDOC
         tr do
           th "ID编号"
           th "报考编码"
-          th "大学名称"
+          th "大学名称(点击名称编辑)"
           th "录取批次"
+          th "补充信息"
           th "修改时间"
         end
       end
@@ -43,6 +51,9 @@ HEREDOC
               link university.name, Edit.with(university)
             end
             td university.batch_level.display_name
+            td do
+              text university.description.to_s
+            end
             td university.updated_at.to_s("%m月%d日 %H:%M:%S")
           end
         end
