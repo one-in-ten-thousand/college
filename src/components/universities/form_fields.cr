@@ -48,9 +48,9 @@ class Universities::FormFields < BaseComponent
       end
 
       div class: "row" do
-        mount CheckBox, op.is_211, "is_211", "是否 211 大学"
-        mount CheckBox, op.is_985, "is_985", "是否 985 大学"
-        mount CheckBox, op.is_good, "is_good", "是否拥有双一流专业"
+        mount CheckBoxFor, op.is_211, "is_211", "是否 211 大学"
+        mount CheckBoxFor, op.is_985, "is_985", "是否 985 大学"
+        mount CheckBoxFor, op.is_good, "is_good", "是否拥有双一流专业"
       end
 
       br
