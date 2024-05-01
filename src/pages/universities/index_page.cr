@@ -28,9 +28,17 @@ class Universities::IndexPage < MainLayout
           "hx-select": "#main",
           "hx-trigger": "search, keyup delay:400ms changed",
           "hx-push-url": "true",
+          "hx-include": "[name='is_985'],[name='is_211'],[name='is_good']"
         )
         submit("搜索", class: "btn")
       end
+    end
+
+    div class: "row" do
+      full_path = context.request.resource
+      mount CheckBox, "is_985", "仅显示985", full_path
+      mount CheckBox, "is_211", "仅显示211", full_path
+      mount CheckBox, "is_good", "显示包含双一流专业高校", full_path
     end
   end
 

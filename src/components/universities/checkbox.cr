@@ -1,13 +1,22 @@
 class Universities::CheckBox < BaseComponent
-  needs attribute : Avram::PermittedAttribute(Bool)
-  needs id : String
+  needs name : String
   needs description : String
+  needs full_path : String
 
   def render
-    label for: id, class: "s12 m8 input-field" do
-      checkbox(attribute, "false", "true", id: id)
+    label for: name, class: "m4 input-field" do
+      input(
+        type: "checkbox",
+        name: name,
+        value: "true",
+        id: name,
+        "hx-get": Index.path,
+        "hx-target": "#main",
+        "hx-select": "#main",
+        "hx-push-url": "true",
+        "hx-include": "[name='q']"
+      )
       span description
     end
-    mount Shared::FieldErrors, attribute
   end
 end
