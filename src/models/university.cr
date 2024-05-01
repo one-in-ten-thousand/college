@@ -26,7 +26,7 @@ class University < BaseModel
       end
     end
 
-    def self.checkbox_level_one
+    def self.select_options_level_one
       values = [] of Tuple(String, BatchLevel)
 
       BatchLevel.each { |bn| values << {bn.display_name, bn} if bn.display_name.starts_with?("一本") }
@@ -34,7 +34,7 @@ class University < BaseModel
       values
     end
 
-    def self.checkbox_level_two
+    def self.select_options_level_two
       values = [] of Tuple(String, BatchLevel)
 
       BatchLevel.each { |bn| values << {bn.display_name, bn} if bn.display_name.starts_with?("二本") }
