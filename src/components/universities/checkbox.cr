@@ -4,19 +4,22 @@ class Universities::CheckBox < BaseComponent
   needs full_path : String
 
   def render
-    label for: name, class: "m4 input-field" do
-      input(
-        type: "checkbox",
-        name: name,
-        value: "true",
-        id: name,
-        "hx-get": Index.path,
-        "hx-target": "#main",
-        "hx-select": "#main",
-        "hx-push-url": "true",
-        "hx-include": "[name='q']"
-      )
-      span description
+    div class: "switch m4 " do
+      label for: name do
+        text description
+        input(
+          type: "checkbox",
+          name: name,
+          value: "true",
+          id: name,
+          "hx-get": Index.path,
+          "hx-target": "#main",
+          "hx-select": "#main",
+          "hx-push-url": "true",
+          "hx-include": "[name='q']"
+        )
+        span class: "lever"
+      end
     end
   end
 end
