@@ -5,30 +5,25 @@ class Universities::Index < BrowserAction
     is_211 = params.get?(:is_211)
     is_good = params.get?(:is_good)
 
-    builder = Avram::QueryBuilder.new(table: :universities)
-    unless q.blank?
-      builder = builder.where(Avram::Where::Raw.new("(universities.name &@~ ?", q))
-      builder = builder.or do |or|
-        or.where(Avram::Where::Raw.new("universities.description &@~ ?)", q))
-      end
+    query = UniversityQuery.new
+
+    if q.presence
+      query = query.where("(name &@~ ?", q).or(&.where("description &@~ ?)", q))
     end
 
-    results = UniversityQuery.new
-    results.query = builder
-
-    unless is_985.blank?
-      results = results.is_985(true)
+    if is_985.presence
+      query = query.is_985(true)
     end
 
-    unless is_211.blank?
-      results = results.is_211(true)
+    if is_211.presence
+      query = query.is_211(true)
     end
 
-    unless is_good.blank?
-      results = results.is_good(true)
+    if is_good.presence
+      query = query.is_good(true)
     end
 
-    pages, universities = paginate(results.id.desc_order, per_page: 50)
+    pages, universities = paginate(query.id.desc_order, per_page: 50)
 
     html IndexPage, universities: universities, pages: pages
   end
