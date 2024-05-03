@@ -7,17 +7,33 @@ class Universities::CheckBox < BaseComponent
     div class: "switch m4 " do
       label for: name do
         text description
-        input(
-          type: "checkbox",
-          name: name,
-          value: "true",
-          id: name,
-          "hx-get": Index.path,
-          "hx-target": "#main",
-          "hx-select": "#main",
-          "hx-push-url": "true",
-          "hx-include": "[name='q']"
-        )
+        if context.request.query_params[name]?
+          input(
+            type: "checkbox",
+            name: name,
+            value: "true",
+            id: name,
+            "hx-get": Index.path,
+            "hx-target": "#main",
+            "hx-select": "#main",
+            "hx-push-url": "true",
+            "hx-include": "[name='q']",
+            checked: "checked"
+          )
+        else
+          input(
+            type: "checkbox",
+            name: name,
+            value: "true",
+            id: name,
+            "hx-get": Index.path,
+            "hx-target": "#main",
+            "hx-select": "#main",
+            "hx-push-url": "true",
+            "hx-include": "[name='q']"
+          )
+        end
+
         span class: "lever"
       end
     end

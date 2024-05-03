@@ -19,7 +19,7 @@ class Universities::IndexPage < MainLayout
       div class: "row" do
         input(
           type: "search",
-          value: "",
+          value: "#{context.request.query_params["q"]?}",
           name: "q",
           class: "s12 m8 input-field",
           placeholder: "输入大学名称模糊搜索",
