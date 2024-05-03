@@ -43,7 +43,7 @@ class Universities::IndexPage < MainLayout
   end
 
   def render_universities
-    table do
+    table class: "highlight" do
       thead do
         tr do
           th "ID编号"
