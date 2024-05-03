@@ -1,4 +1,4 @@
-class Universities::FindCode < HtmxAction
+class Universities::Htmx::FindCode < HtmxAction
   get "/universities/find_code" do
     code = params.nested(:university)["code"]
     record = UniversityQuery.new.code(code).first?
