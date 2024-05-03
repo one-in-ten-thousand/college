@@ -51,6 +51,14 @@ class Universities::IndexPage < MainLayout
           th "大学名称(点击名称编辑)"
           th "录取批次"
           th "补充信息"
+          th "2023最低分"
+          th "2023最低位次"
+          th "2022最低分"
+          th "2022最低位次"
+          th "2021最低分"
+          th "2021最低位次"
+          th "2020最低分"
+          th "2020最低位次"
           th "修改时间"
         end
       end
@@ -67,9 +75,66 @@ class Universities::IndexPage < MainLayout
             td do
               text university.description.to_s
             end
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.score_2023_min.to_s,
+              column_name: "score_2023_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.score_2022_min.to_s,
+              column_name: "score_2022_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.score_2021_min.to_s,
+              column_name: "score_2021_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.score_2020_min.to_s,
+              column_name: "score_2020_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.ranking_2023_min.to_s,
+              column_name: "ranking_2023_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.ranking_2022_min.to_s,
+              column_name: "ranking_2022_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.ranking_2021_min.to_s,
+              column_name: "ranking_2021_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.ranking_2020_min.to_s,
+              column_name: "ranking_2020_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
             td university.updated_at.to_s("%m月%d日 %H:%M:%S")
           end
         end
+        input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
       end
     end
   end

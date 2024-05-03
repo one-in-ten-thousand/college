@@ -12,22 +12,27 @@ class SaveUniversity < University::SaveOperation
   attribute city_name : String
 
   before_save do
-    validate_required province_code
-    validate_required province_name
+    # 这两行造成单独 update 某一个字段失败.
+    # validate_required province_code
+    # validate_required province_name
 
-    province = SaveProvince.upsert!(
-      name: province_name.value.to_s,
-      code: province_code.value.as(Int32)
-    )
+    province_name.value.try do |province_name_value|
+      province_code.value.try do |proinvce_code_value|
+        province = SaveProvince.upsert!(
+          name: province_name.value.to_s,
+          code: province_code.value.as(Int32)
+        )
 
-    city = SaveCity.upsert!(
-      name: city_name.value.to_s,
-      code: city_code.value.as(Int32),
-      province_id: province.id
-    )
+        city = SaveCity.upsert!(
+          name: city_name.value.to_s,
+          code: city_code.value.as(Int32),
+          province_id: province.id
+        )
 
-    province_id.value = province.id
-    city_id.value = city.id
+        province_id.value = province.id
+        city_id.value = city.id
+      end
+    end
   end
 
   before_save code_and_batch_level_must_uniq
