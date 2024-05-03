@@ -8,19 +8,23 @@ class Universities::Index < BrowserAction
     query = UniversityQuery.new
 
     if q.presence
-      query = query.where("(name &@~ ?", q).or(&.where("description &@~ ?)", q))
-    end
+      if q.not_nil!.matches? /\d+/
+        query = query.code(q.not_nil!)
+      else
+        query = query.where("(name &@~ ?", q).or(&.where("description &@~ ?)", q))
 
-    if is_985.presence
-      query = query.is_985(true)
-    end
+        if is_985.presence
+          query = query.is_985(true)
+        end
 
-    if is_211.presence
-      query = query.is_211(true)
-    end
+        if is_211.presence
+          query = query.is_211(true)
+        end
 
-    if is_good.presence
-      query = query.is_good(true)
+        if is_good.presence
+          query = query.is_good(true)
+        end
+      end
     end
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)
