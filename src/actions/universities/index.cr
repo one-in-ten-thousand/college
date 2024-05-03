@@ -1,27 +1,37 @@
 class Universities::Index < BrowserAction
+  # param q : String? = nil
+  # param is_985 : Bool? = nil
+  # param is_211 : Bool? = nil
+  # param is_good : Bool? = nil
+
   get "/universities" do
-    q = params.get?(:q)
-    is_985 = params.get?(:is_985)
-    is_211 = params.get?(:is_211)
-    is_good = params.get?(:is_good)
+    q = params.get?(:q).presence
+    is_985 = params.get?(:is_985).presence
+    is_211 = params.get?(:is_211).presence
+    is_good = params.get?(:is_good).presence
 
     query = UniversityQuery.new
 
-    if q.presence
-      if q.not_nil!.matches? /\d+/
-        query = query.code(q.not_nil!)
+    unless q.nil?
+      if q.matches? /\d+/
+        query = query.code(q)
       else
+        # 这里如果是正常的参数 = 比较, 可以使用 where 的 block 像是来生成圆括号.
+        # 例如:
+        # query = Foo::BaseQuery.new.where do |q|
+        #   q.name("foo1").or(&.description("bar1"))
+        # end
         query = query.where("(name &@~ ?", q).or(&.where("description &@~ ?)", q))
 
-        if is_985.presence
+        unless is_985.nil?
           query = query.is_985(true)
         end
 
-        if is_211.presence
+        unless is_211.nil?
           query = query.is_211(true)
         end
 
-        if is_good.presence
+        unless is_good.nil?
           query = query.is_good(true)
         end
       end
