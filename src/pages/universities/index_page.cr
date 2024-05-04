@@ -52,12 +52,12 @@ class Universities::IndexPage < MainLayout
           th "录取批次"
           th "补充信息"
           mount OrderByTH, "score_2023_min", "2023最低分"
-          mount OrderByTH, "score_2022_min", "2022最低分"
-          mount OrderByTH, "score_2021_min", "2021最低分"
-          mount OrderByTH, "score_2020_min", "2020最低分"
           th "2023最低位次"
+          mount OrderByTH, "score_2022_min", "2022最低分"
           th "2022最低位次"
+          mount OrderByTH, "score_2021_min", "2021最低分"
           th "2021最低位次"
+          mount OrderByTH, "score_2020_min", "2020最低分"
           th "2020最低位次"
           th "修改时间"
         end
@@ -85,29 +85,15 @@ class Universities::IndexPage < MainLayout
             mount(
               MouseenterTD,
               id: university.id.to_s,
-              column_value: university.score_2022_min.to_s,
-              column_name: "score_2022_min",
-              action: "/htmx/v1/universities/render_update_score_input"
-            )
-            mount(
-              MouseenterTD,
-              id: university.id.to_s,
-              column_value: university.score_2021_min.to_s,
-              column_name: "score_2021_min",
-              action: "/htmx/v1/universities/render_update_score_input"
-            )
-            mount(
-              MouseenterTD,
-              id: university.id.to_s,
-              column_value: university.score_2020_min.to_s,
-              column_name: "score_2020_min",
-              action: "/htmx/v1/universities/render_update_score_input"
-            )
-            mount(
-              MouseenterTD,
-              id: university.id.to_s,
               column_value: university.ranking_2023_min.to_s,
               column_name: "ranking_2023_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.score_2022_min.to_s,
+              column_name: "score_2022_min",
               action: "/htmx/v1/universities/render_update_score_input"
             )
             mount(
@@ -120,8 +106,22 @@ class Universities::IndexPage < MainLayout
             mount(
               MouseenterTD,
               id: university.id.to_s,
+              column_value: university.score_2021_min.to_s,
+              column_name: "score_2021_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
               column_value: university.ranking_2021_min.to_s,
               column_name: "ranking_2021_min",
+              action: "/htmx/v1/universities/render_update_score_input"
+            )
+            mount(
+              MouseenterTD,
+              id: university.id.to_s,
+              column_value: university.score_2020_min.to_s,
+              column_name: "score_2020_min",
               action: "/htmx/v1/universities/render_update_score_input"
             )
             mount(
