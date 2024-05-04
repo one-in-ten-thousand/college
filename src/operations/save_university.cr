@@ -4,6 +4,9 @@ class SaveUniversity < University::SaveOperation
   permit_columns name, description, code,
     is_211, is_985, is_good,
     score_2023_min, ranking_2023_min,
+    score_2022_min, ranking_2022_min,
+    score_2021_min, ranking_2021_min,
+    score_2020_min, ranking_2020_min,
     batch_level
 
   attribute province_code : Int32
