@@ -22,19 +22,19 @@ class Universities::Index < BrowserAction
         #   q.name("foo1").or(&.description("bar1"))
         # end
         query = query.where("(name &@~ ?", q).or(&.where("description &@~ ?)", q))
-
-        unless is_985.nil?
-          query = query.is_985(true)
-        end
-
-        unless is_211.nil?
-          query = query.is_211(true)
-        end
-
-        unless is_good.nil?
-          query = query.is_good(true)
-        end
       end
+    end
+
+    unless is_985.nil?
+      query = query.is_985(true)
+    end
+
+    unless is_211.nil?
+      query = query.is_211(true)
+    end
+
+    unless is_good.nil?
+      query = query.is_good(true)
     end
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)
