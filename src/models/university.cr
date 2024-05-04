@@ -2,12 +2,12 @@ class University < BaseModel
   skip_schema_enforcer
 
   enum BatchLevel
-    LevelOne_A
-    LevelOne_A1
-    LevelOne_B
-    LevelTwo_A
-    LevelTwo_B
-    LevelTwo_C
+    LevelOne_A  = 0
+    LevelOne_A1 = 1
+    LevelOne_B  = 2
+    LevelTwo_A  = 3
+    LevelTwo_B  = 4
+    LevelTwo_C  = 5
 
     def display_name
       case self
