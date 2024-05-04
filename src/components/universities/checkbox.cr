@@ -4,7 +4,7 @@ class Universities::CheckBox < BaseComponent
   needs full_path : String
 
   def render
-    div class: "switch m4 " do
+    div class: "switch m3 " do
       label for: name do
         text description
         if context.request.query_params[name]?

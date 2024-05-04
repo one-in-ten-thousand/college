@@ -46,6 +46,11 @@ function init () {
     var instances = M.FormSelect.init(elems, {
         // specify options here
     });
+
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, {
+        // specify options here
+    });
 }
 
 htmx.onLoad(function (target) {
