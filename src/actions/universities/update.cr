@@ -4,7 +4,7 @@ class Universities::Update < BrowserAction
 
     SaveUniversity.update(university, params) do |operation, updated_university|
       if operation.saved?
-        if request.headers["HX-Trigger"] == "update_score_input"
+        if request.headers["HX-Trigger"]? == "update_score_input"
           param_value = params.nested?(:university).to_a[0]
           html(
             Htmx::UpdatedScoreInputPage,

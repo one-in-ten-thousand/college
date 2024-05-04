@@ -1,7 +1,7 @@
 class Universities::MouseenterTD < BaseComponent
   needs id : String
-  needs column_value : String
   needs column_name : String
+  needs column_value : String
   needs action : String
 
   def render
@@ -10,8 +10,8 @@ class Universities::MouseenterTD < BaseComponent
       "hx-swap": "outerHTML",
       "hx-get": action,
       "hx-vals": "{
-\"column_name\":\"#{column_name}\",
 \"id\":\"#{id}\",
+\"column_name\":\"#{column_name}\",
 \"column_value\": \"#{column_value}\"
 }",
     ) do

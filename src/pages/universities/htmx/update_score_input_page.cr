@@ -1,7 +1,7 @@
 class Universities::Htmx::UpdateScoreInputPage < NoLayout
+  needs id : String
   needs column_name : String
   needs column_value : String
-  needs id : String
 
   def content
     td do
