@@ -9,6 +9,7 @@ class Universities::Index < BrowserAction
     is_985 = params.get?(:is_985).presence
     is_211 = params.get?(:is_211).presence
     is_good = params.get?(:is_good).presence
+    order_by = params.get?(:order_by).presence
 
     query = UniversityQuery.new
 
@@ -35,6 +36,19 @@ class Universities::Index < BrowserAction
 
     unless is_good.nil?
       query = query.is_good(true)
+    end
+
+    unless order_by.nil?
+      case order_by
+      when "score_2023_min"
+        query = query.score_2023_min.asc_order(:nulls_last)
+      when "score_2022_min"
+        query = query.score_2022_min.asc_order(:nulls_last)
+      when "score_2021_min"
+        query = query.score_2021_min.asc_order(:nulls_last)
+      when "score_2020_min"
+        query = query.score_2020_min.asc_order(:nulls_last)
+      end
     end
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)
