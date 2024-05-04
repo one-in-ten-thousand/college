@@ -14,7 +14,7 @@ class Universities::Htmx::UpdateScoreInputPage < NoLayout
         "hx-include": "next input[type='hidden']",
         "hx-target": "closest td",
         "hx-swap": "outherHTML",
-        "hx-trigger": "mouseout",
+        # "hx-trigger": "mouseout",
         style: "max-width: 60px; max-height: 30px;"
       )
     end
