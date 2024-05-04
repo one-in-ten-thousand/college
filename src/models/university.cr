@@ -62,15 +62,15 @@ class University < BaseModel
     column score_2021_max : Int32?
     column score_2020_max : Int32?
 
-    column ranking_2023_min : Int32?
-    column ranking_2022_min : Int32?
-    column ranking_2021_min : Int32?
-    column ranking_2020_min : Int32?
+    column ranking_2023_min : Float64?
+    column ranking_2022_min : Float64?
+    column ranking_2021_min : Float64?
+    column ranking_2020_min : Float64?
 
-    column ranking_2023_max : Int32?
-    column ranking_2022_max : Int32?
-    column ranking_2021_max : Int32?
-    column ranking_2020_max : Int32?
+    column ranking_2023_max : Float64?
+    column ranking_2022_max : Float64?
+    column ranking_2021_max : Float64?
+    column ranking_2020_max : Float64?
 
     belongs_to province : Province
     belongs_to city : City
