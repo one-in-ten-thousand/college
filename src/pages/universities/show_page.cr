@@ -55,22 +55,22 @@ class Universities::ShowPage < MainLayout
 
       li do
         text "各年录取最低分数线: "
-        strong "
-               2023年: #{university.score_2023_min},
-               2022年: #{university.score_2022_min},
-               2021年: #{university.score_2021_min},
-               2020年: #{university.score_2020_min}
-"
+        ul do
+          li "2023年: #{university.score_2023_min}"
+          li "2022年: #{university.score_2022_min}"
+          li "2021年: #{university.score_2021_min}"
+          li "2020年: #{university.score_2020_min}"
+        end
       end
 
       li do
         text "各年录取最低位次: "
-        strong "
-               2023年: #{university.ranking_2023_min},
-               2022年: #{university.ranking_2022_min},
-               2021年: #{university.ranking_2021_min},
-               2020年: #{university.ranking_2020_min}
-"
+        ul do
+          li "2023年: #{university.ranking_2023_min}"
+          li "2022年: #{university.ranking_2022_min}"
+          li "2021年: #{university.ranking_2021_min}"
+          li "2020年: #{university.ranking_2020_min}"
+        end
       end
 
       li do
