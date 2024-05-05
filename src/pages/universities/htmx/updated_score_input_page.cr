@@ -6,7 +6,7 @@ class Universities::Htmx::UpdatedScoreInputPage < NoLayout
 
   def content
     mount(
-      MouseenterTD,
+      ClickEditTD,
       id: id,
       column_value: column_value,
       column_name: column_name,
