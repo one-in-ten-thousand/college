@@ -4,6 +4,9 @@ class Universities::OrderByTH < BaseComponent
 
   def render
     th(
+      class: "tooltipped",
+      "data-position": "top",
+      "data-tooltip": "点击按照 #{description} 排序",
       "hx-get": "/universities",
       "hx-target": "#main",
       "hx-select": "#main",

@@ -51,6 +51,11 @@ function init () {
     var instances = M.Dropdown.init(elems, {
         // specify options here
     });
+
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems, {
+        // specify options here
+    });
 }
 
 htmx.onLoad(function (target) {
