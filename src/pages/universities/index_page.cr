@@ -49,6 +49,9 @@ class Universities::IndexPage < MainLayout
           "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='q']",
         ) do
           University::BatchLevel.each do |bl|
+            if bl.value == 3
+              li class: "divider", tableindex: "-1"
+            end
             li do
               a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"#{bl.value}\"}" do
                 text bl.display_name
