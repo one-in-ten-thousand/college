@@ -6,8 +6,14 @@ class Universities::IndexPage < MainLayout
   def content
     h1 "所有大学"
     link "新增", New
-    div id: "main" do
+
+    div class: "row" do
       render_search
+      render_select_batch_level
+    end
+
+    div id: "main" do
+      render_select_985
       mount PaginationLinks, pages unless pages.one_page?
       render_universities
       mount PaginationLinks, pages unless pages.one_page?
@@ -15,53 +21,53 @@ class Universities::IndexPage < MainLayout
   end
 
   def render_search
-    form(method: "get", class: "tool-bar", action: Index.path) do
-      div class: "row" do
-        input(
-          type: "search",
-          value: "#{context.request.query_params["q"]?}",
-          name: "q",
-          class: "s12 m8 input-field",
-          placeholder: "输入大学名称模糊搜索",
-          "hx-get": "/universities",
-          "hx-target": "#main",
-          "hx-select": "#main",
-          "hx-trigger": "search, keyup delay:400ms changed",
-          "hx-push-url": "true",
-          "hx-include": "[name='is_985'],[name='is_211'],[name='is_good']",
-          "hx-vals": "{\"batch_level\": \"#{context.request.query_params["batch_level"]?}\"}"
-        )
+    input(
+      type: "search",
+      value: "#{context.request.query_params["q"]?}",
+      name: "q",
+      class: "s12 m8 input-field",
+      placeholder: "输入大学名称模糊搜索",
+      "hx-get": "/universities",
+      "hx-target": "#main",
+      "hx-select": "#main",
+      "hx-trigger": "search, keyup delay:400ms changed",
+      "hx-push-url": "true",
+      "hx-include": "[name='is_985'],[name='is_211'],[name='is_good']",
+      "hx-vals": "{\"batch_level\": \"#{context.request.query_params["batch_level"]?}\"}"
+    )
+  end
 
-        a class: "dropdown-trigger btn m2 input-field", href: "#", "data-target": "dropdown1" do
-          if (bl = context.request.query_params["batch_level"]?)
-            text "当前录取批次 #{University::BatchLevel.from_value?(bl.to_i).not_nil!.display_name}"
-          else
-            text "选择录取批次"
-          end
+  def render_select_batch_level
+    a class: "dropdown-trigger btn m2 input-field", href: "#", "data-target": "dropdown1" do
+      if (bl = context.request.query_params["batch_level"]?.presence)
+        text "当前录取批次 #{University::BatchLevel.from_value?(bl.to_i).not_nil!.display_name}"
+      else
+        text "选择录取批次"
+      end
+    end
+
+    ul(
+      id: "dropdown1",
+      class: "dropdown-content",
+      "hx-target": "#main",
+      "hx-select": "#main",
+      "hx-push-url": "true",
+      "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='q']",
+    ) do
+      University::BatchLevel.each do |bl|
+        if bl.value == 3
+          li class: "divider", tableindex: "-1"
         end
-
-        ul(
-          id: "dropdown1",
-          class: "dropdown-content",
-          "hx-target": "#main",
-          "hx-select": "#main",
-          "hx-push-url": "true",
-          "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='q']",
-        ) do
-          University::BatchLevel.each do |bl|
-            if bl.value == 3
-              li class: "divider", tableindex: "-1"
-            end
-            li do
-              a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"#{bl.value}\"}" do
-                text bl.display_name
-              end
-            end
+        li do
+          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"#{bl.value}\"}" do
+            text bl.display_name
           end
         end
       end
     end
+  end
 
+  def render_select_985
     div class: "row" do
       full_path = context.request.resource
       mount CheckBox, "is_985", "仅显示985", full_path
