@@ -9,6 +9,7 @@ class Universities::EditPage < MainLayout
     br
 
     link "返回大学列表", Index
+    link "打开详情", Show.with(university.id)
 
     form_for Update.with(university.id) do
       mount FormFields, operation
