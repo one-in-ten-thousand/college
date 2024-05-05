@@ -30,7 +30,18 @@ class Universities::IndexPage < MainLayout
           "hx-push-url": "true",
           "hx-include": "[name='is_985'],[name='is_211'],[name='is_good']"
         )
-        submit("搜索", class: "btn")
+
+        raw <<-'HEREDOC'
+                <a class='dropdown-trigger btn m2 input-field' href='#' data-target='dropdown1'>点选录取批次</a>
+                <ul id='dropdown1' class='dropdown-content'>
+                  <li><a href="#{Index.path}">one</a></li>
+                  <li><a href="#!">two</a></li>
+                  <li class="divider" tabindex="-1"></li>
+                  <li><a href="#!">three</a></li>
+                  <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+                  <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+                </ul>
+        HEREDOC
       end
     end
 
@@ -39,18 +50,6 @@ class Universities::IndexPage < MainLayout
       mount CheckBox, "is_985", "仅显示985", full_path
       mount CheckBox, "is_211", "仅显示211", full_path
       mount CheckBox, "is_good", "显示包含双一流专业高校", full_path
-      raw <<-'HEREDOC'
-        <a class='dropdown-trigger m2' href='#' data-target='dropdown1'>点击选择批次</a>
-        <!-- Dropdown Structure -->
-        <ul id='dropdown1' class='dropdown-content'>
-          <li><a href="#!">one</a></li>
-          <li><a href="#!">two</a></li>
-          <li class="divider" tabindex="-1"></li>
-          <li><a href="#!">three</a></li>
-          <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-          <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-        </ul>
-HEREDOC
     end
   end
 
