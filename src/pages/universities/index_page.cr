@@ -80,13 +80,13 @@ class Universities::IndexPage < MainLayout
           th "录取批次"
           th "补充信息"
           mount OrderByTH, "score_2023_min", "2023最低分"
-          th "2023最低位次"
+          mount OrderByTH, "ranking_2023_min", "2023最低位次"
           mount OrderByTH, "score_2022_min", "2022最低分"
-          th "2022最低位次"
+          mount OrderByTH, "ranking_2022_min", "2022最低位次"
           mount OrderByTH, "score_2021_min", "2021最低分"
-          th "2021最低位次"
+          mount OrderByTH, "ranking_2021_min", "2021最低位次"
           mount OrderByTH, "score_2020_min", "2020最低分"
-          th "2020最低位次"
+          mount OrderByTH, "ranking_2020_min", "2020最低位次"
           th "修改时间"
         end
       end

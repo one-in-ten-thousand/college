@@ -50,6 +50,14 @@ class Universities::Index < BrowserAction
         query = query.score_2021_min.asc_order(:nulls_last)
       when "score_2020_min"
         query = query.score_2020_min.asc_order(:nulls_last)
+      when "ranking_2023_min"
+        query = query.ranking_2023_min.desc_order(:nulls_last)
+      when "ranking_2022_min"
+        query = query.ranking_2022_min.desc_order(:nulls_last)
+      when "ranking_2021_min"
+        query = query.ranking_2021_min.desc_order(:nulls_last)
+      when "ranking_2020_min"
+        query = query.ranking_2021_min.desc_order(:nulls_last)
       end
     end
 
