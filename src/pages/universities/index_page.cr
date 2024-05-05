@@ -28,20 +28,34 @@ class Universities::IndexPage < MainLayout
           "hx-select": "#main",
           "hx-trigger": "search, keyup delay:400ms changed",
           "hx-push-url": "true",
-          "hx-include": "[name='is_985'],[name='is_211'],[name='is_good']"
+          "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='batch_level']",
+          "hx-vals": "{\"batch_level\": #{context.request.query_params["batch_level"]?}}"
         )
 
-        raw <<-'HEREDOC'
-                <a class='dropdown-trigger btn m2 input-field' href='#' data-target='dropdown1'>点选录取批次</a>
-                <ul id='dropdown1' class='dropdown-content'>
-                  <li><a href="#{Index.path}">one</a></li>
-                  <li><a href="#!">two</a></li>
-                  <li class="divider" tabindex="-1"></li>
-                  <li><a href="#!">three</a></li>
-                  <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-                  <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-                </ul>
-        HEREDOC
+        a class: "dropdown-trigger btn m2 input-field", href: "#", "data-target": "dropdown1" do
+          if (bl = context.request.query_params["batch_level"]?)
+            text "当前录取批次 #{University::BatchLevel.from_value?(bl.to_i).not_nil!.display_name}"
+          else
+            text "选择录取批次"
+          end
+        end
+
+        ul(
+          id: "dropdown1",
+          class: "dropdown-content",
+          "hx-target": "#main",
+          "hx-select": "#main",
+          "hx-push-url": "true",
+          "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='q']",
+        ) do
+          University::BatchLevel.each do |bl|
+            li do
+              a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"#{bl.value}\"}" do
+                text bl.display_name
+              end
+            end
+          end
+        end
       end
     end
 

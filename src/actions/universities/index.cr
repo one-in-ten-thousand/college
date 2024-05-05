@@ -3,6 +3,7 @@ class Universities::Index < BrowserAction
   # param is_985 : Bool? = nil
   # param is_211 : Bool? = nil
   # param is_good : Bool? = nil
+  # param batch_level : University::BatchLevel? = nil
 
   get "/universities" do
     q = params.get?(:q).presence
@@ -10,6 +11,7 @@ class Universities::Index < BrowserAction
     is_211 = params.get?(:is_211).presence
     is_good = params.get?(:is_good).presence
     order_by = params.get?(:order_by).presence
+    batch_level = params.get?(:batch_level).presence
 
     query = UniversityQuery.new
 
@@ -49,6 +51,10 @@ class Universities::Index < BrowserAction
       when "score_2020_min"
         query = query.score_2020_min.asc_order(:nulls_last)
       end
+    end
+
+    unless batch_level.nil?
+      query = query.batch_level(batch_level)
     end
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)

@@ -18,7 +18,8 @@ class Universities::CheckBox < BaseComponent
             "hx-select": "#main",
             "hx-push-url": "true",
             "hx-include": "[name='q']",
-            checked: "checked"
+            checked: "checked",
+            "hx-vals": "{\"batch_level\": #{context.request.query_params["batch_level"]?}}"
           )
         else
           input(
@@ -30,7 +31,8 @@ class Universities::CheckBox < BaseComponent
             "hx-target": "#main",
             "hx-select": "#main",
             "hx-push-url": "true",
-            "hx-include": "[name='q']"
+            "hx-include": "[name='q']",
+            "hx-vals": "{\"batch_level\": #{context.request.query_params["batch_level"]?}}"
           )
         end
 
