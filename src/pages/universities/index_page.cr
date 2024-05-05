@@ -28,8 +28,8 @@ class Universities::IndexPage < MainLayout
           "hx-select": "#main",
           "hx-trigger": "search, keyup delay:400ms changed",
           "hx-push-url": "true",
-          "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='batch_level']",
-          "hx-vals": "{\"batch_level\": #{context.request.query_params["batch_level"]?}}"
+          "hx-include": "[name='is_985'],[name='is_211'],[name='is_good']",
+          "hx-vals": "{\"batch_level\": \"#{context.request.query_params["batch_level"]?}\"}"
         )
 
         a class: "dropdown-trigger btn m2 input-field", href: "#", "data-target": "dropdown1" do
