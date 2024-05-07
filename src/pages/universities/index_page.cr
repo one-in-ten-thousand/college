@@ -38,25 +38,6 @@ class Universities::IndexPage < MainLayout
     )
   end
 
-  # def render_select_batch_level1
-  #   div class: "m2 input-field" do
-  #     tag("select", name: "batch_level", id: "select_batch_level", class: "btn") do
-  #       select_prompt "选择录取批次"
-  #       optgroup label: "一本" do
-  #         University::BatchLevel.select_options_level_one.each do |display_name, value|
-  #           option display_name, value: value.to_s, "hx-get": "/universities", "hx-target": "#main", "hx-select": "#main", "hx-push-url": "true"
-  #         end
-  #       end
-
-  #       optgroup label: "二本" do
-  #         University::BatchLevel.select_options_level_two.each do |display_name, value|
-  #           option display_name, value: value.to_s
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
-
   def render_select_batch_level
     input type: "hidden", name: "batch_level", value: context.request.query_params["batch_level"]?.to_s
     a class: "dropdown-trigger btn m2 input-field", href: "#", "data-target": "dropdown1" do
