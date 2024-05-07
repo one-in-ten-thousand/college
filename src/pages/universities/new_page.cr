@@ -10,7 +10,7 @@ class Universities::NewPage < MainLayout
 
     br
 
-    h1 "新学校"
+    h3 "新学校"
 
     br
 

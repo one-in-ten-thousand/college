@@ -2,7 +2,7 @@ class PasswordResetRequests::NewPage < AuthLayout
   needs operation : RequestPasswordReset
 
   def content
-    h1 "Reset your password"
+    h3 "Reset your password"
     render_form(@operation)
   end
 

@@ -2,7 +2,7 @@ class SignUps::NewPage < AuthLayout
   needs operation : SignUpUser
 
   def content
-    h1 "Sign Up"
+    h3 "Sign Up"
     render_sign_up_form(@operation)
   end
 

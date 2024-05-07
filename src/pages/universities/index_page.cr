@@ -4,7 +4,7 @@ class Universities::IndexPage < MainLayout
   quick_def page_title, "All Universities"
 
   def content
-    h1 "所有大学"
+    h3 "所有大学"
 
     div class: "row" do
       link "新增", New

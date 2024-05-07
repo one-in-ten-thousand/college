@@ -4,7 +4,7 @@ class Universities::ShowPage < MainLayout
 
   def content
     link "返回列表", Index
-    h1 "大学 ID: #{university.id}"
+    h3 "大学 ID: #{university.id}"
     render_actions
     render_university_fields
   end
