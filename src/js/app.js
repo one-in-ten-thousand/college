@@ -56,6 +56,10 @@ function init () {
     var instances = M.Tooltip.init(elems, {
         // specify options here
     });
+
+    // const requestUrl = request.headers.get("HX-Current-URL");
+    // const batch_level  = new URL(requestUrl).searchParams.get("batch_level");
+
 }
 
 htmx.onLoad(function (target) {

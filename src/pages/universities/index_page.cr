@@ -5,15 +5,17 @@ class Universities::IndexPage < MainLayout
 
   def content
     h1 "所有大学"
-    link "新增", New
 
     div class: "row" do
+      link "新增", New
       render_search
-      render_select_batch_level
     end
 
     div id: "main" do
-      render_select_985
+      div class: "row" do
+        render_select_985
+        render_select_batch_level
+      end
       mount PaginationLinks, pages unless pages.one_page?
       render_universities
       mount PaginationLinks, pages unless pages.one_page?
@@ -23,7 +25,7 @@ class Universities::IndexPage < MainLayout
   def render_search
     input(
       type: "search",
-      value: "#{context.request.query_params["q"]?}",
+      value: context.request.query_params["q"]?.to_s,
       name: "q",
       class: "s12 m8 input-field",
       placeholder: "输入大学名称模糊搜索",
@@ -32,12 +34,31 @@ class Universities::IndexPage < MainLayout
       "hx-select": "#main",
       "hx-trigger": "search, keyup delay:400ms changed",
       "hx-push-url": "true",
-      "hx-include": "[name='is_985'],[name='is_211'],[name='is_good']",
-      "hx-vals": "{\"batch_level\": \"#{context.request.query_params["batch_level"]?}\"}"
+      "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='batch_level']",
     )
   end
 
+  # def render_select_batch_level1
+  #   div class: "m2 input-field" do
+  #     tag("select", name: "batch_level", id: "select_batch_level", class: "btn") do
+  #       select_prompt "选择录取批次"
+  #       optgroup label: "一本" do
+  #         University::BatchLevel.select_options_level_one.each do |display_name, value|
+  #           option display_name, value: value.to_s, "hx-get": "/universities", "hx-target": "#main", "hx-select": "#main", "hx-push-url": "true"
+  #         end
+  #       end
+
+  #       optgroup label: "二本" do
+  #         University::BatchLevel.select_options_level_two.each do |display_name, value|
+  #           option display_name, value: value.to_s
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
+
   def render_select_batch_level
+    input type: "hidden", name: "batch_level", value: context.request.query_params["batch_level"]?.to_s
     a class: "dropdown-trigger btn m2 input-field", href: "#", "data-target": "dropdown1" do
       if (bl = context.request.query_params["batch_level"]?.presence)
         text "当前录取批次 #{University::BatchLevel.from_value?(bl.to_i).not_nil!.display_name}"
@@ -68,12 +89,10 @@ class Universities::IndexPage < MainLayout
   end
 
   def render_select_985
-    div class: "row" do
-      full_path = context.request.resource
-      mount CheckBox, "is_985", "仅显示985", full_path
-      mount CheckBox, "is_211", "仅显示211", full_path
-      mount CheckBox, "is_good", "显示包含双一流专业高校", full_path
-    end
+    full_path = context.request.resource
+    mount CheckBox, "is_985", "仅显示985", full_path
+    mount CheckBox, "is_211", "仅显示211", full_path
+    mount CheckBox, "is_good", "显示包含双一流专业高校", full_path
   end
 
   def render_universities
