@@ -16,3 +16,4 @@ yarn-error.log
 /latest_released/*
 /*.patchfile
 /*.sql
+/*.custom.gz
