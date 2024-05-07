@@ -31,6 +31,7 @@ class Universities::FormFields < BaseComponent
         end
         mount Shared::FieldErrors, op.batch_level
       end
+
       div class: "row" do
         mount Shared::Field, op.name, "大学名称", &.text_input(placeholder: "大学完整名称")
       end
