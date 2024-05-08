@@ -65,41 +65,39 @@ class Universities::Index < BrowserAction
     end
 
     unless filter_by_column.nil?
-      min_value = min_value.not_nil!
-      max_value = max_value.not_nil!
       case filter_by_column
       when "ranking_2023"
         range_max = 42458
         range_min = 5000
-        query = query.ranking_2023_min.gte(min_value).ranking_2023_min.lte(max_value)
+        query = query.ranking_2023_min.gte(min_value).ranking_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2022"
         range_max = 40000
         range_min = 5000
-        query = query.ranking_2022_min.gte(min_value).ranking_2022_min.lte(max_value)
+        query = query.ranking_2022_min.gte(min_value).ranking_2022_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2021"
         range_max = 40000
         range_min = 5000
-        query = query.ranking_2021_min.gte(min_value).ranking_2021_min.lte(max_value)
+        query = query.ranking_2021_min.gte(min_value).ranking_2021_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2020"
         range_max = 40000
         range_min = 5000
-        query = query.ranking_2020_min.gte(min_value).ranking_2020_min.lte(max_value)
+        query = query.ranking_2020_min.gte(min_value).ranking_2020_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2023"
         range_max = 650
         range_min = 400
-        query = query.score_2023_min.gte(min_value).score_2023_min.lte(max_value)
+        query = query.score_2023_min.gte(min_value).score_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2022"
         range_max = 650
         range_min = 400
-        query = query.score_2022_min.gte(min_value).score_2022_min.lte(max_value)
+        query = query.score_2022_min.gte(min_value).score_2022_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2021"
         range_max = 650
         range_min = 400
-        query = query.score_2021_min.gte(min_value).score_2021_min.lte(max_value)
+        query = query.score_2021_min.gte(min_value).score_2021_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2020"
         range_max = 650
         range_min = 400
-        query = query.score_2020_min.gte(min_value).score_2020_min.lte(max_value)
+        query = query.score_2020_min.gte(min_value).score_2020_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       else
         range_max = 0
         range_min = 0
