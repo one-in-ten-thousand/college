@@ -7,7 +7,7 @@ class Universities::IndexPage < MainLayout
     h3 "所有大学"
 
     div class: "row" do
-      div class: "col m1" do
+      div class: "col m1 valign-wrapper" do
         link "新增", New
       end
       div class: "col m3" do

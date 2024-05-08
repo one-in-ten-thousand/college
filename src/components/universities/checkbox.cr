@@ -6,7 +6,7 @@ class Universities::CheckBox < BaseComponent
   def render
     div class: "switch col m3" do
       label for: name do
-        text description
+        span description, class: "valign-wrapper"
         if context.request.query_params[name]?
           input(
             type: "checkbox",
