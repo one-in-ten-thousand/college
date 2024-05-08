@@ -43,8 +43,16 @@ class SaveUniversity < University::SaveOperation
   def code_and_batch_level_must_uniq
     code.value.try do |code_value|
       batch_level.value.try do |batch_level_value|
-        if UniversityQuery.new.code(code_value).batch_level(batch_level_value).select_count > 1
-          code.add_error("编码和批次的组合, 必须唯一")
+        query = UniversityQuery.new.code(code_value).batch_level(batch_level_value)
+
+        if query.select_count >= 1
+          if new_record?
+            self.code.add_error("编码和批次的组合, 必须唯一")
+          else
+            if query.first.id != id.value
+              self.code.add_error("编码和批次的组合, 必须唯一")
+            end
+          end
         end
       end
     end
