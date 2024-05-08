@@ -60,6 +60,19 @@ function init () {
     // const requestUrl = request.headers.get("HX-Current-URL");
     // const batch_level  = new URL(requestUrl).searchParams.get("batch_level");
 
+    var max_slider = document.getElementById("range_max");
+    var max_value = document.getElementById("max_value")
+
+    var min_slider = document.getElementById("range_min");
+    var min_value = document.getElementById("min_value")
+
+    max_slider.oninput = function() {
+        max_value.innerHTML = this.value;
+    }
+
+    min_slider.oninput = function() {
+        min_value.innerHTML = this.value;
+    }
 }
 
 htmx.onLoad(function (target) {

@@ -12,6 +12,9 @@ class Universities::Index < BrowserAction
     is_good = params.get?(:is_good).presence
     order_by = params.get?(:order_by).presence
     batch_level = params.get?(:batch_level).presence
+    filter_by_column = params.get?(:filter_by_column).presence
+    min_value = params.get?(:min_value).presence
+    max_value = params.get?(:max_value).presence
 
     query = UniversityQuery.new
 
@@ -61,12 +64,55 @@ class Universities::Index < BrowserAction
       end
     end
 
+    unless filter_by_column.nil?
+      case filter_by_column
+      when "ranking_2023"
+        range_max = 42458
+        range_min = 5000
+      when "ranking_2022"
+        range_max = 40000
+        range_min = 5000
+      when "ranking_2021"
+        range_max = 40000
+        range_min = 5000
+      when "ranking_2020"
+        range_max = 40000
+        range_min = 5000
+      when "score_2023"
+        range_max = 650
+        range_min = 400
+      when "score_2022"
+        range_max = 650
+        range_min = 400
+      when "score_2021"
+        range_max = 650
+        range_min = 400
+      when "score_2020"
+        range_max = 650
+        range_min = 400
+      else
+        range_max = 0
+        range_min = 0
+      end
+    end
+
     unless batch_level.nil?
       query = query.batch_level(batch_level)
     end
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)
 
-    html IndexPage, universities: universities, pages: pages
+    html(
+      IndexPage,
+      universities: universities,
+      pages: pages,
+      range_max: range_max,
+      range_min: range_min,
+      all_name_inputs: [
+        "q", "is_985", "is_211", "is_good",
+        "order_by", "batch_level", "filter_by_column",
+        "min_value", "max_value"
+      ]
+    )
   end
 end

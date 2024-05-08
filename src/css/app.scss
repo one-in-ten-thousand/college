@@ -70,3 +70,9 @@ textarea {
 .error {
   color: white;
 }
+
+p.range-field {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}

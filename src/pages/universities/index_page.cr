@@ -1,6 +1,9 @@
 class Universities::IndexPage < MainLayout
   needs universities : UniversityQuery
   needs pages : Lucky::Paginator
+  needs range_max : Int32?
+  needs range_min : Int32?
+  needs all_name_inputs : Array(String)
   quick_def page_title, "All Universities"
 
   def content
@@ -11,41 +14,24 @@ class Universities::IndexPage < MainLayout
         link "新增", New
       end
 
-      div class: "col m2" do
+      div class: "col m3" do
         render_search
       end
-
-      # form action: "#" do
-      div class: "col m2" do
-        para class: "range-field" do
-          input(type: "range", min: "0", max: "100", style: "max-width: 100px;", name: "aaa1", value: "2")
-          input(type: "range", min: "0", max: "100", style: "max-width: 100px;", name: "bbb1", value: "30")
-        end
-      end
-
-      div class: "col m2" do
-        para class: "range-field" do
-          input(type: "range", min: "0", max: "100", style: "max-width: 100px;", name: "aaa2", value: "5")
-          input(type: "range", min: "0", max: "100", style: "max-width: 100px;", name: "bbb2", value: "80")
-        end
-      end
-
-      submit(
-        "提交",
-        "hx-include": "[name='aaa1'],[name='aaa2'],[name='bbb1'],[name='bbb2']",
-        "hx-get": "/universities",
-        "hx-target": "#main",
-        "hx-select": "#main",
-        "hx-push-url": "true",
-      )
-      # end
     end
 
     div id: "main" do
       div class: "row" do
+        div class: "col m2 valign-wrapper" do
+          render_score_ranking_dropdown
+        end
+
+        render_range_input
+      end
+
+      div class: "row" do
         render_select_985
         div class: "col m2" do
-          render_select_batch_level
+          render_batch_level_dropdown
         end
       end
       mount PaginationLinks, pages unless pages.one_page?
@@ -66,11 +52,76 @@ class Universities::IndexPage < MainLayout
       "hx-select": "#main",
       "hx-trigger": "search, keyup delay:400ms changed",
       "hx-push-url": "true",
-      "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='batch_level']",
+      "hx-include":  all_name_inputs.reject { |x| x == "q" }.join(",") { |e| "[name='#{e}']" }
     )
   end
 
-  def render_select_batch_level
+  def render_score_ranking_dropdown
+    list = {
+      "ranking_2023" => "2023 位次",
+      "ranking_2022" => "2022 位次",
+      "ranking_2021" => "2021 位次",
+      "ranking_2020" => "2020 位次",
+      "score_2023"   => "2023 分数",
+      "score_2022"   => "2022 分数",
+      "score_2021"   => "2021 分数",
+      "score_2020"   => "2020 分数",
+    }
+
+    input type: "hidden", name: "filter_by_column", value: context.request.query_params["filter_by_column"]?.to_s
+    a class: "dropdown-trigger btn input-field", href: "#", "data-target": "dropdown2" do
+      if (cl = context.request.query_params["filter_by_column"]?.presence)
+        text "过滤条件 #{list[cl]}"
+      else
+        text "选择过滤条件"
+      end
+      text ""
+    end
+
+    ul(
+      id: "dropdown2",
+      class: "dropdown-content",
+      "hx-target": "#main",
+      "hx-select": "#main",
+      "hx-push-url": "true",
+      "hx-include": all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"]  }.join(",") { |e| "[name='#{e}']" }
+    ) do
+      list.each do |k, v|
+        li do
+          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"#{k}\"}" do
+            text v
+          end
+        end
+      end
+    end
+  end
+
+  def render_range_input
+    div class: "col m8", style: "margin-right: 25px" do
+      para class: "range-field" do
+        span id: "min_value"
+        input(type: "range", min: range_min.to_s, max: range_max.to_s, id: "range_min", name: "min_value", value: context.request.query_params["min_value"]?.to_s)
+      end
+
+      para class: "range-field" do
+        span id: "max_value"
+        input(type: "range", min: range_min.to_s, max: range_max.to_s, id: "range_max", name: "max_value", value: context.request.query_params["max_value"]?.to_s)
+      end
+    end
+
+    div class: "col m1 valign-wrapper" do
+      submit(
+        "提交过滤",
+        "hx-get": "/universities",
+        "hx-target": "#main",
+        "hx-select": "#main",
+        "hx-push-url": "true",
+        "hx-include": all_name_inputs.reject { |x| x.in? ["min_value", "max_value"]  }.join(",") { |e| "[name='#{e}']" }
+      )
+    end
+  end
+
+  def render_batch_level_dropdown
     input type: "hidden", name: "batch_level", value: context.request.query_params["batch_level"]?.to_s
     a class: "dropdown-trigger btn input-field", href: "#", "data-target": "dropdown1" do
       if (bl = context.request.query_params["batch_level"]?.presence)
@@ -86,7 +137,7 @@ class Universities::IndexPage < MainLayout
       "hx-target": "#main",
       "hx-select": "#main",
       "hx-push-url": "true",
-      "hx-include": "[name='is_985'],[name='is_211'],[name='is_good'],[name='q']",
+      "hx-include": all_name_inputs.reject { |x| x == "batch_level"  }.join(",") { |e| "[name='#{e}']" }
     ) do
       University::BatchLevel.each do |bl|
         if bl.value == 3
@@ -103,12 +154,13 @@ class Universities::IndexPage < MainLayout
 
   def render_select_985
     full_path = context.request.resource
-    mount CheckBox, "is_985", "仅显示985", full_path
-    mount CheckBox, "is_211", "仅显示211", full_path
-    mount CheckBox, "is_good", "显示包含双一流专业高校", full_path
+    mount CheckBox, "is_985", "仅显示985", full_path, all_name_inputs
+    mount CheckBox, "is_211", "仅显示211", full_path, all_name_inputs
+    mount CheckBox, "is_good", "显示包含双一流专业高校", full_path, all_name_inputs
   end
 
   def render_universities
+    input type: "hidden", name: "order_by", value: context.request.query_params["order_by"]?.to_s
     table class: "highlight" do
       thead do
         tr do
@@ -117,14 +169,14 @@ class Universities::IndexPage < MainLayout
           th "大学名称(点击名称编辑)"
           th "录取批次"
           th "补充信息"
-          mount OrderByTH, "score_2023_min", "2023最低分"
-          mount OrderByTH, "ranking_2023_min", "2023最低位次"
-          mount OrderByTH, "score_2022_min", "2022最低分"
-          mount OrderByTH, "ranking_2022_min", "2022最低位次"
-          mount OrderByTH, "score_2021_min", "2021最低分"
-          mount OrderByTH, "ranking_2021_min", "2021最低位次"
-          mount OrderByTH, "score_2020_min", "2020最低分"
-          mount OrderByTH, "ranking_2020_min", "2020最低位次"
+          mount OrderByTH, "score_2023_min", "2023最低分", all_name_inputs
+          mount OrderByTH, "ranking_2023_min", "2023最低位次", all_name_inputs
+          mount OrderByTH, "score_2022_min", "2022最低分", all_name_inputs
+          mount OrderByTH, "ranking_2022_min", "2022最低位次", all_name_inputs
+          mount OrderByTH, "score_2021_min", "2021最低分", all_name_inputs
+          mount OrderByTH, "ranking_2021_min", "2021最低位次", all_name_inputs
+          mount OrderByTH, "score_2020_min", "2020最低分", all_name_inputs
+          mount OrderByTH, "ranking_2020_min", "2020最低位次", all_name_inputs
           th "修改时间"
         end
       end
