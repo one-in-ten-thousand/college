@@ -7,14 +7,20 @@ class Universities::IndexPage < MainLayout
     h3 "所有大学"
 
     div class: "row" do
-      link "新增", New
-      render_search
+      div class: "col m1" do
+        link "新增", New
+      end
+      div class: "col m3" do
+        render_search
+      end
     end
 
     div id: "main" do
       div class: "row" do
         render_select_985
-        render_select_batch_level
+        div class: "col m2" do
+          render_select_batch_level
+        end
       end
       mount PaginationLinks, pages unless pages.one_page?
       render_universities
@@ -40,7 +46,7 @@ class Universities::IndexPage < MainLayout
 
   def render_select_batch_level
     input type: "hidden", name: "batch_level", value: context.request.query_params["batch_level"]?.to_s
-    a class: "dropdown-trigger btn m2 input-field", href: "#", "data-target": "dropdown1" do
+    a class: "dropdown-trigger btn input-field", href: "#", "data-target": "dropdown1" do
       if (bl = context.request.query_params["batch_level"]?.presence)
         text "当前录取批次 #{University::BatchLevel.from_value?(bl.to_i).not_nil!.display_name}"
       else
