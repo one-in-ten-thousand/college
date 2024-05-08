@@ -25,7 +25,9 @@ class Universities::IndexPage < MainLayout
           render_score_ranking_dropdown
         end
 
-        render_range_input
+        if context.request.query_params["filter_by_column"]?.presence
+          render_range_input
+        end
       end
 
       div class: "row" do
@@ -71,7 +73,7 @@ class Universities::IndexPage < MainLayout
     input type: "hidden", name: "filter_by_column", value: context.request.query_params["filter_by_column"]?.to_s
     a class: "dropdown-trigger btn input-field", href: "#", "data-target": "dropdown2" do
       if (cl = context.request.query_params["filter_by_column"]?.presence)
-        text "过滤条件 #{list[cl]}"
+        text "按照 #{list[cl]} 过滤"
       else
         text "选择过滤条件"
       end
@@ -86,6 +88,11 @@ class Universities::IndexPage < MainLayout
       "hx-push-url": "true",
       "hx-include": all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"]  }.join(",") { |e| "[name='#{e}']" }
     ) do
+      li do
+        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"\"}" do
+          text "取消过滤"
+        end
+      end
       list.each do |k, v|
         li do
           a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"#{k}\"}" do
@@ -99,12 +106,12 @@ class Universities::IndexPage < MainLayout
   def render_range_input
     div class: "col m8", style: "margin-right: 25px" do
       para class: "range-field" do
-        span id: "min_value"
+        span "#{context.request.query_params["min_value"]?}", id: "min_value"
         input(type: "range", min: range_min.to_s, max: range_max.to_s, id: "range_min", name: "min_value", value: context.request.query_params["min_value"]?.to_s)
       end
 
       para class: "range-field" do
-        span id: "max_value"
+        span "#{context.request.query_params["max_value"]?}", id: "max_value"
         input(type: "range", min: range_min.to_s, max: range_max.to_s, id: "range_max", name: "max_value", value: context.request.query_params["max_value"]?.to_s)
       end
     end
@@ -116,7 +123,7 @@ class Universities::IndexPage < MainLayout
         "hx-target": "#main",
         "hx-select": "#main",
         "hx-push-url": "true",
-        "hx-include": all_name_inputs.reject { |x| x.in? ["min_value", "max_value"]  }.join(",") { |e| "[name='#{e}']" }
+        "hx-include": all_name_inputs.join(",") { |e| "[name='#{e}']" }
       )
     end
   end
@@ -125,7 +132,7 @@ class Universities::IndexPage < MainLayout
     input type: "hidden", name: "batch_level", value: context.request.query_params["batch_level"]?.to_s
     a class: "dropdown-trigger btn input-field", href: "#", "data-target": "dropdown1" do
       if (bl = context.request.query_params["batch_level"]?.presence)
-        text "当前录取批次 #{University::BatchLevel.from_value?(bl.to_i).not_nil!.display_name}"
+        text "选择的录取批次 #{University::BatchLevel.from_value?(bl.to_i).not_nil!.display_name}"
       else
         text "选择录取批次"
       end
@@ -139,6 +146,11 @@ class Universities::IndexPage < MainLayout
       "hx-push-url": "true",
       "hx-include": all_name_inputs.reject { |x| x == "batch_level"  }.join(",") { |e| "[name='#{e}']" }
     ) do
+      li do
+        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"\"}" do
+          text "取消选择"
+        end
+      end
       University::BatchLevel.each do |bl|
         if bl.value == 3
           li class: "divider", tableindex: "-1"
