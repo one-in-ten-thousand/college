@@ -10,9 +10,35 @@ class Universities::IndexPage < MainLayout
       div class: "col m1 valign-wrapper" do
         link "新增", New
       end
-      div class: "col m3" do
+
+      div class: "col m2" do
         render_search
       end
+
+      # form action: "#" do
+      div class: "col m2" do
+        para class: "range-field" do
+          input(type: "range", min: "0", max: "100", style: "max-width: 100px;", name: "aaa1", value: "2")
+          input(type: "range", min: "0", max: "100", style: "max-width: 100px;", name: "bbb1", value: "30")
+        end
+      end
+
+      div class: "col m2" do
+        para class: "range-field" do
+          input(type: "range", min: "0", max: "100", style: "max-width: 100px;", name: "aaa2", value: "5")
+          input(type: "range", min: "0", max: "100", style: "max-width: 100px;", name: "bbb2", value: "80")
+        end
+      end
+
+      submit(
+        "提交",
+        "hx-include": "[name='aaa1'],[name='aaa2'],[name='bbb1'],[name='bbb2']",
+        "hx-get": "/universities",
+        "hx-target": "#main",
+        "hx-select": "#main",
+        "hx-push-url": "true",
+      )
+      # end
     end
 
     div id: "main" do
