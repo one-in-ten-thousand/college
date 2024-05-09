@@ -6,17 +6,19 @@ class Universities::Index < BrowserAction
   # param batch_level : University::BatchLevel? = nil
 
   get "/universities" do
-    q = params.get?(:q).presence
-    is_985 = params.get?(:is_985).presence
-    is_211 = params.get?(:is_211).presence
-    is_good = params.get?(:is_good).presence
-    order_by = params.get?(:order_by).presence
-    click_on = params.get?(:click_on).presence
-    batch_level = params.get?(:batch_level).presence
-    filter_by_column = params.get?(:filter_by_column).presence
-    min_value = params.get?(:min_value).presence
-    max_value = params.get?(:max_value).presence
-    page = params.get?(:page).presence
+    query_params = params.from_query
+
+    q = query_params["q"]?.presence
+    is_985 = query_params["is_985"]?.presence
+    is_211 = query_params["is_211"]?.presence
+    is_good = query_params["is_good"]?.presence
+    order_by = query_params["order_by"]?.presence
+    click_on = query_params["click_on"]?.presence
+    batch_level = query_params["batch_level"]?.presence
+    filter_by_column = query_params["filter_by_column"]?.presence
+    min_value = query_params["min_value"]?.presence
+    max_value = query_params["max_value"]?.presence
+    page = query_params["page"]?.presence
 
     query = UniversityQuery.new
 
@@ -46,6 +48,7 @@ class Universities::Index < BrowserAction
     end
 
     unless click_on.nil?
+      query_params["click_on"] = ""
       case click_on
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
