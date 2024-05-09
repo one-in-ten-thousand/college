@@ -1,3 +1,7 @@
+module College
+  VERSION = {{ `git rev-parse --short HEAD`.chomp.stringify }}
+end
+
 require "./shards"
 
 # Load the asset manifest

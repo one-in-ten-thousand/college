@@ -13,9 +13,5 @@ Signal::INT.trap do
   app_server.close
 end
 
-module College
-  VERSION = {{ `git rev-parse --short HEAD`.chomp.stringify }}
-end
-
 STDERR.puts "Listening on #{ENV["HOST"]}:#{ENV["PORT"]}"
 app_server.listen
