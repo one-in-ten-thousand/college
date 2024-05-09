@@ -9,8 +9,10 @@ class PaginationLinks < Lucky::BaseComponent
       page_links
       # next_link
       material_icon("chevron_right", @pages.path_to_next)
+      li do
+        span "总数: #{@pages.item_count}", class: "valign-wrapper"
+      end
     end
-    # end
   end
 
   def material_icon(name, link)
