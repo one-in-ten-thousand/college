@@ -15,6 +15,7 @@ class Universities::Index < BrowserAction
     filter_by_column = params.get?(:filter_by_column).presence
     min_value = params.get?(:min_value).presence
     max_value = params.get?(:max_value).presence
+    page = params.get?(:page).presence
 
     query = UniversityQuery.new
 
@@ -46,70 +47,72 @@ class Universities::Index < BrowserAction
     if order_by.nil?
       cookies.delete("order_by")
     else
-      case order_by
-      when "score_2023_min"
-        if cookies.get?("order_by") == "score_2023_min_asc_order"
-          query = query.score_2023_min.desc_order(:nulls_last)
-          cookies.set("order_by", "score_2023_min_desc_order")
-        else
-          query = query.score_2023_min.asc_order(:nulls_last)
-          cookies.set("order_by", "score_2023_min_asc_order")
-        end
-      when "score_2022_min"
-        if cookies.get?("order_by") == "score_2022_min_asc_order"
-          query = query.score_2022_min.desc_order(:nulls_last)
-          cookies.set("order_by", "score_2022_min_desc_order")
-        else
-          query = query.score_2022_min.asc_order(:nulls_last)
-          cookies.set("order_by", "score_2022_min_asc_order")
-        end
-      when "score_2021_min"
-        if cookies.get?("order_by") == "score_2021_min_asc_order"
-          query = query.score_2021_min.desc_order(:nulls_last)
-          cookies.set("order_by", "score_2021_min_desc_order")
-        else
-          query = query.score_2021_min.asc_order(:nulls_last)
-          cookies.set("order_by", "score_2021_min_asc_order")
-        end
-      when "score_2020_min"
-        if cookies.get?("order_by") == "score_2020_min_asc_order"
-          query = query.score_2020_min.desc_order(:nulls_last)
-          cookies.set("order_by", "score_2020_min_desc_order")
-        else
-          query = query.score_2020_min.asc_order(:nulls_last)
-          cookies.set("order_by", "score_2020_min_asc_order")
-        end
-      when "ranking_2023_min"
-        if cookies.get?("order_by") == "ranking_2023_min_desc_order"
-          query = query.ranking_2023_min.asc_order(:nulls_last)
-          cookies.set("order_by", "ranking_2023_min_asc_order")
-        else
-          query = query.ranking_2023_min.desc_order(:nulls_last)
-          cookies.set("order_by", "ranking_2023_min_desc_order")
-        end
-      when "ranking_2022_min"
-        if cookies.get?("order_by") == "ranking_2022_min_desc_order"
-          query = query.ranking_2022_min.asc_order(:nulls_last)
-          cookies.set("order_by", "ranking_2022_min_asc_order")
-        else
-          query = query.ranking_2022_min.desc_order(:nulls_last)
-          cookies.set("order_by", "ranking_2022_min_desc_order")
-        end
-      when "ranking_2021_min"
-        if cookies.get?("order_by") == "ranking_2021_min_desc_order"
-          query = query.ranking_2021_min.asc_order(:nulls_last)
-          cookies.set("order_by", "ranking_2021_min_asc_order")
-        else
-          query = query.ranking_2021_min.desc_order(:nulls_last)
-          cookies.set("order_by", "ranking_2021_min_desc_order")
-        end
-      when "ranking_2020_min"
-        if cookies.get?("order_by") == "ranking_2020_min_desc_order"
-          query = query.ranking_2020_min.asc_order(:nulls_last)
-          cookies.set("order_by", "ranking_2020_min_asc_order")
-        else
-          query = query.ranking_2020_min.desc_order(:nulls_last)
-          cookies.set("order_by", "ranking_2020_min_desc_order")
+      if page.nil? || page == "1"
+        case order_by
+        when "score_2023_min"
+          if cookies.get?("order_by") == "score_2023_min_asc_order"
+            query = query.score_2023_min.desc_order(:nulls_last)
+            cookies.set("order_by", "score_2023_min_desc_order")
+          else
+            query = query.score_2023_min.asc_order(:nulls_last)
+            cookies.set("order_by", "score_2023_min_asc_order")
+          end
+        when "score_2022_min"
+          if cookies.get?("order_by") == "score_2022_min_asc_order"
+            query = query.score_2022_min.desc_order(:nulls_last)
+            cookies.set("order_by", "score_2022_min_desc_order")
+          else
+            query = query.score_2022_min.asc_order(:nulls_last)
+            cookies.set("order_by", "score_2022_min_asc_order")
+          end
+        when "score_2021_min"
+          if cookies.get?("order_by") == "score_2021_min_asc_order"
+            query = query.score_2021_min.desc_order(:nulls_last)
+            cookies.set("order_by", "score_2021_min_desc_order")
+          else
+            query = query.score_2021_min.asc_order(:nulls_last)
+            cookies.set("order_by", "score_2021_min_asc_order")
+          end
+        when "score_2020_min"
+          if cookies.get?("order_by") == "score_2020_min_asc_order"
+            query = query.score_2020_min.desc_order(:nulls_last)
+            cookies.set("order_by", "score_2020_min_desc_order")
+          else
+            query = query.score_2020_min.asc_order(:nulls_last)
+            cookies.set("order_by", "score_2020_min_asc_order")
+          end
+        when "ranking_2023_min"
+          if cookies.get?("order_by") == "ranking_2023_min_desc_order"
+            query = query.ranking_2023_min.asc_order(:nulls_last)
+            cookies.set("order_by", "ranking_2023_min_asc_order")
+          else
+            query = query.ranking_2023_min.desc_order(:nulls_last)
+            cookies.set("order_by", "ranking_2023_min_desc_order")
+          end
+        when "ranking_2022_min"
+          if cookies.get?("order_by") == "ranking_2022_min_desc_order"
+            query = query.ranking_2022_min.asc_order(:nulls_last)
+            cookies.set("order_by", "ranking_2022_min_asc_order")
+          else
+            query = query.ranking_2022_min.desc_order(:nulls_last)
+            cookies.set("order_by", "ranking_2022_min_desc_order")
+          end
+        when "ranking_2021_min"
+          if cookies.get?("order_by") == "ranking_2021_min_desc_order"
+            query = query.ranking_2021_min.asc_order(:nulls_last)
+            cookies.set("order_by", "ranking_2021_min_asc_order")
+          else
+            query = query.ranking_2021_min.desc_order(:nulls_last)
+            cookies.set("order_by", "ranking_2021_min_desc_order")
+          end
+        when "ranking_2020_min"
+          if cookies.get?("order_by") == "ranking_2020_min_desc_order"
+            query = query.ranking_2020_min.asc_order(:nulls_last)
+            cookies.set("order_by", "ranking_2020_min_asc_order")
+          else
+            query = query.ranking_2020_min.desc_order(:nulls_last)
+            cookies.set("order_by", "ranking_2020_min_desc_order")
+          end
         end
       end
     end
