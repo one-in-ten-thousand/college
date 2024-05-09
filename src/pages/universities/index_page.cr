@@ -218,7 +218,6 @@ class Universities::IndexPage < MainLayout
           mount OrderByTH, "ranking_2021_min", order_by_ranking_description_2021, "2021最低位次", all_name_inputs
           mount OrderByTH, "score_2020_min", order_by_score_description_2020, "2020最低分", all_name_inputs
           mount OrderByTH, "ranking_2020_min", order_by_ranking_description_2020, "2020最低位次", all_name_inputs
-          th "修改时间"
         end
       end
 
@@ -290,7 +289,6 @@ class Universities::IndexPage < MainLayout
               column_name: "ranking_2020_min",
               action: "/htmx/v1/universities/render_update_score_input"
             )
-            td university.updated_at.to_s("%m月%d日 %H:%M:%S")
           end
         end
         input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
