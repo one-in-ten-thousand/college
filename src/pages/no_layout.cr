@@ -1,8 +1,3 @@
-abstract class NoLayout
-  include Lucky::HTMLPage
+abstract class NoLayout < BaseLayout
   needs current_user : User
-
-  def render
-    content
-  end
 end
