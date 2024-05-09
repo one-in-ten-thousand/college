@@ -238,56 +238,64 @@ class Universities::IndexPage < MainLayout
               id: university.id.to_s,
               column_value: university.score_2023_min.to_s,
               column_name: "score_2023_min",
-              action: "/htmx/v1/universities/render_update_score_input"
+              action: "/htmx/v1/universities/render_update_score_input",
+              tooltip: ""
             )
             mount(
               ClickEditTD,
               id: university.id.to_s,
               column_value: university.ranking_2023_min.to_s,
               column_name: "ranking_2023_min",
-              action: "/htmx/v1/universities/render_update_score_input"
+              action: "/htmx/v1/universities/render_update_score_input",
+              tooltip: show_ranking_number(university.ranking_2023_min)
             )
             mount(
               ClickEditTD,
               id: university.id.to_s,
               column_value: university.score_2022_min.to_s,
               column_name: "score_2022_min",
-              action: "/htmx/v1/universities/render_update_score_input"
+              action: "/htmx/v1/universities/render_update_score_input",
+              tooltip: ""
             )
             mount(
               ClickEditTD,
               id: university.id.to_s,
               column_value: university.ranking_2022_min.to_s,
               column_name: "ranking_2022_min",
-              action: "/htmx/v1/universities/render_update_score_input"
+              action: "/htmx/v1/universities/render_update_score_input",
+              tooltip: show_ranking_number(university.ranking_2022_min)
             )
             mount(
               ClickEditTD,
               id: university.id.to_s,
               column_value: university.score_2021_min.to_s,
               column_name: "score_2021_min",
-              action: "/htmx/v1/universities/render_update_score_input"
+              action: "/htmx/v1/universities/render_update_score_input",
+              tooltip: ""
             )
             mount(
               ClickEditTD,
               id: university.id.to_s,
               column_value: university.ranking_2021_min.to_s,
               column_name: "ranking_2021_min",
-              action: "/htmx/v1/universities/render_update_score_input"
+              action: "/htmx/v1/universities/render_update_score_input",
+              tooltip: show_ranking_number(university.ranking_2021_min)
             )
             mount(
               ClickEditTD,
               id: university.id.to_s,
               column_value: university.score_2020_min.to_s,
               column_name: "score_2020_min",
-              action: "/htmx/v1/universities/render_update_score_input"
+              action: "/htmx/v1/universities/render_update_score_input",
+              tooltip: ""
             )
             mount(
               ClickEditTD,
               id: university.id.to_s,
               column_value: university.ranking_2020_min.to_s,
               column_name: "ranking_2020_min",
-              action: "/htmx/v1/universities/render_update_score_input"
+              action: "/htmx/v1/universities/render_update_score_input",
+              tooltip: show_ranking_number(university.ranking_2022_min)
             )
           end
         end

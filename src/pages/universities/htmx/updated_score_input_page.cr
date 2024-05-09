@@ -10,7 +10,8 @@ class Universities::Htmx::UpdatedScoreInputPage < NoLayout
       id: id,
       column_value: column_value,
       column_name: column_name,
-      action: action
+      action: action,
+      tooltip: show_ranking_number(column_value)
     )
   end
 end
