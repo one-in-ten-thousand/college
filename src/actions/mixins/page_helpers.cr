@@ -1,11 +1,5 @@
-abstract class BaseLayout
-  include Lucky::HTMLPage
-
-  def render
-    content
-  end
-
-  private def show_ranking_number(ranking_value)
+module PageHelpers
+  def show_ranking_number(ranking_value)
     if ranking_value.blank?
       ""
     else

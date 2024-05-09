@@ -1,4 +1,6 @@
 class Universities::IndexPage < MainLayout
+  include PageHelpers
+
   needs universities : UniversityQuery
   needs pages : Lucky::Paginator
   needs range_max : Int32?

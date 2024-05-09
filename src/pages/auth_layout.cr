@@ -1,4 +1,6 @@
-abstract class AuthLayout < BaseLayout
+abstract class AuthLayout
+  include Lucky::HTMLPage
+
   abstract def content
   abstract def page_title
 
