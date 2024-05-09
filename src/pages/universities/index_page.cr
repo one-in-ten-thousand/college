@@ -230,7 +230,7 @@ class Universities::IndexPage < MainLayout
               link university.name, Edit.with(university)
             end
             td university.batch_level.display_name
-            td do
+            td style: "max-width: 100px;" do
               text university.description.to_s
             end
             mount(
