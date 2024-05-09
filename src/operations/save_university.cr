@@ -2,12 +2,12 @@ class SaveUniversity < University::SaveOperation
   upsert_lookup_columns [code, batch_level]
 
   permit_columns name, description, code,
-    is_211, is_985, is_good,
-    score_2023_min, ranking_2023_min,
-    score_2022_min, ranking_2022_min,
-    score_2021_min, ranking_2021_min,
-    score_2020_min, ranking_2020_min,
-    batch_level
+                 is_211, is_985, is_good,
+                 score_2023_min, ranking_2023_min,
+                 score_2022_min, ranking_2022_min,
+                 score_2021_min, ranking_2021_min,
+                 score_2020_min, ranking_2020_min,
+                 batch_level
 
   attribute province_code : Int32
   attribute province_name : String
@@ -38,21 +38,14 @@ class SaveUniversity < University::SaveOperation
     end
   end
 
-  before_save code_and_batch_level_must_uniq
+  after_save code_and_batch_level_must_uniq
 
-  def code_and_batch_level_must_uniq
+  def code_and_batch_level_must_uniq(saved_record : University)
     code.value.try do |code_value|
       batch_level.value.try do |batch_level_value|
-        query = UniversityQuery.new.code(code_value).batch_level(batch_level_value)
-
-        if query.select_count >= 1
-          if new_record?
-            self.code.add_error("编码和批次的组合, 必须唯一")
-          else
-            if query.first.id != id.value
-              self.code.add_error("编码和批次的组合, 必须唯一")
-            end
-          end
+        if UniversityQuery.new.code(code_value).batch_level(batch_level_value).select_count > 1
+          self.code.add_error("编码和批次的组合, 必须唯一")
+          database.rollback
         end
       end
     end
