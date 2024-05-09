@@ -295,7 +295,7 @@ class Universities::IndexPage < MainLayout
               column_value: university.ranking_2020_min.to_s,
               column_name: "ranking_2020_min",
               action: "/htmx/v1/universities/render_update_score_input",
-              tooltip: show_ranking_number(university.ranking_2022_min)
+              tooltip: show_ranking_number(university.ranking_2020_min)
             )
           end
         end
