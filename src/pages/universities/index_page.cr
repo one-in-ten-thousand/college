@@ -7,7 +7,9 @@ class Universities::IndexPage < MainLayout
   quick_def page_title, "All Universities"
 
   def content
-    h3 "所有大学"
+    h3 do
+      link "所有大学", Index
+    end
 
     div class: "row" do
       div class: "col m1 valign-wrapper" do
@@ -54,7 +56,7 @@ class Universities::IndexPage < MainLayout
       "hx-select": "#main",
       "hx-trigger": "search, keyup delay:400ms changed",
       "hx-push-url": "true",
-      "hx-include":  all_name_inputs.reject { |x| x == "q" }.join(",") { |e| "[name='#{e}']" }
+      "hx-include": all_name_inputs.reject { |x| x == "q" }.join(",") { |e| "[name='#{e}']" }
     )
   end
 
@@ -86,7 +88,7 @@ class Universities::IndexPage < MainLayout
       "hx-target": "#main",
       "hx-select": "#main",
       "hx-push-url": "true",
-      "hx-include": all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"]  }.join(",") { |e| "[name='#{e}']" }
+      "hx-include": all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"] }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
         a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"\"}" do
@@ -144,7 +146,7 @@ class Universities::IndexPage < MainLayout
       "hx-target": "#main",
       "hx-select": "#main",
       "hx-push-url": "true",
-      "hx-include": all_name_inputs.reject { |x| x == "batch_level"  }.join(",") { |e| "[name='#{e}']" }
+      "hx-include": all_name_inputs.reject { |x| x == "batch_level" }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
         a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"\"}" do
