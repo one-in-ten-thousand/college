@@ -43,7 +43,9 @@ class Universities::Index < BrowserAction
       query = query.is_good(true)
     end
 
-    unless order_by.nil?
+    if order_by.nil?
+      cookies.delete("order_by")
+    else
       case order_by
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"

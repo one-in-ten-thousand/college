@@ -183,14 +183,41 @@ class Universities::IndexPage < MainLayout
           th "大学名称(点击名称编辑)"
           th "录取批次"
           th "补充信息"
-          mount OrderByTH, "score_2023_min", "2023最低分", all_name_inputs
-          mount OrderByTH, "ranking_2023_min", "2023最低位次", all_name_inputs
-          mount OrderByTH, "score_2022_min", "2022最低分", all_name_inputs
-          mount OrderByTH, "ranking_2022_min", "2022最低位次", all_name_inputs
-          mount OrderByTH, "score_2021_min", "2021最低分", all_name_inputs
-          mount OrderByTH, "ranking_2021_min", "2021最低位次", all_name_inputs
-          mount OrderByTH, "score_2020_min", "2020最低分", all_name_inputs
-          mount OrderByTH, "ranking_2020_min", "2020最低位次", all_name_inputs
+          order_by_score_description_2023 = "点击排序(低分优先)"
+          order_by_score_description_2022 = "点击排序(低分优先)"
+          order_by_score_description_2021 = "点击排序(低分优先)"
+          order_by_score_description_2020 = "点击排序(低分优先)"
+          order_by_ranking_description_2023 = "点击排序(低位次优先)"
+          order_by_ranking_description_2022 = "点击排序(低位次优先)"
+          order_by_ranking_description_2021 = "点击排序(低位次优先)"
+          order_by_ranking_description_2020 = "点击排序(低位次优先)"
+
+          case context.cookies.get?("order_by")
+          when "score_2023_min_asc_order"
+            order_by_score_description_2023 = "点击排序(高分优先)"
+          when "score_2022_min_asc_order"
+            order_by_score_description_2022 = "点击排序(高分优先)"
+          when "score_2021_min_asc_order"
+            order_by_score_description_2021 = "点击排序(高分优先)"
+          when "score_2020_min_asc_order"
+            order_by_score_description_2020 = "点击排序(高分优先)"
+          when "ranking_2023_min_desc_order"
+            order_by_ranking_description_2023 = "点击排序(高位次优先)"
+          when "ranking_2022_min_desc_order"
+            order_by_ranking_description_2022 = "点击排序(高位次优先)"
+          when "ranking_2021_min_desc_order"
+            order_by_ranking_description_2021 = "点击排序(高位次优先)"
+          when "ranking_2020_min_desc_order"
+            order_by_ranking_description_2020 = "点击排序(高位次优先)"
+          end
+          mount OrderByTH, "score_2023_min", order_by_score_description_2023, "2023最低分", all_name_inputs
+          mount OrderByTH, "ranking_2023_min", order_by_ranking_description_2023, "2023最低位次", all_name_inputs
+          mount OrderByTH, "score_2022_min", order_by_score_description_2022, "2022最低分", all_name_inputs
+          mount OrderByTH, "ranking_2022_min", order_by_ranking_description_2022, "2022最低位次", all_name_inputs
+          mount OrderByTH, "score_2021_min", order_by_score_description_2021, "2021最低分", all_name_inputs
+          mount OrderByTH, "ranking_2021_min", order_by_ranking_description_2021, "2021最低位次", all_name_inputs
+          mount OrderByTH, "score_2020_min", order_by_score_description_2020, "2020最低分", all_name_inputs
+          mount OrderByTH, "ranking_2020_min", order_by_ranking_description_2020, "2020最低位次", all_name_inputs
           th "修改时间"
         end
       end

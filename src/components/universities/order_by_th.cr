@@ -1,13 +1,14 @@
 class Universities::OrderByTH < BaseComponent
   needs column_name : String
-  needs description : String
+  needs order_description : String
+  needs text : String
   needs all_name_inputs : Array(String)
 
   def render
     th(
       class: "tooltipped",
       "data-position": "top",
-      "data-tooltip": "点击按照 #{description} 排序",
+      "data-tooltip": "#{order_description}",
       "hx-get": "/universities",
       "hx-target": "#main",
       "hx-select": "#main",
@@ -15,7 +16,7 @@ class Universities::OrderByTH < BaseComponent
       "hx-vals": "{\"order_by\": \"#{column_name}\"}",
       "hx-include": all_name_inputs.reject { |e| e == "order_by" }.join(",") { |e| "[name='#{e}']" }
     ) do
-      text description
+      text text
     end
   end
 end
