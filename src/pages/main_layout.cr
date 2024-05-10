@@ -40,6 +40,15 @@ abstract class MainLayout
   private def render_signed_in_user
     text current_user.email
     text " - "
-    link "Sign out", to: SignIns::Delete, flow_id: "sign-out-button"
+    link(
+      "Sign out",
+      to: SignIns::Delete,
+      flow_id: "sign-out-button",
+      "hx-delete": SignIns::Delete.path,
+      "hx-target": "body",
+      "hx-push-url": true,
+      "hx-include": "next input"
+    )
+    input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
   end
 end
