@@ -15,7 +15,7 @@ class Universities::IndexPage < MainLayout
 
     div class: "row" do
       div class: "col m1 valign-wrapper" do
-        link "新增", New
+        link "新增", New, "hx-boost": "false"
       end
 
       div class: "col m3" do
@@ -229,7 +229,7 @@ class Universities::IndexPage < MainLayout
             td university.id
             td university.code.to_s
             td do
-              link university.name, Edit.with(university)
+              link university.name, Edit.with(university), "hx-boost": "false"
             end
             td university.batch_level.display_name
             td style: "max-width: 100px;" do
