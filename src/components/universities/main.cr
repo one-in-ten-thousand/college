@@ -61,13 +61,13 @@ class Universities::Main < BaseComponent
       "hx-include": all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"] }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
-        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"\"}", id: "filter_by_column" do
+        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"\"}", id: "filter_by_column", "hx-indicator": "#spinner" do
           text "取消过滤"
         end
       end
       list.each do |k, v|
         li do
-          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"#{k}\"}", id: "filter_by_column" do
+          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"#{k}\"}", id: "filter_by_column", "hx-indicator": "#spinner" do
             text v
           end
         end
@@ -95,7 +95,8 @@ class Universities::Main < BaseComponent
         "hx-get": "/universities",
         "hx-target": "#main",
         "hx-push-url": "true",
-        "hx-include": all_name_inputs.join(",") { |e| "[name='#{e}']" }
+        "hx-include": all_name_inputs.join(",") { |e| "[name='#{e}']" },
+        "hx-indicator": "#spinner"
       )
     end
   end
@@ -125,7 +126,7 @@ class Universities::Main < BaseComponent
       "hx-include": all_name_inputs.reject { |x| x == "batch_level" }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
-        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"\"}", id: "batch_level" do
+        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"\"}", id: "batch_level", "hx-indicator": "#spinner" do
           text "取消选择"
         end
       end
@@ -134,7 +135,7 @@ class Universities::Main < BaseComponent
           li class: "divider", tableindex: "-1"
         end
         li do
-          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"#{bl.value}\"}", id: "batch_level" do
+          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"#{bl.value}\"}", id: "batch_level", "hx-indicator": "#spinner" do
             text bl.display_name
           end
         end

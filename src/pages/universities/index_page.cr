@@ -21,6 +21,9 @@ class Universities::IndexPage < MainLayout
       div class: "col m3" do
         render_search
       end
+      div class: "col m1" do
+        img id: "spinner", class: "htmx-indicator", src: asset("images/spinning-circles.svg"), style: "max-width: 30px;"
+      end
     end
 
     mount(
@@ -45,7 +48,8 @@ class Universities::IndexPage < MainLayout
       "hx-target": "#main",
       "hx-trigger": "search, keyup delay:400ms changed",
       "hx-push-url": "true",
-      "hx-include": all_name_inputs.reject { |x| x == "q" }.join(",") { |e| "[name='#{e}']" }
+      "hx-include": all_name_inputs.reject { |x| x == "q" }.join(",") { |e| "[name='#{e}']" },
+      "hx-indicator": "#spinner",
     )
   end
 end

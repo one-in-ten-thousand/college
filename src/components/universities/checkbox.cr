@@ -18,6 +18,7 @@ class Universities::CheckBox < BaseComponent
             "hx-target": "#main",
             "hx-push-url": "true",
             "hx-include": all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" },
+            "hx-indicator": "#spinner",
             checked: "checked",
           )
         else
@@ -29,7 +30,8 @@ class Universities::CheckBox < BaseComponent
             "hx-get": Index.path,
             "hx-target": "#main",
             "hx-push-url": "true",
-            "hx-include": all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" }
+            "hx-include": all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" },
+            "hx-indicator": "#spinner"
           )
         end
 
