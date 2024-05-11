@@ -201,18 +201,30 @@ class Universities::Index < BrowserAction
     end
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)
+    all_name_inputs = [
+      "q", "is_985", "is_211", "is_good",
+      "order_by", "batch_level", "filter_by_column",
+      "min_value", "max_value",
+    ]
 
-    html(
-      IndexPage,
-      universities: universities,
-      pages: pages,
-      range_max: range_max,
-      range_min: range_min,
-      all_name_inputs: [
-        "q", "is_985", "is_211", "is_good",
-        "order_by", "batch_level", "filter_by_column",
-        "min_value", "max_value",
-      ]
-    )
+    if request.headers["HX-Trigger"]?
+      component(
+        Main,
+        universities: universities,
+        pages: pages,
+        range_max: range_max,
+        range_min: range_min,
+        all_name_inputs: all_name_inputs,
+      )
+    else
+      html(
+        IndexPage,
+        universities: universities,
+        pages: pages,
+        range_max: range_max,
+        range_min: range_min,
+        all_name_inputs: all_name_inputs
+      )
+    end
   end
 end

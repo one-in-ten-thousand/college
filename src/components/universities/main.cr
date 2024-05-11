@@ -57,18 +57,17 @@ class Universities::Main < BaseComponent
       id: "dropdown2",
       class: "dropdown-content",
       "hx-target": "#main",
-      "hx-select": "#main",
       "hx-push-url": "true",
       "hx-include": all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"] }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
-        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"\"}" do
+        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"\"}", id: "filter_by_column" do
           text "取消过滤"
         end
       end
       list.each do |k, v|
         li do
-          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"#{k}\"}" do
+          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"#{k}\"}", id: "filter_by_column" do
             text v
           end
         end
@@ -92,9 +91,9 @@ class Universities::Main < BaseComponent
     div class: "col m1 valign-wrapper" do
       submit(
         "提交过滤",
+        id: "submit_filter_by_column",
         "hx-get": "/universities",
         "hx-target": "#main",
-        "hx-select": "#main",
         "hx-push-url": "true",
         "hx-include": all_name_inputs.join(",") { |e| "[name='#{e}']" }
       )
@@ -122,12 +121,11 @@ class Universities::Main < BaseComponent
       id: "dropdown1",
       class: "dropdown-content",
       "hx-target": "#main",
-      "hx-select": "#main",
       "hx-push-url": "true",
       "hx-include": all_name_inputs.reject { |x| x == "batch_level" }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
-        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"\"}" do
+        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"\"}", id: "batch_level" do
           text "取消选择"
         end
       end
@@ -136,7 +134,7 @@ class Universities::Main < BaseComponent
           li class: "divider", tableindex: "-1"
         end
         li do
-          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"#{bl.value}\"}" do
+          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"batch_level\": \"#{bl.value}\"}", id: "batch_level" do
             text bl.display_name
           end
         end

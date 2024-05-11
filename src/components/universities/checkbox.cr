@@ -16,7 +16,6 @@ class Universities::CheckBox < BaseComponent
             id: name,
             "hx-get": Index.path,
             "hx-target": "#main",
-            "hx-select": "#main",
             "hx-push-url": "true",
             "hx-include": all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" },
             checked: "checked",
@@ -29,7 +28,6 @@ class Universities::CheckBox < BaseComponent
             id: name,
             "hx-get": Index.path,
             "hx-target": "#main",
-            "hx-select": "#main",
             "hx-push-url": "true",
             "hx-include": all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" }
           )

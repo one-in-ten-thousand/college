@@ -7,11 +7,11 @@ class Universities::OrderByTH < BaseComponent
   def render
     th(
       class: "tooltipped",
+      id: "order_by_column",
       "data-position": "top",
       "data-tooltip": "#{order_description}",
       "hx-get": "/universities",
       "hx-target": "#main",
-      "hx-select": "#main",
       "hx-push-url": "true",
       "hx-vals": "{\"order_by\": \"#{column_name}\", \"click_on\": \"#{column_name}\"}",
       "hx-include": all_name_inputs.reject { |e| e == "order_by" }.join(",") { |e| "[name='#{e}']" }

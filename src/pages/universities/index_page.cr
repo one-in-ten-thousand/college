@@ -23,14 +23,13 @@ class Universities::IndexPage < MainLayout
       end
     end
 
-    # render main
     mount(
       Main,
-      all_name_inputs: all_name_inputs,
-      range_min: range_min,
-      range_max: range_max,
+      universities: universities,
       pages: pages,
-      universities: universities
+      range_max: range_max,
+      range_min: range_min,
+      all_name_inputs: all_name_inputs
     )
   end
 
@@ -44,7 +43,6 @@ class Universities::IndexPage < MainLayout
       placeholder: "输入大学名称模糊搜索",
       "hx-get": "/universities",
       "hx-target": "#main",
-      "hx-select": "#main",
       "hx-trigger": "search, keyup delay:400ms changed",
       "hx-push-url": "true",
       "hx-include": all_name_inputs.reject { |x| x == "q" }.join(",") { |e| "[name='#{e}']" }
