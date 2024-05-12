@@ -156,48 +156,53 @@ class Universities::Index < BrowserAction
       end
     end
 
+    unless batch_level.nil?
+      query = query.batch_level(batch_level)
+    end
+
     unless filter_by_column.nil?
       case filter_by_column
       when "ranking_2023"
-        range_max = 42458
-        range_min = 5000
+        # range_max = query.ranking_2023_min.select_min
+        # # range_min = query.ranking_2023_min.select_min.not_nil!.to_i
+        # pp! range_max
+        # # pp! range_min
+        # return plain_text "hello"
+        range_max = 94352
+        range_min = 5122
         query = query.ranking_2023_min.gte(min_value).ranking_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2022"
-        range_max = 40000
-        range_min = 5000
+        range_max = 93053
+        range_min = 3349
         query = query.ranking_2022_min.gte(min_value).ranking_2022_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2021"
-        range_max = 40000
-        range_min = 5000
+        range_max = 64258
+        range_min = 4252
         query = query.ranking_2021_min.gte(min_value).ranking_2021_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2020"
-        range_max = 40000
-        range_min = 5000
+        range_max = 32871
+        range_min = 3673
         query = query.ranking_2020_min.gte(min_value).ranking_2020_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2023"
-        range_max = 650
-        range_min = 400
+        range_max = 679
+        range_min = 396
         query = query.score_2023_min.gte(min_value).score_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2022"
-        range_max = 650
-        range_min = 400
+        range_max = 667
+        range_min = 417
         query = query.score_2022_min.gte(min_value).score_2022_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2021"
-        range_max = 650
-        range_min = 400
+        range_max = 675
+        range_min = 410
         query = query.score_2021_min.gte(min_value).score_2021_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2020"
-        range_max = 650
-        range_min = 400
+        range_max = 683
+        range_min = 537
         query = query.score_2020_min.gte(min_value).score_2020_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       else
         range_max = 0
         range_min = 0
       end
-    end
-
-    unless batch_level.nil?
-      query = query.batch_level(batch_level)
     end
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)
