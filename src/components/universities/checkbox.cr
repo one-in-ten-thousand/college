@@ -8,31 +8,22 @@ class Universities::CheckBox < BaseComponent
     div class: "switch col m3" do
       label for: name do
         span description, class: "valign-wrapper"
+        args = {
+          type:           "checkbox",
+          name:           name,
+          value:          "true",
+          id:             name,
+          "hx-get":       Index.path,
+          "hx-target":    "#main",
+          "hx-push-url":  "true",
+          "hx-include":   all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" },
+          "hx-indicator": "#spinner",
+        }
+
         if context.request.query_params[name]?
-          input(
-            type: "checkbox",
-            name: name,
-            value: "true",
-            id: name,
-            "hx-get": Index.path,
-            "hx-target": "#main",
-            "hx-push-url": "true",
-            "hx-include": all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" },
-            "hx-indicator": "#spinner",
-            checked: "checked",
-          )
+          input(**args.merge(checked: "checked"))
         else
-          input(
-            type: "checkbox",
-            name: name,
-            value: "true",
-            id: name,
-            "hx-get": Index.path,
-            "hx-target": "#main",
-            "hx-push-url": "true",
-            "hx-include": all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" },
-            "hx-indicator": "#spinner"
-          )
+          input(**args)
         end
 
         span class: "lever"

@@ -6,33 +6,27 @@ class Universities::ClickEditTD < BaseComponent
   needs tooltip : String
 
   def render
-    if tooltip.blank?
-      td(
-        "hx-trigger": "click",
-        "hx-swap": "outerHTML",
-        "hx-get": action,
-        "hx-vals": "{
+    args = {
+      "hx-trigger": "click",
+      "hx-swap":    "outerHTML",
+      "hx-get":     action,
+      "hx-vals":    "{
 \"id\":\"#{id}\",
 \"column_name\":\"#{column_name}\",
 \"column_value\": \"#{column_value}\"
 }",
-      ) do
+    }
+
+    if tooltip.blank?
+      td(**args) do
         text column_value
       end
     else
-      td(
+      td(**args.merge(
         class: "tooltipped",
         "data-position": "top",
         "data-tooltip": tooltip,
-        "hx-trigger": "click",
-        "hx-swap": "outerHTML",
-        "hx-get": action,
-        "hx-vals": "{
-\"id\":\"#{id}\",
-\"column_name\":\"#{column_name}\",
-\"column_value\": \"#{column_value}\"
-}",
-      ) do
+      )) do
         text column_value
       end
     end
