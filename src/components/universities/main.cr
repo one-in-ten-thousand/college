@@ -76,16 +76,25 @@ class Universities::Main < BaseComponent
   end
 
   private def render_range_input
-    div class: "col m8", style: "margin-right: 25px" do
-      para class: "range-field" do
-        span "#{context.request.query_params["min_value"]?}", id: "min_value"
-        input(type: "range", min: range_min.to_s, max: range_max.to_s, id: "range_min", name: "min_value", value: context.request.query_params["min_value"]?.to_s)
-      end
+    default_min = context.request.query_params["range_min_value"]?.presence || range_min.to_s
+    default_max = context.request.query_params["range_max_value"]?.presence || range_max.to_s
 
-      para class: "range-field" do
-        span "#{context.request.query_params["max_value"]?}", id: "max_value"
-        input(type: "range", min: range_min.to_s, max: range_max.to_s, id: "range_max", name: "max_value", value: context.request.query_params["max_value"]?.to_s)
+    para class: "range-field col m8", style: "margin-right: 120px; margin-left: 30px;" do
+      span default_min, id: "span_range_min", style: "margin-right: 10px;"
+      tag(
+        "tc-range-slider",
+        "slider-width": "800px",
+        id: "range_slider",
+        min: range_min.to_s,
+        max: range_max.to_s,
+        value1: default_min,
+        value2: default_max,
+        "generate-labels": true
+      ) do
       end
+      span default_max, id: "span_range_max", style: "margin-left: 10px;"
+      input type: "hidden", id: "range_min", name: "range_min_value", value: context.request.query_params["range_min_value"]?.to_s
+      input type: "hidden", id: "range_max", name: "range_max_value", value: context.request.query_params["range_max_value"]?.to_s
     end
 
     div class: "col m1 valign-wrapper" do

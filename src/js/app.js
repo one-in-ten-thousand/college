@@ -6,6 +6,7 @@
 // Rails.start();
 import { M } from '@materializecss/materialize';
 import { iosProvinces, iosCitys } from './areaData_v2.js';
+import 'toolcool-range-slider';
 import IosSelect from "iosselect";
 import 'htmx.org';
 window.htmx = require('htmx.org');
@@ -57,23 +58,18 @@ function init () {
         // specify options here
     });
 
-    // const requestUrl = request.headers.get("HX-Current-URL");
-    // const batch_level  = new URL(requestUrl).searchParams.get("batch_level");
+    const slider = document.getElementById("range_slider") || false
 
-    const min_slider = document.getElementById("range_min") || false
-    if (min_slider) {
-        min_slider.oninput = function() {
-            var min_value = document.getElementById("min_value")
-            min_value.innerHTML = this.value;
-        }
-    }
+    if (slider) {
+        slider.addEventListener('change', (evt) => {
+            var min = evt.detail.value1
+            var max = evt.detail.value2
 
-    const max_slider = document.getElementById("range_max") || false
-    if (max_slider) {
-        max_slider.oninput = function() {
-            var max_value = document.getElementById("max_value")
-            max_value.innerHTML = this.value;
-        }
+            document.getElementById("range_min").value = min
+            document.getElementById("span_range_min").innerText = min
+            document.getElementById("range_max").value = max
+            document.getElementById("span_range_max").innerText = max
+        });
     }
 }
 

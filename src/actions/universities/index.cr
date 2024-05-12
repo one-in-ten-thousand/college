@@ -16,8 +16,8 @@ class Universities::Index < BrowserAction
     click_on = query_params["click_on"]?.presence
     batch_level = query_params["batch_level"]?.presence
     filter_by_column = query_params["filter_by_column"]?.presence
-    min_value = query_params["min_value"]?.presence
-    max_value = query_params["max_value"]?.presence
+    min_value = query_params["range_min_value"]?.presence
+    max_value = query_params["range_max_value"]?.presence
     page = query_params["page"]?.presence
 
     query = UniversityQuery.new
@@ -204,7 +204,7 @@ class Universities::Index < BrowserAction
     all_name_inputs = [
       "q", "is_985", "is_211", "is_good",
       "order_by", "batch_level", "filter_by_column",
-      "min_value", "max_value",
+      "range_min_value", "range_max_value",
     ]
 
     if request.headers["HX-Trigger"]?

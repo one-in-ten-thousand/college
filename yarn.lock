@@ -5403,6 +5403,11 @@ toidentifier@1.0.1:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.1.tgz#3be34321a88a820ed1bd80dfaa33e479fbb8dd35"
   integrity sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==
 
+toolcool-range-slider@^4.0.28:
+  version "4.0.28"
+  resolved "https://registry.yarnpkg.com/toolcool-range-slider/-/toolcool-range-slider-4.0.28.tgz#98ba6db1738c6be4c5af338550b4597a97987dcf"
+  integrity sha512-DDZAEJ9hItgSbGWY6DkjvMoUBLZG9J3X6qvBzAruvGzcPwrZKRt3EB2ixPqFmrpEy98SyyM+WZbKL0+TR4fOkg==
+
 tslib@^2.0.3:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.2.tgz#703ac29425e7b37cd6fd456e92404d46d1f3e4ae"
