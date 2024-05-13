@@ -2,7 +2,7 @@ class Universities::AddressSelector < BaseComponent
   needs operation : SaveUniversity
 
   def render
-    div id: "select_address", class: "s12 m8 input-field" do
+    div class: "s12 m8 input-field", attrs: [:data_select_address] do
       hidden_input(operation.province_code, attrs: [:required], id: "province-code", value: operation.province_code.value.to_s)
       hidden_input(operation.province_name, attrs: [:required], id: "province-name", value: operation.province_name.value.to_s)
       hidden_input(operation.city_code, attrs: [:required], id: "city-code", value: operation.city_code.value.to_s)

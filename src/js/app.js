@@ -12,7 +12,7 @@ import 'htmx.org';
 window.htmx = require('htmx.org');
 
 function init () {
-    document.getElementById('select_address')?.addEventListener('click', function () {
+    document.querySelector("[data-select-address]")?.addEventListener('click', function () {
         var showAddress = document.getElementById('show_address');
         var provinceCode = document.getElementById('province-code');
         var provinceName = document.getElementById('province-name');
@@ -58,7 +58,7 @@ function init () {
         // specify options here
     });
 
-    const slider = document.getElementById("range_slider") || false
+    const slider = document.querySelector("[data-range-slider]") || false
 
     if (slider) {
         slider.addEventListener('change', (evt) => {

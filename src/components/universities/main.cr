@@ -44,7 +44,7 @@ class Universities::Main < BaseComponent
     }
 
     input type: "hidden", name: "filter_by_column", value: context.request.query_params["filter_by_column"]?.to_s
-    a class: "dropdown-trigger btn input-field", href: "#", "data-target": "dropdown2" do
+    a class: "dropdown-trigger btn input-field", href: "#", data_target: "dropdown2" do
       if (cl = context.request.query_params["filter_by_column"]?.presence)
         text "按照 #{list[cl]} 过滤"
       else
@@ -56,18 +56,18 @@ class Universities::Main < BaseComponent
     ul(
       id: "dropdown2",
       class: "dropdown-content",
-      "hx-target": "#main",
-      "hx-push-url": "true",
-      "hx-include": all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"] }.join(",") { |e| "[name='#{e}']" }
+      hx_target: "#main",
+      hx_push_url: "true",
+      hx_include: all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"] }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
-        a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"\"}", id: "filter_by_column", "hx-indicator": "#spinner" do
+        a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"\"}", id: "filter_by_column", hx_indicator: "#spinner" do
           text "取消过滤"
         end
       end
       list.each do |k, v|
         li do
-          a href: "#!", "hx-get": Index.path, "hx-vals": "{\"filter_by_column\": \"#{k}\"}", id: "filter_by_column", "hx-indicator": "#spinner" do
+          a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"#{k}\"}", id: "filter_by_column", hx_indicator: "#spinner" do
             text v
           end
         end
@@ -84,12 +84,12 @@ class Universities::Main < BaseComponent
       tag(
         "tc-range-slider",
         "slider-width": "800px",
-        id: "range_slider",
         min: range_min.to_s,
         max: range_max.to_s,
         value1: default_min,
         value2: default_max,
-        "generate-labels": true
+        "generate-labels": true,
+        attrs: [:data_range_slider]
       ) do
       end
       span default_max, id: "span_range_max", style: "margin-left: 10px;"
