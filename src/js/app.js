@@ -10,6 +10,8 @@ import 'toolcool-range-slider';
 import IosSelect from "iosselect";
 import 'htmx.org';
 window.htmx = require('htmx.org');
+import _hyperscript from 'hyperscript.org';
+_hyperscript.browserInit();
 
 function init () {
     document.querySelector("[data-select-address]")?.addEventListener('click', function () {
