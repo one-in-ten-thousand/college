@@ -161,42 +161,25 @@ class Universities::Index < BrowserAction
     end
 
     unless filter_by_column.nil?
+      range_max, range_min = fetch_range_max_min(filter_by_column, query)
+
       case filter_by_column
       when "ranking_2023"
-        range_max = query.ranking_2023_min.select_max
-        range_min = query.ranking_2023_min.select_min
         query = query.ranking_2023_min.gte(min_value).ranking_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2022"
-        range_max = query.ranking_2022_min.select_max
-        range_min = query.ranking_2022_min.select_min
         query = query.ranking_2022_min.gte(min_value).ranking_2022_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2021"
-        range_max = query.ranking_2021_min.select_max
-        range_min = query.ranking_2021_min.select_min
         query = query.ranking_2021_min.gte(min_value).ranking_2021_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2020"
-        range_max = query.ranking_2020_min.select_max
-        range_min = query.ranking_2020_min.select_min
         query = query.ranking_2020_min.gte(min_value).ranking_2020_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2023"
-        range_max = query.score_2023_min.select_max
-        range_min = query.score_2023_min.select_min
         query = query.score_2023_min.gte(min_value).score_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2022"
-        range_max = query.score_2022_min.select_max
-        range_min = query.score_2022_min.select_min
         query = query.score_2022_min.gte(min_value).score_2022_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2021"
-        range_max = query.score_2021_min.select_max
-        range_min = query.score_2021_min.select_min
         query = query.score_2021_min.gte(min_value).score_2021_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2020"
-        range_max = query.score_2020_min.select_max
-        range_min = query.score_2020_min.select_min
         query = query.score_2020_min.gte(min_value).score_2020_min.lte(max_value) if !min_value.nil? && !max_value.nil?
-      else
-        range_max = 0
-        range_min = 0
       end
     end
 
@@ -226,5 +209,36 @@ class Universities::Index < BrowserAction
         all_name_inputs: all_name_inputs
       )
     end
+  end
+
+  memoize def fetch_range_max_min(column : String, query : UniversityQuery) : Tuple(Float64 | Int32 | Nil, Float64 | Int32 | Nil)
+    case column
+    when "ranking_2023"
+      max = query.ranking_2023_min.select_max
+      min = query.ranking_2023_min.select_min
+    when "ranking_2022"
+      max = query.ranking_2022_min.select_max
+      min = query.ranking_2022_min.select_min
+    when "ranking_2021"
+      max = query.ranking_2021_min.select_max
+      min = query.ranking_2021_min.select_min
+    when "ranking_2020"
+      max = query.ranking_2020_min.select_max
+      min = query.ranking_2021_min.select_min
+    when "score_2023"
+      max = query.score_2023_min.select_max
+      min = query.score_2023_min.select_min
+    when "score_2022"
+      max = query.score_2022_min.select_max
+      min = query.score_2022_min.select_min
+    when "score_2021"
+      max = query.score_2021_min.select_max
+      min = query.score_2021_min.select_min
+    when "score_2020"
+      max = query.score_2020_min.select_max
+      min = query.score_2020_min.select_min
+    end
+
+    {max, min}
   end
 end
