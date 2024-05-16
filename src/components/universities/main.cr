@@ -80,6 +80,7 @@ class Universities::Main < BaseComponent
     default_max = context.request.query_params["range_max_value"]?.presence || range_max.to_s
 
     para class: "range-field col m8", style: "margin-right: 120px; margin-left: 30px;" do
+      input type: "hidden", id: "range_min", name: "range_min_value", value: context.request.query_params["range_min_value"]?.to_s
       span default_min, id: "span_range_min", style: "margin-right: 10px;"
       tag(
         "tc-range-slider",
@@ -89,11 +90,14 @@ class Universities::Main < BaseComponent
         value1: default_min,
         value2: default_max,
         "generate-labels": true,
-        attrs: [:data_range_slider]
+        script: "on change put me.value1 into the previous <span/>
+then put me.value2 into the next <span/>
+then put me.value1 into the (previous <input/>).value
+then put me.value2 into the (next <input/>).value
+"
       ) do
       end
       span default_max, id: "span_range_max", style: "margin-left: 10px;"
-      input type: "hidden", id: "range_min", name: "range_min_value", value: context.request.query_params["range_min_value"]?.to_s
       input type: "hidden", id: "range_max", name: "range_max_value", value: context.request.query_params["range_max_value"]?.to_s
     end
 
