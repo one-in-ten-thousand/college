@@ -160,9 +160,9 @@ class Universities::Index < BrowserAction
       query = query.batch_level(batch_level)
     end
 
-    unless filter_by_column.nil?
-      range_max, range_min = fetch_range_max_min(filter_by_column, query)
+    range_max, range_min = fetch_range_max_min(filter_by_column, query)
 
+    unless filter_by_column.nil?
       case filter_by_column
       when "ranking_2023"
         query = query.ranking_2023_min.gte(min_value).ranking_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
@@ -195,8 +195,8 @@ class Universities::Index < BrowserAction
         Main,
         universities: universities,
         pages: pages,
-        range_max: range_max,
-        range_min: range_min,
+        range_max: range_max.to_i,
+        range_min: range_min.to_i,
         all_name_inputs: all_name_inputs,
       )
     else
@@ -204,14 +204,14 @@ class Universities::Index < BrowserAction
         IndexPage,
         universities: universities,
         pages: pages,
-        range_max: range_max,
-        range_min: range_min,
+        range_max: range_max.to_i,
+        range_min: range_min.to_i,
         all_name_inputs: all_name_inputs
       )
     end
   end
 
-  memoize def fetch_range_max_min(column : String, query : UniversityQuery) : Tuple(Float64 | Int32 | Nil, Float64 | Int32 | Nil)
+  memoize def fetch_range_max_min(column : String?, query : UniversityQuery) : Tuple(Float64 | Int32, Float64 | Int32)
     case column
     when "ranking_2023"
       max = query.ranking_2023_min.select_max
@@ -239,6 +239,6 @@ class Universities::Index < BrowserAction
       min = query.score_2020_min.select_min
     end
 
-    {max, min}
+    {max || 0, min || 0}
   end
 end

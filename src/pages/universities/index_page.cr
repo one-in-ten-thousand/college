@@ -3,8 +3,8 @@ class Universities::IndexPage < MainLayout
 
   needs universities : UniversityQuery
   needs pages : Lucky::Paginator
-  needs range_max : Float64 | Int32 | Nil
-  needs range_min : Float64 | Int32 | Nil
+  needs range_max : Int32
+  needs range_min : Int32
   needs all_name_inputs : Array(String)
   quick_def page_title, "All Universities"
 
