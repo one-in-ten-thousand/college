@@ -58,16 +58,16 @@ class Universities::Main < BaseComponent
       class: "dropdown-content",
       hx_target: "#main",
       hx_push_url: "true",
-      hx_include: all_name_inputs.reject { |x| x.in? ["filter_by_column", "min_value", "max_value"] }.join(",") { |e| "[name='#{e}']" }
+      hx_include: all_name_inputs.reject { |x| x.in? ["filter_by_column"] }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
-        a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"\"}", id: "filter_by_column", hx_indicator: "#spinner" do
+        a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"\", \"range_min_value\": \"\", \"range_max_value\": \"\"}", id: "filter_by_column", hx_indicator: "#spinner" do
           text "取消过滤"
         end
       end
       list.each do |k, v|
         li do
-          a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"#{k}\"}", id: "filter_by_column", hx_indicator: "#spinner" do
+          a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"#{k}\", \"range_min_value\": \"\", \"range_max_value\": \"\"}", id: "filter_by_column", hx_indicator: "#spinner" do
             text v
           end
         end

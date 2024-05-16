@@ -162,6 +162,9 @@ class Universities::Index < BrowserAction
 
     range_max, range_min = fetch_range_max_min(filter_by_column, query)
 
+    min_value = range_min.to_i if min_value.nil?
+    max_value = range_max.to_i if max_value.nil?
+
     unless filter_by_column.nil?
       case filter_by_column
       when "ranking_2023"
