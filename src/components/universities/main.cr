@@ -2,8 +2,8 @@ class Universities::Main < BaseComponent
   include PageHelpers
 
   needs all_name_inputs : Array(String)
-  needs range_min : Int32?
-  needs range_max : Int32?
+  needs range_min : Float64 | Int32 | Nil
+  needs range_max : Float64 | Int32 | Nil
   needs pages : Lucky::Paginator
   needs universities : UniversityQuery
 
