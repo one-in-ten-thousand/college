@@ -90,10 +90,12 @@ class Universities::Main < BaseComponent
         value1: default_min,
         value2: default_max,
         "generate-labels": true,
+        # put 的默认目标就是 innerHTML, 因此特别适合 span 这种设置 html
+        # set 则更适合设置某个属性的值, 例如: input
         script: "on change put my.value1 into the previous <span/>
 then put my.value2 into the next <span/>
-then put my.value1 into the (previous <input/>).value
-then put my.value2 into the (next <input/>).value
+then set (previous <input/>).value to my.value1
+then set (next <input/>).value to my.value2
 "
       ) do
       end
