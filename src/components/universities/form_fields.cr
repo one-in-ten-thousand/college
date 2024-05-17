@@ -48,7 +48,8 @@ class Universities::FormFields < BaseComponent
         mount Shared::Field, op.description, "附加信息", &.textarea(rows: 10, cols: 50, placeholder: "随便输入点啥, 可以方便搜索", replace_class: "materialize-textarea")
       end
 
-      div class: "row" do
+      fieldset do
+        legend "其他选项"
         mount CheckBoxFor, op.is_211, "is_211", "是否 211 大学"
         mount CheckBoxFor, op.is_985, "is_985", "是否 985 大学"
         mount CheckBoxFor, op.is_good, "is_good", "是否拥有双一流专业"
