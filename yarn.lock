@@ -3918,6 +3918,11 @@ minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
 
+missing.css@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/missing.css/-/missing.css-1.1.1.tgz#33d28369d62b504cd08bd93d57fade58eaf2e4d9"
+  integrity sha512-JzfR7yuu7N+P/rNwJCcpjETUxi+21LMLZkFaYZB57NO7FRR4Op/V8C9XxOTnxei+Wd7Faz7blDDyx1l5Zk0moA==
+
 mitt@^1.1.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.2.0.tgz#cb24e6569c806e31bd4e3995787fe38a04fdf90d"
