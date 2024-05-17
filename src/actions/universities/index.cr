@@ -1,28 +1,20 @@
 class Universities::Index < BrowserAction
-  # param q : String? = nil
-  # param is_985 : Bool? = nil
-  # param is_211 : Bool? = nil
-  # param is_good : Bool? = nil
-  # param batch_level : University::BatchLevel? = nil
+  param q : String = ""
+  param is_985 : Bool = false
+  param is_211 : Bool = false
+  param is_good : Bool = false
+  param order_by : String = ""
+  param click_on : String = ""
+  param batch_level : String = ""
+  param min_value : Int32 = 0
+  param max_value : Int32 = 0
+  param filter_by_column : String = ""
+  param page : Int32 = 1
 
   get "/universities" do
-    query_params = params.from_query
-
-    q = query_params["q"]?.presence
-    is_985 = query_params["is_985"]?.presence
-    is_211 = query_params["is_211"]?.presence
-    is_good = query_params["is_good"]?.presence
-    order_by = query_params["order_by"]?.presence
-    click_on = query_params["click_on"]?.presence
-    batch_level = query_params["batch_level"]?.presence
-    filter_by_column = query_params["filter_by_column"]?.presence
-    min_value = query_params["range_min_value"]?.presence
-    max_value = query_params["range_max_value"]?.presence
-    page = query_params["page"]?.presence
-
     query = UniversityQuery.new
 
-    unless q.nil?
+    if q.presence
       if q.matches? /\d+/
         query = query.code(q)
       else
@@ -35,20 +27,15 @@ class Universities::Index < BrowserAction
       end
     end
 
-    unless is_985.nil?
-      query = query.is_985(true)
-    end
+    query = query.is_985(true) if is_985
 
-    unless is_211.nil?
-      query = query.is_211(true)
-    end
+    query = query.is_211(true) if is_211
 
-    unless is_good.nil?
-      query = query.is_good(true)
-    end
+    query = query.is_good(true) if is_good
 
-    unless click_on.nil?
-      query_params["click_on"] = ""
+    # 检测在哪一个 tab head 上点击, 只要每次点击一次, 就判断有没有 cookie
+    # 如果没有, 就默认排序, 如果有, 就反转
+    if click_on.presence
       case click_on
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
@@ -101,9 +88,7 @@ class Universities::Index < BrowserAction
       end
     end
 
-    if order_by.nil?
-      cookies.delete("order_by")
-    else
+    if order_by.presence
       case order_by
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
@@ -154,18 +139,18 @@ class Universities::Index < BrowserAction
           query = query.ranking_2020_min.asc_order(:nulls_last)
         end
       end
+    else
+      cookies.delete("order_by")
     end
 
-    unless batch_level.nil?
-      query = query.batch_level(batch_level)
-    end
+    query = query.batch_level(batch_level) if batch_level.presence
 
     range_max, range_min = fetch_range_max_min(filter_by_column, query)
 
-    min_value = range_min.to_i if min_value.nil?
-    max_value = range_max.to_i if max_value.nil?
+    min_value = range_min.to_i if min_value.zero?
+    max_value = range_max.to_i if max_value.zero?
 
-    unless filter_by_column.nil?
+    if filter_by_column.presence
       case filter_by_column
       when "ranking_2023"
         query = query.ranking_2023_min.gte(min_value).ranking_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
@@ -214,7 +199,7 @@ class Universities::Index < BrowserAction
     end
   end
 
-  memoize def fetch_range_max_min(column : String?, query : UniversityQuery) : Tuple(Float64 | Int32, Float64 | Int32)
+  memoize def fetch_range_max_min(column : String, query : UniversityQuery) : Tuple(Float64 | Int32, Float64 | Int32)
     case column
     when "ranking_2023"
       max = query.ranking_2023_min.select_max
