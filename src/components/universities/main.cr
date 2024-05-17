@@ -89,7 +89,7 @@ class Universities::Main < BaseComponent
         max: range_max.to_s,
         value1: default_min,
         value2: default_max,
-        "generate-labels": true,
+        round: 0,
         # put 的默认目标就是 innerHTML, 因此特别适合 span 这种设置 html
         # set 则更适合设置某个属性的值, 例如: input
         script: "on change put my.value1 into the previous <span/>
