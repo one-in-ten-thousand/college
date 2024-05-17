@@ -57,6 +57,7 @@ function init () {
 
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems, {
+        enterDelay: 1000,
         // specify options here
     });
 }
