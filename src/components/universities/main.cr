@@ -96,7 +96,10 @@ class Universities::Main < BaseComponent
 then put my.value2 into the next <span/>
 then set (previous <input/>).value to my.value1
 then set (next <input/>).value to my.value2
-"
+",
+#         script: "
+# on change set (previous <input/>).value and (previous <span/>).innerHTML to my.value1
+# "
       ) do
       end
       span default_max, style: "margin-left: 10px;"
