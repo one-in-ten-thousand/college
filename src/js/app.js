@@ -59,20 +59,6 @@ function init () {
     var instances = M.Tooltip.init(elems, {
         // specify options here
     });
-
-    const slider = document.querySelector("[data-range-slider]") || false
-
-    // if (slider) {
-    //     slider.addEventListener('change', (evt) => {
-    //         var min = evt.detail.value1
-    //         var max = evt.detail.value2
-
-    //         document.getElementById("range_min").value = min
-    //         document.getElementById("span_range_min").innerText = min
-    //         document.getElementById("range_max").value = max
-    //         document.getElementById("span_range_max").innerText = max
-    //     });
-    // }
 }
 
 htmx.onLoad(function (target) {
