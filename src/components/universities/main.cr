@@ -57,17 +57,16 @@ class Universities::Main < BaseComponent
       id: "dropdown2",
       class: "dropdown-content",
       hx_target: "#main",
-      hx_push_url: "true",
       hx_include: all_name_inputs.reject { |x| x.in? ["filter_by_column"] }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
-        a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"\", \"range_min_value\": \"\", \"range_max_value\": \"\"}", id: "filter_by_column", hx_indicator: "#spinner" do
+        a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"\", \"range_min_value\": \"0\", \"range_max_value\": \"0\"}", id: "filter_by_column", hx_indicator: "#spinner" do
           text "取消过滤"
         end
       end
       list.each do |k, v|
         li do
-          a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"#{k}\", \"range_min_value\": \"\", \"range_max_value\": \"\"}", id: "filter_by_column", hx_indicator: "#spinner" do
+          a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"#{k}\", \"range_min_value\": \"0\", \"range_max_value\": \"0\"}", id: "filter_by_column", hx_indicator: "#spinner" do
             text v
           end
         end
@@ -80,7 +79,7 @@ class Universities::Main < BaseComponent
     default_max = context.request.query_params["range_max_value"]?.presence || range_max.to_s
 
     para class: "range-field col m8", style: "margin-right: 120px; margin-left: 30px;" do
-      input type: "hidden", name: "range_min_value", value: context.request.query_params["range_min_value"]?.to_s
+      input type: "hidden", name: "range_min_value", value: default_min
       span default_min, style: "margin-right: 10px;"
       tag(
         "tc-range-slider",
@@ -97,13 +96,10 @@ then put my.value2 into the next <span/>
 then set (previous <input/>).value to my.value1
 then set (next <input/>).value to my.value2
 ",
-#         script: "
-# on change set (previous <input/>).value and (previous <span/>).innerHTML to my.value1
-# "
       ) do
       end
       span default_max, style: "margin-left: 10px;"
-      input type: "hidden", name: "range_max_value", value: context.request.query_params["range_max_value"]?.to_s
+      input type: "hidden", name: "range_max_value", value: default_max
     end
 
     div class: "col m1 valign-wrapper" do

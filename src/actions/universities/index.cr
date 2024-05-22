@@ -36,6 +36,8 @@ class Universities::Index < BrowserAction
     # 检测在哪一个 tab head 上点击, 只要每次点击一次, 就判断有没有 cookie
     # 如果没有, 就默认排序, 如果有, 就反转
     if click_on.presence
+      params.from_query["click_on"] = ""
+
       case click_on
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
@@ -151,6 +153,9 @@ class Universities::Index < BrowserAction
     max_value = range_max_value.zero? ? range_max.to_i : range_max_value
 
     if filter_by_column.presence
+      params.from_query["range_min_value"] = min_value.to_s
+      params.from_query["range_max_value"] = max_value.to_s
+
       case filter_by_column
       when "ranking_2023"
         query = query.ranking_2023_min.gte(min_value).ranking_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
