@@ -60,7 +60,7 @@ class Universities::Main < BaseComponent
       hx_include: all_name_inputs.reject { |x| x.in? ["filter_by_column"] }.join(",") { |e| "[name='#{e}']" }
     ) do
       li do
-        a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"\", \"range_min_value\": \"0\", \"range_max_value\": \"0\"}", id: "filter_by_column", hx_indicator: "#spinner" do
+        a href: "#!", hx_get: Index.path, hx_vals: "{\"filter_by_column\": \"\", \"range_min_value\": \"0\", \"range_max_value\": \"0\"}", id: "filter_by_column", hx_indicator: "#spinner", hx_push_url: "true" do
           text "取消过滤"
         end
       end
@@ -95,8 +95,7 @@ class Universities::Main < BaseComponent
 then put my.value2 into the next <span/>
 then set (previous <input/>).value to my.value1
 then set (next <input/>).value to my.value2
-",
-      ) do
+") do
       end
       span default_max, style: "margin-left: 10px;"
       input type: "hidden", name: "range_max_value", value: default_max
