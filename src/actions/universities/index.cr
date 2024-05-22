@@ -6,8 +6,8 @@ class Universities::Index < BrowserAction
   param order_by : String = ""
   param click_on : String = ""
   param batch_level : String = ""
-  param min_value : Int32 = 0
-  param max_value : Int32 = 0
+  param range_min_value : Int32 = 0
+  param range_max_value : Int32 = 0
   param filter_by_column : String = ""
   param page : Int32 = 1
 
@@ -147,8 +147,8 @@ class Universities::Index < BrowserAction
 
     range_max, range_min = fetch_range_max_min(filter_by_column, query)
 
-    min_value = range_min.to_i if min_value.zero?
-    max_value = range_max.to_i if max_value.zero?
+    min_value = range_min_value.zero? ? range_min.to_i : range_min_value
+    max_value = range_max_value.zero? ? range_max.to_i : range_max_value
 
     if filter_by_column.presence
       case filter_by_column
