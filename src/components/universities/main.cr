@@ -119,62 +119,60 @@ then set (next <input/>).value to my.value2
   end
 
   private def render_chong_wen_bao_checkboxs
-    full_path = context.request.resource
-
     fieldset do
       legend "冲"
       span class: "switch col m3" do
-        mount CheckBox, "chong_2023", "2023", full_path, all_name_inputs
+        mount CheckBox, "chong_2023", "2023", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "chong_2022", "2022", full_path, all_name_inputs
+        mount CheckBox, "chong_2022", "2022", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "chong_2021", "2021", full_path, all_name_inputs
+        mount CheckBox, "chong_2021", "2021", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "chong_2020", "2020", full_path, all_name_inputs
+        mount CheckBox, "chong_2020", "2020", all_name_inputs
       end
     end
 
     fieldset do
       legend "稳"
       span class: "switch col m3" do
-        mount CheckBox, "wen_2023", "2023", full_path, all_name_inputs
+        mount CheckBox, "wen_2023", "2023", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "wen_2022", "2022", full_path, all_name_inputs
+        mount CheckBox, "wen_2022", "2022", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "wen_2021", "2021", full_path, all_name_inputs
+        mount CheckBox, "wen_2021", "2021", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "wen_2020", "2020", full_path, all_name_inputs
+        mount CheckBox, "wen_2020", "2020", all_name_inputs
       end
     end
 
     fieldset do
       legend "保"
       span class: "switch col m3" do
-        mount CheckBox, "bao_2023", "2023", full_path, all_name_inputs
+        mount CheckBox, "bao_2023", "2023", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "bao_2022", "2022", full_path, all_name_inputs
+        mount CheckBox, "bao_2022", "2022", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "bao_2021", "2021", full_path, all_name_inputs
+        mount CheckBox, "bao_2021", "2021", all_name_inputs
       end
 
       span class: "switch col m3" do
-        mount CheckBox, "bao_2020", "2020", full_path, all_name_inputs
+        mount CheckBox, "bao_2020", "2020", all_name_inputs
       end
     end
   end
@@ -182,13 +180,13 @@ then set (next <input/>).value to my.value2
   private def render_985_checkboxs
     full_path = context.request.resource
     div class: "switch col m3" do
-      mount CheckBox, "is_985", "仅显示985", full_path, all_name_inputs
+      mount CheckBox, "is_985", "仅显示985", all_name_inputs
     end
     div class: "switch col m3" do
-      mount CheckBox, "is_211", "仅显示211", full_path, all_name_inputs
+      mount CheckBox, "is_211", "仅显示211", all_name_inputs
     end
     div class: "switch col m3" do
-      mount CheckBox, "is_good", "显示包含双一流专业高校", full_path, all_name_inputs
+      mount CheckBox, "is_good", "显示包含双一流专业高校", all_name_inputs
     end
   end
 

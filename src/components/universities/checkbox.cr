@@ -1,7 +1,6 @@
 class Universities::CheckBox < BaseComponent
   needs name : String
   needs description : String
-  needs full_path : String
   needs all_name_inputs : Array(String)
 
   def render
