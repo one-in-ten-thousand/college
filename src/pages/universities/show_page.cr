@@ -74,6 +74,34 @@ class Universities::ShowPage < MainLayout
       end
 
       li do
+        text "2023 冲稳保: "
+        text "冲" if university.chong_2023
+        text "稳" if university.wen_2023
+        text "保" if university.bao_2023
+      end
+
+      li do
+        text "2022 冲稳保: "
+        text "冲" if university.chong_2022
+        text "稳" if university.wen_2022
+        text "保" if university.bao_2022
+      end
+
+      li do
+        text "2021 冲稳保: "
+        text "冲" if university.chong_2021
+        text "稳" if university.wen_2021
+        text "保" if university.bao_2021
+      end
+
+      li do
+        text "2020 冲稳保: "
+        text "冲" if university.chong_2020
+        text "稳" if university.wen_2020
+        text "保" if university.bao_2020
+      end
+
+      li do
         text "创建时间: "
         strong university.created_at.to_s("%m月%d日 %H:%M:%S")
       end
