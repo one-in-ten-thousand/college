@@ -19,9 +19,9 @@ class Universities::Main < BaseComponent
         end
       end
 
-      div class: "row" do
+      # div class: "row" do
         render_chong_wen_bao_checkboxs
-      end
+      # end
 
       div class: "row" do
         render_985_checkboxs
@@ -119,7 +119,7 @@ then set (next <input/>).value to my.value2
   end
 
   private def render_chong_wen_bao_checkboxs
-    fieldset do
+    fieldset class: "row", style: "width: 800px;" do
       legend "冲"
       span class: "switch col m3" do
         mount CheckBox, "chong_2023", "2023", all_name_inputs
@@ -138,7 +138,7 @@ then set (next <input/>).value to my.value2
       end
     end
 
-    fieldset do
+    fieldset class: "row", style: "width: 800px;" do
       legend "稳"
       span class: "switch col m3" do
         mount CheckBox, "wen_2023", "2023", all_name_inputs
@@ -157,7 +157,7 @@ then set (next <input/>).value to my.value2
       end
     end
 
-    fieldset do
+    fieldset class: "row", style: "width: 800px;" do
       legend "保"
       span class: "switch col m3" do
         mount CheckBox, "bao_2023", "2023", all_name_inputs

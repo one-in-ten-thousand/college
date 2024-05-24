@@ -40,25 +40,22 @@ class Universities::FormFields < BaseComponent
         legend "冲稳保选项"
         span class: "row" do
           mount CheckBoxFor, op.chong_2023, "chong_2023", "2023冲"
-          mount CheckBoxFor, op.wen_2023, "wen_2023", "2023稳"
-          mount CheckBoxFor, op.bao_2023, "bao_2023", "2023保"
-        end
-
-        span class: "row" do
           mount CheckBoxFor, op.chong_2022, "chong_2022", "2022冲"
-          mount CheckBoxFor, op.wen_2022, "wen_2022", "2022稳"
-          mount CheckBoxFor, op.bao_2022, "bao_2022", "2022保"
-        end
-
-        span class: "row" do
           mount CheckBoxFor, op.chong_2021, "chong_2021", "2021冲"
-          mount CheckBoxFor, op.wen_2021, "wen_2021", "2021稳"
-          mount CheckBoxFor, op.bao_2021, "bao_2021", "2021保"
+          mount CheckBoxFor, op.chong_2020, "chong_2020", "2020冲"
         end
 
         span class: "row" do
-          mount CheckBoxFor, op.chong_2020, "chong_2020", "2020冲"
+          mount CheckBoxFor, op.wen_2023, "wen_2023", "2023稳"
+          mount CheckBoxFor, op.wen_2022, "wen_2022", "2022稳"
+          mount CheckBoxFor, op.wen_2021, "wen_2021", "2021稳"
           mount CheckBoxFor, op.wen_2020, "wen_2020", "2020稳"
+        end
+
+        span class: "row" do
+          mount CheckBoxFor, op.bao_2023, "bao_2023", "2023保"
+          mount CheckBoxFor, op.bao_2022, "bao_2022", "2022保"
+          mount CheckBoxFor, op.bao_2021, "bao_2021", "2021保"
           mount CheckBoxFor, op.bao_2020, "bao_2020", "2020保"
         end
       end
