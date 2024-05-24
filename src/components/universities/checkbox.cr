@@ -5,7 +5,7 @@ class Universities::CheckBox < BaseComponent
 
   def render
     label for: name do
-      span description, class: "valign-wrapper"
+      span description, class: "valign-wrapper" if description.presence
       args = {
         type:           "checkbox",
         name:           name,

@@ -19,16 +19,15 @@ class Universities::Main < BaseComponent
         end
       end
 
-      # div class: "row" do
-        render_chong_wen_bao_checkboxs
-      # end
-
       div class: "row" do
         render_985_checkboxs
         div class: "col m2" do
           render_batch_level_dropdown
         end
       end
+
+      render_chong_wen_bao_checkboxs
+
       mount PaginationLinks, pages unless pages.one_page?
       render_universities
       mount PaginationLinks, pages unless pages.one_page?
@@ -119,60 +118,62 @@ then set (next <input/>).value to my.value2
   end
 
   private def render_chong_wen_bao_checkboxs
-    fieldset class: "row", style: "width: 800px;" do
-      legend "冲"
-      span class: "switch col m3" do
-        mount CheckBox, "chong_2023", "2023", all_name_inputs
+    div class: "row" do
+      fieldset class: "row", style: "width: 340px;" do
+        legend "冲"
+        span class: "switch m3" do
+          mount CheckBox, "chong_2023", "", all_name_inputs
+        end
+
+        span class: "switch m3" do
+          mount CheckBox, "chong_2022", "", all_name_inputs
+        end
+
+        span class: "switch m3" do
+          mount CheckBox, "chong_2021", "", all_name_inputs
+        end
+
+        span class: "switch m3" do
+          mount CheckBox, "chong_2020", "", all_name_inputs
+        end
       end
 
-      span class: "switch col m3" do
-        mount CheckBox, "chong_2022", "2022", all_name_inputs
+      fieldset class: "row", style: "width: 340px;" do
+        legend "稳"
+        span class: "switch m3" do
+          mount CheckBox, "wen_2023", "", all_name_inputs
+        end
+
+        span class: "switch m3" do
+          mount CheckBox, "wen_2022", "", all_name_inputs
+        end
+
+        span class: "switch m3" do
+          mount CheckBox, "wen_2021", "", all_name_inputs
+        end
+
+        span class: "switch m3" do
+          mount CheckBox, "wen_2020", "", all_name_inputs
+        end
       end
 
-      span class: "switch col m3" do
-        mount CheckBox, "chong_2021", "2021", all_name_inputs
-      end
+      fieldset class: "row", style: "width: 340px;" do
+        legend "保"
+        span class: "switch m3" do
+          mount CheckBox, "bao_2023", "", all_name_inputs
+        end
 
-      span class: "switch col m3" do
-        mount CheckBox, "chong_2020", "2020", all_name_inputs
-      end
-    end
+        span class: "switch m3" do
+          mount CheckBox, "bao_2022", "", all_name_inputs
+        end
 
-    fieldset class: "row", style: "width: 800px;" do
-      legend "稳"
-      span class: "switch col m3" do
-        mount CheckBox, "wen_2023", "2023", all_name_inputs
-      end
+        span class: "switch m3" do
+          mount CheckBox, "bao_2021", "", all_name_inputs
+        end
 
-      span class: "switch col m3" do
-        mount CheckBox, "wen_2022", "2022", all_name_inputs
-      end
-
-      span class: "switch col m3" do
-        mount CheckBox, "wen_2021", "2021", all_name_inputs
-      end
-
-      span class: "switch col m3" do
-        mount CheckBox, "wen_2020", "2020", all_name_inputs
-      end
-    end
-
-    fieldset class: "row", style: "width: 800px;" do
-      legend "保"
-      span class: "switch col m3" do
-        mount CheckBox, "bao_2023", "2023", all_name_inputs
-      end
-
-      span class: "switch col m3" do
-        mount CheckBox, "bao_2022", "2022", all_name_inputs
-      end
-
-      span class: "switch col m3" do
-        mount CheckBox, "bao_2021", "2021", all_name_inputs
-      end
-
-      span class: "switch col m3" do
-        mount CheckBox, "bao_2020", "2020", all_name_inputs
+        span class: "switch m3" do
+          mount CheckBox, "bao_2020", "", all_name_inputs
+        end
       end
     end
   end
