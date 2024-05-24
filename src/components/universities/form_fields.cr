@@ -2,6 +2,7 @@ class Universities::FormFields < BaseComponent
   needs op : SaveUniversity
 
   def render
+    pp! "Print in form", context.request.headers["Referer"], previous_url(Universities::Index)
     div do
       div class: "row" do
         mount Shared::Field, op.code, "学校代码(唯一)" do |tag|
@@ -36,12 +37,39 @@ class Universities::FormFields < BaseComponent
         mount Shared::Field, op.name, "大学名称", &.text_input(placeholder: "大学完整名称")
       end
 
-      div class: "row" do
-        mount Shared::Field, op.score_2023_min, "2023学校录取最低分", &.number_input(placeholder: "录取最低分")
-      end
+      # div class: "row" do
+      #   mount Shared::Field, op.score_2023_min, "2023学校录取最低分", &.number_input(placeholder: "录取最低分")
+      # end
 
-      div class: "row" do
-        mount Shared::Field, op.ranking_2023_min, "2023学校录取最低位次", &.number_input(placeholder: "录取最低位次")
+      # div class: "row" do
+      #   mount Shared::Field, op.ranking_2023_min, "2023学校录取最低位次", &.number_input(placeholder: "录取最低位次")
+      # end
+
+      fieldset style: "max-width: 800px;" do
+        legend "冲稳保选项"
+        span class: "row" do
+          mount CheckBoxFor, op.chong_2023, "chong_2023", "2023冲"
+          mount CheckBoxFor, op.wen_2023, "wen_2023", "2023稳"
+          mount CheckBoxFor, op.bao_2023, "bao_2023", "2023保"
+        end
+
+        span class: "row" do
+          mount CheckBoxFor, op.chong_2022, "chong_2022", "2022冲"
+          mount CheckBoxFor, op.wen_2022, "wen_2022", "2022稳"
+          mount CheckBoxFor, op.bao_2022, "bao_2022", "2022保"
+        end
+
+        span class: "row" do
+          mount CheckBoxFor, op.chong_2021, "chong_2021", "2021冲"
+          mount CheckBoxFor, op.wen_2021, "wen_2021", "2021稳"
+          mount CheckBoxFor, op.bao_2021, "bao_2021", "2021保"
+        end
+
+        span class: "row" do
+          mount CheckBoxFor, op.chong_2020, "chong_2020", "2020冲"
+          mount CheckBoxFor, op.wen_2020, "wen_2020", "2020稳"
+          mount CheckBoxFor, op.bao_2020, "bao_2020", "2020保"
+        end
       end
 
       div class: "row" do

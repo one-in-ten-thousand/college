@@ -72,6 +72,19 @@ class University < BaseModel
     column ranking_2021_max : Float64?
     column ranking_2020_max : Float64?
 
+    column chong_2023 : Bool
+    column wen_2023 : Bool
+    column bao_2023 : Bool
+    column chong_2022 : Bool
+    column wen_2022 : Bool
+    column bao_2022 : Bool
+    column chong_2021 : Bool
+    column wen_2021 : Bool
+    column bao_2021 : Bool
+    column chong_2020 : Bool
+    column wen_2020 : Bool
+    column bao_2020 : Bool
+
     belongs_to province : Province
     belongs_to city : City
   end

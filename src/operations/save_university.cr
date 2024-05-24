@@ -7,7 +7,10 @@ class SaveUniversity < University::SaveOperation
     score_2022_min, ranking_2022_min,
     score_2021_min, ranking_2021_min,
     score_2020_min, ranking_2020_min,
-    batch_level
+    batch_level, chong_2023, wen_2023, bao_2023,
+    chong_2022, wen_2022, bao_2022,
+    chong_2021, wen_2021, bao_2021,
+    chong_2020, wen_2020, bao_2020
 
   attribute province_code : Int32
   attribute province_name : String

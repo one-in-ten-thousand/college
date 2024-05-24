@@ -4,7 +4,7 @@ class Universities::CheckBoxFor < BaseComponent
   needs description : String
 
   def render
-    label for: id, class: "s12 m8 input-field" do
+    label for: id, class: "s12 m2 input-field" do
       checkbox(attribute, "false", "true", id: id)
       span description
     end

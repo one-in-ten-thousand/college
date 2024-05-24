@@ -8,10 +8,10 @@ class Universities::EditPage < MainLayout
     br
     br
 
-    link "返回大学列表", Index
+    # link "返回大学列表", Index
     link "打开详情", Show.with(university.id)
 
-    form_for Update.with(university.id) do
+    form_for Update.with(university.id), "hx-push-url": false do
       mount FormFields, operation
 
       submit "更新", data_disable_with: "更新中..."

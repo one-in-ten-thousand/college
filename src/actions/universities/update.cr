@@ -20,8 +20,8 @@ class Universities::Update < BrowserAction
             tooltip: show_ranking_number(column_value)
           )
         else
-          flash.success = "修改成功"
-          redirect Edit.with(updated_university.id)
+          flash.success = "修改成功, 使用浏览器返回键返回"
+          html EditPage, operation: operation, university: updated_university
         end
       else
         flash.failure = "出错了"
