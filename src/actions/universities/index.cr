@@ -70,6 +70,7 @@ class Universities::Index < BrowserAction
     query = query.batch_level(batch_level) if batch_level.presence
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)
+
     all_name_inputs = [
       "q", "is_985", "is_211", "is_good",
       "order_by", "batch_level", "filter_by_column",
@@ -138,34 +139,34 @@ class Universities::Index < BrowserAction
     max_value = range_max_value.zero? ? range_max.to_i : range_max_value
 
     if filter_by_column.presence
-      params.from_query["range_min_value"] = min_value.to_s
-      params.from_query["range_max_value"] = max_value.to_s
-      params.from_query["order_by"] = "#{filter_by_column}_min"
+        params.from_query["range_min_value"] = min_value.to_s
+        params.from_query["range_max_value"] = max_value.to_s
+        params.from_query["order_by"] = "#{filter_by_column}_min" if click_on.blank?
 
       case filter_by_column
       when "ranking_2023"
-        cookies.set("order_by", "ranking_2023_min_desc_order")
+        cookies.set("order_by", "ranking_2023_min_desc_order") if click_on.blank?
         query = query.ranking_2023_min.gte(min_value).ranking_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2022"
-        cookies.set("order_by", "ranking_2022_min_desc_order")
+        cookies.set("order_by", "ranking_2022_min_desc_order") if click_on.blank?
         query = query.ranking_2022_min.gte(min_value).ranking_2022_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2021"
-        cookies.set("order_by", "ranking_2021_min_desc_order")
+        cookies.set("order_by", "ranking_2021_min_desc_order") if click_on.blank?
         query = query.ranking_2021_min.gte(min_value).ranking_2021_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "ranking_2020"
-        cookies.set("order_by", "ranking_2020_min_desc_order")
+        cookies.set("order_by", "ranking_2020_min_desc_order") if click_on.blank?
         query = query.ranking_2020_min.gte(min_value).ranking_2020_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2023"
-        cookies.set("order_by", "score_2023_min_asc_order")
+        cookies.set("order_by", "score_2023_min_asc_order") if click_on.blank?
         query = query.score_2023_min.gte(min_value).score_2023_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2022"
-        cookies.set("order_by", "score_2022_min_asc_order")
+        cookies.set("order_by", "score_2022_min_asc_order") if click_on.blank?
         query = query.score_2022_min.gte(min_value).score_2022_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2021"
-        cookies.set("order_by", "score_2021_min_asc_order")
+        cookies.set("order_by", "score_2021_min_asc_order") if click_on.blank?
         query = query.score_2021_min.gte(min_value).score_2021_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       when "score_2020"
-        cookies.set("order_by", "score_2020_min_asc_order")
+        cookies.set("order_by", "score_2020_min_asc_order") if click_on.blank?
         query = query.score_2020_min.gte(min_value).score_2020_min.lte(max_value) if !min_value.nil? && !max_value.nil?
       end
     end
