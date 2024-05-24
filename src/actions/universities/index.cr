@@ -3,6 +3,21 @@ class Universities::Index < BrowserAction
   param is_985 : Bool = false
   param is_211 : Bool = false
   param is_good : Bool = false
+  param chong_2023 : Bool = false
+  param chong_2022 : Bool = false
+  param chong_2021 : Bool = false
+  param chong_2020 : Bool = false
+
+  param wen_2023 : Bool = false
+  param wen_2022 : Bool = false
+  param wen_2021 : Bool = false
+  param wen_2020 : Bool = false
+
+  param bao_2023 : Bool = false
+  param bao_2022 : Bool = false
+  param bao_2021 : Bool = false
+  param bao_2020 : Bool = false
+
   param order_by : String = ""
   param click_on : String = ""
   param batch_level : String = ""
@@ -33,6 +48,21 @@ class Universities::Index < BrowserAction
 
     query = query.is_good(true) if is_good
 
+    query = query.chong_2023(true) if chong_2023
+    query = query.chong_2022(true) if chong_2022
+    query = query.chong_2021(true) if chong_2021
+    query = query.chong_2020(true) if chong_2020
+
+    query = query.wen_2023(true) if wen_2023
+    query = query.wen_2022(true) if wen_2022
+    query = query.wen_2021(true) if wen_2021
+    query = query.wen_2020(true) if wen_2020
+
+    query = query.bao_2023(true) if bao_2023
+    query = query.bao_2022(true) if bao_2022
+    query = query.bao_2021(true) if bao_2021
+    query = query.bao_2020(true) if bao_2020
+
     range_max, range_min, query = filter_by_column_action(query)
 
     query = order_by_action(query)
@@ -44,6 +74,9 @@ class Universities::Index < BrowserAction
       "q", "is_985", "is_211", "is_good",
       "order_by", "batch_level", "filter_by_column",
       "range_min_value", "range_max_value",
+      "chong_2023", "chong_2022", "chong_2021", "chong_2020",
+      "wen_2023", "wen_2022", "wen_2021", "wen_2020",
+      "bao_2023", "bao_2022", "bao_2021", "bao_2020"
     ]
 
     if request.headers["HX-Trigger"]?
