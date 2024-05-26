@@ -119,7 +119,7 @@ then set (next <input/>).value to my.value2
 
   private def render_chong_wen_bao_checkboxs
     div class: "row" do
-      fieldset class: "row", style: "width: 340px;" do
+      fieldset class: "row", style: "width: 380px;" do
         legend "冲"
         span class: "switch m3" do
           mount CheckBox, "chong_2023", "", all_name_inputs
@@ -138,7 +138,7 @@ then set (next <input/>).value to my.value2
         end
       end
 
-      fieldset class: "row", style: "width: 340px;" do
+      fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
         legend "稳"
         span class: "switch m3" do
           mount CheckBox, "wen_2023", "", all_name_inputs
@@ -157,7 +157,7 @@ then set (next <input/>).value to my.value2
         end
       end
 
-      fieldset class: "row", style: "width: 340px;" do
+      fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
         legend "保"
         span class: "switch m3" do
           mount CheckBox, "bao_2023", "", all_name_inputs
