@@ -36,63 +36,65 @@ class Universities::FormFields < BaseComponent
         mount Shared::Field, op.name, "大学名称", &.text_input(placeholder: "大学完整名称")
       end
 
-      fieldset style: "max-width: 800px;" do
-        legend "冲稳保选项"
-        span class: "row" do
-          span class: "s3" do
-            mount CheckBoxFor, op.chong_2023, "chong_2023", "2023冲", op.record
-          end
-          span class: "s3" do
-            mount CheckBoxFor, op.chong_2022, "chong_2022", "2022冲", op.record
-          end
-          span class: "s3" do
-            mount CheckBoxFor, op.chong_2021, "chong_2021", "2021冲", op.record
-          end
-          span class: "s3" do
-            mount CheckBoxFor, op.chong_2020, "chong_2020", "2020冲", op.record
-          end
-        end
-
-        br
-
-        span class: "row" do
-          span class: "s3" do
-            mount CheckBoxFor, op.wen_2023, "wen_2023", "2023稳", op.record
-          end
-          span class: "s3" do
-            mount CheckBoxFor, op.wen_2022, "wen_2022", "2022稳", op.record
-          end
-          span class: "s3" do
-            mount CheckBoxFor, op.wen_2021, "wen_2021", "2021稳", op.record
-          end
-          span class: "s3" do
-            mount CheckBoxFor, op.wen_2020, "wen_2020", "2020稳", op.record
-          end
-        end
-
-        br
-
-        span class: "row" do
-          span class: "s3" do
-            mount CheckBoxFor, op.bao_2023, "bao_2023", "2023保", op.record
-          end
-          span class: "s3" do
-            mount CheckBoxFor, op.bao_2022, "bao_2022", "2022保", op.record
+      if op.record
+        fieldset style: "max-width: 800px;" do
+          legend "冲稳保选项"
+          span class: "row" do
+            span class: "s3" do
+              mount CheckBoxFor, op.chong_2023, "chong_2023", "2023冲", op.record
+            end
+            span class: "s3" do
+              mount CheckBoxFor, op.chong_2022, "chong_2022", "2022冲", op.record
+            end
+            span class: "s3" do
+              mount CheckBoxFor, op.chong_2021, "chong_2021", "2021冲", op.record
+            end
+            span class: "s3" do
+              mount CheckBoxFor, op.chong_2020, "chong_2020", "2020冲", op.record
+            end
           end
 
-          span class: "s3" do
-            mount CheckBoxFor, op.bao_2021, "bao_2021", "2021保", op.record
+          br
+
+          span class: "row" do
+            span class: "s3" do
+              mount CheckBoxFor, op.wen_2023, "wen_2023", "2023稳", op.record
+            end
+            span class: "s3" do
+              mount CheckBoxFor, op.wen_2022, "wen_2022", "2022稳", op.record
+            end
+            span class: "s3" do
+              mount CheckBoxFor, op.wen_2021, "wen_2021", "2021稳", op.record
+            end
+            span class: "s3" do
+              mount CheckBoxFor, op.wen_2020, "wen_2020", "2020稳", op.record
+            end
           end
 
-          span class: "s3" do
-            mount CheckBoxFor, op.bao_2020, "bao_2020", "2020保", op.record
+          br
+
+          span class: "row" do
+            span class: "s3" do
+              mount CheckBoxFor, op.bao_2023, "bao_2023", "2023保", op.record
+            end
+            span class: "s3" do
+              mount CheckBoxFor, op.bao_2022, "bao_2022", "2022保", op.record
+            end
+
+            span class: "s3" do
+              mount CheckBoxFor, op.bao_2021, "bao_2021", "2021保", op.record
+            end
+
+            span class: "s3" do
+              mount CheckBoxFor, op.bao_2020, "bao_2020", "2020保", op.record
+            end
           end
         end
       end
 
       br
 
-      fieldset  style: "max-width: 800px;"  do
+      fieldset style: "max-width: 800px;" do
         legend "其他选项"
         span class: "row" do
           span class: "s4" do
