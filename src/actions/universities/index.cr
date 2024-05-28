@@ -3,6 +3,7 @@ class Universities::Index < BrowserAction
   param is_985 : Bool = false
   param is_211 : Bool = false
   param is_good : Bool = false
+  param is_exists_description : Bool = false
   param chong_2023 : Bool = false
   param chong_2022 : Bool = false
   param chong_2021 : Bool = false
@@ -48,6 +49,8 @@ class Universities::Index < BrowserAction
 
     query = query.is_good(true) if is_good
 
+    query = query.description.is_not_nil if is_exists_description
+
     query = query.chong_2023(true) if chong_2023
     query = query.chong_2022(true) if chong_2022
     query = query.chong_2021(true) if chong_2021
@@ -77,7 +80,7 @@ class Universities::Index < BrowserAction
       "range_min_value", "range_max_value",
       "chong_2023", "chong_2022", "chong_2021", "chong_2020",
       "wen_2023", "wen_2022", "wen_2021", "wen_2020",
-      "bao_2023", "bao_2022", "bao_2021", "bao_2020"
+      "bao_2023", "bao_2022", "bao_2021", "bao_2020",
     ]
 
     if request.headers["HX-Trigger"]?
@@ -139,9 +142,9 @@ class Universities::Index < BrowserAction
     max_value = range_max_value.zero? ? range_max.to_i : range_max_value
 
     if filter_by_column.presence
-        params.from_query["range_min_value"] = min_value.to_s
-        params.from_query["range_max_value"] = max_value.to_s
-        params.from_query["order_by"] = "#{filter_by_column}_min" if click_on.blank?
+      params.from_query["range_min_value"] = min_value.to_s
+      params.from_query["range_max_value"] = max_value.to_s
+      params.from_query["order_by"] = "#{filter_by_column}_min" if click_on.blank?
 
       case filter_by_column
       when "ranking_2023"

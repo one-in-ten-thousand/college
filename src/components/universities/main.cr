@@ -19,6 +19,8 @@ class Universities::Main < BaseComponent
         end
       end
 
+      br
+
       div class: "row" do
         render_985_checkboxs
         div class: "col m2" do
@@ -26,7 +28,11 @@ class Universities::Main < BaseComponent
         end
       end
 
+      br
+
       render_chong_wen_bao_checkboxs
+
+      br
 
       mount PaginationLinks, pages unless pages.one_page?
       render_universities
@@ -120,7 +126,7 @@ then set (next <input/>).value to my.value2
   private def render_chong_wen_bao_checkboxs
     div class: "row" do
       fieldset class: "row", style: "width: 380px;" do
-        legend "冲"
+        legend "最近四年冲的学校"
         span class: "switch m3" do
           mount CheckBox, "chong_2023", "", all_name_inputs
         end
@@ -139,7 +145,7 @@ then set (next <input/>).value to my.value2
       end
 
       fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
-        legend "稳"
+        legend "最近四年稳的学校"
         span class: "switch m3" do
           mount CheckBox, "wen_2023", "", all_name_inputs
         end
@@ -158,7 +164,7 @@ then set (next <input/>).value to my.value2
       end
 
       fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
-        legend "保"
+        legend "最近四年保的学校"
         span class: "switch m3" do
           mount CheckBox, "bao_2023", "", all_name_inputs
         end
@@ -180,14 +186,17 @@ then set (next <input/>).value to my.value2
 
   private def render_985_checkboxs
     full_path = context.request.resource
-    div class: "switch col m3" do
+    div class: "switch col m2" do
       mount CheckBox, "is_985", "仅显示985", all_name_inputs
     end
-    div class: "switch col m3" do
+    div class: "switch col m2" do
       mount CheckBox, "is_211", "仅显示211", all_name_inputs
     end
-    div class: "switch col m3" do
-      mount CheckBox, "is_good", "显示包含双一流专业高校", all_name_inputs
+    div class: "switch col m2" do
+      mount CheckBox, "is_good", "仅显示包含双一流专业高校", all_name_inputs
+    end
+    div class: "switch col m2" do
+      mount CheckBox, "is_exists_description", "仅显示含备注学校", all_name_inputs
     end
   end
 
@@ -235,7 +244,7 @@ then set (next <input/>).value to my.value2
           th "报考编码"
           th "大学名称(点击名称编辑)"
           th "录取批次"
-          th "补充信息"
+          th "备注"
           order_by_score_description_2023 = "点击排序(低分优先)"
           order_by_score_description_2022 = "点击排序(低分优先)"
           order_by_score_description_2021 = "点击排序(低分优先)"
