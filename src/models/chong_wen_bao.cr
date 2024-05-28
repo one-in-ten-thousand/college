@@ -12,7 +12,7 @@ class ChongWenBao < BaseModel
     column chong_2020 : Bool = false
     column wen_2020 : Bool = false
     column bao_2020 : Bool = false
-    column user_university_remark : String?
+    column university_remark : String?
 
     belongs_to user : User
     belongs_to university : University
