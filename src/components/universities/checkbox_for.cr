@@ -7,10 +7,8 @@ class Universities::CheckBoxFor < BaseComponent
   def render
     label for: id, class: "s12 input-field" do
       args = {
-        field:           attribute,
-        unchecked_value: "false",
-        checked_value:   "true",
-        id:              id,
+        field: attribute,
+        id:    id,
       }
 
       if (u = record).nil?
