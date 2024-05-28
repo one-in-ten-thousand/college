@@ -1,5 +1,6 @@
 class Universities::ShowPage < MainLayout
   needs university : University
+  needs user_chong_wen_bao : ChongWenBao?
   quick_def page_title, "University with id: #{university.id}"
 
   def content
@@ -73,33 +74,51 @@ class Universities::ShowPage < MainLayout
         end
       end
 
-      li do
-        text "2023 冲稳保: "
-        text "冲" if university.chong_2023
-        text "稳" if university.wen_2023
-        text "保" if university.bao_2023
+      if !(cwb = user_chong_wen_bao).nil?
+        li do
+          text "冲稳保: "
+
+          div class: "row" do
+            fieldset style: "width: 100px;" do
+              legend "2023年"
+              li do
+                text "冲" if cwb.chong_2023
+                text "稳" if cwb.wen_2023
+                text "保" if cwb.bao_2023
+              end
+            end
+
+            fieldset style: "width: 100px;" do
+              legend "2022年"
+              li do
+                text "冲" if cwb.chong_2022
+                text "稳" if cwb.wen_2022
+                text "保" if cwb.bao_2022
+              end
+            end
+
+            fieldset style: "width: 100px;" do
+              legend "2021年"
+              li do
+                text "冲" if cwb.chong_2021
+                text "稳" if cwb.wen_2021
+                text "保" if cwb.bao_2021
+              end
+            end
+
+            fieldset style: "width: 100px;" do
+              legend "2020年"
+              li do
+                text "冲" if cwb.chong_2020
+                text "稳" if cwb.wen_2020
+                text "保" if cwb.bao_2020
+              end
+            end
+          end
+        end
       end
 
-      li do
-        text "2022 冲稳保: "
-        text "冲" if university.chong_2022
-        text "稳" if university.wen_2022
-        text "保" if university.bao_2022
-      end
 
-      li do
-        text "2021 冲稳保: "
-        text "冲" if university.chong_2021
-        text "稳" if university.wen_2021
-        text "保" if university.bao_2021
-      end
-
-      li do
-        text "2020 冲稳保: "
-        text "冲" if university.chong_2020
-        text "稳" if university.wen_2020
-        text "保" if university.bao_2020
-      end
 
       li do
         text "创建时间: "

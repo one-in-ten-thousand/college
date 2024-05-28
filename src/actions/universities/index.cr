@@ -51,20 +51,28 @@ class Universities::Index < BrowserAction
 
     query = query.description.is_not_nil if is_exists_description
 
-    query = query.chong_2023(true) if chong_2023
-    query = query.chong_2022(true) if chong_2022
-    query = query.chong_2021(true) if chong_2021
-    query = query.chong_2020(true) if chong_2020
+    if chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
+       wen_2023 || wen_2022 || wen_2021 || wen_2020 ||
+       bao_2023 || bao_2022 || bao_2021 || bao_2020
+      cwb_query = ChongWenBaoQuery.new.user_id(current_user.id)
 
-    query = query.wen_2023(true) if wen_2023
-    query = query.wen_2022(true) if wen_2022
-    query = query.wen_2021(true) if wen_2021
-    query = query.wen_2020(true) if wen_2020
+      cwb_query = cwb_query.chong_2023(true) if chong_2023
+      cwb_query = cwb_query.chong_2022(true) if chong_2022
+      cwb_query = cwb_query.chong_2021(true) if chong_2021
+      cwb_query = cwb_query.chong_2020(true) if chong_2020
 
-    query = query.bao_2023(true) if bao_2023
-    query = query.bao_2022(true) if bao_2022
-    query = query.bao_2021(true) if bao_2021
-    query = query.bao_2020(true) if bao_2020
+      cwb_query = cwb_query.bao_2023(true) if bao_2023
+      cwb_query = cwb_query.bao_2022(true) if bao_2022
+      cwb_query = cwb_query.bao_2021(true) if bao_2021
+      cwb_query = cwb_query.bao_2020(true) if bao_2020
+
+      cwb_query = cwb_query.wen_2023(true) if wen_2023
+      cwb_query = cwb_query.wen_2022(true) if wen_2022
+      cwb_query = cwb_query.wen_2021(true) if wen_2021
+      cwb_query = cwb_query.wen_2020(true) if wen_2020
+
+      query = query.where_chong_wen_baos(cwb_query)
+    end
 
     range_max, range_min, query = filter_by_column_action(query)
 

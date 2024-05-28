@@ -2,20 +2,33 @@ class SaveUniversity < University::SaveOperation
   upsert_lookup_columns [code, batch_level]
 
   permit_columns name, description, code,
-    is_211, is_985, is_good,
-    score_2023_min, ranking_2023_min,
-    score_2022_min, ranking_2022_min,
-    score_2021_min, ranking_2021_min,
-    score_2020_min, ranking_2020_min,
-    batch_level, chong_2023, wen_2023, bao_2023,
-    chong_2022, wen_2022, bao_2022,
-    chong_2021, wen_2021, bao_2021,
-    chong_2020, wen_2020, bao_2020
+                 is_211, is_985, is_good, batch_level,
+                 score_2023_min, ranking_2023_min,
+                 score_2022_min, ranking_2022_min,
+                 score_2021_min, ranking_2021_min,
+                 score_2020_min, ranking_2020_min
 
   attribute province_code : Int32
   attribute province_name : String
   attribute city_code : Int32
   attribute city_name : String
+
+  attribute chong_2023 : Bool
+  attribute chong_2022 : Bool
+  attribute chong_2021 : Bool
+  attribute chong_2020 : Bool
+
+  attribute wen_2023 : Bool
+  attribute wen_2022 : Bool
+  attribute wen_2021 : Bool
+  attribute wen_2020 : Bool
+
+  attribute bao_2023 : Bool
+  attribute bao_2022 : Bool
+  attribute bao_2021 : Bool
+  attribute bao_2020 : Bool
+
+  attribute current_user_id : Int64
 
   before_save do
     # 这两行造成单独 update 某一个字段失败.
@@ -42,8 +55,9 @@ class SaveUniversity < University::SaveOperation
   end
 
   after_save code_and_batch_level_must_uniq
+  after_save update_chong_wen_bao_options
 
-  def code_and_batch_level_must_uniq(saved_record : University)
+  private def code_and_batch_level_must_uniq(saved_record : University)
     code.value.try do |code_value|
       batch_level.value.try do |batch_level_value|
         if UniversityQuery.new.code(code_value).batch_level(batch_level_value).select_count > 1
@@ -51,6 +65,31 @@ class SaveUniversity < University::SaveOperation
           database.rollback
         end
       end
+    end
+  end
+
+  private def update_chong_wen_bao_options(saved_record : University)
+    user_id = current_user_id.value.not_nil!
+
+    ChongWenBaoQuery.new
+      .university_id(saved_record.id)
+      .user_id(user_id)
+      .first?.try do |chong_wen_bao|
+      SaveChongWenBao.update!(
+        chong_wen_bao,
+        chong_2023: chong_2023.value.not_nil!,
+        chong_2022: chong_2022.value.not_nil!,
+        chong_2021: chong_2021.value.not_nil!,
+        chong_2020: chong_2020.value.not_nil!,
+        wen_2023: wen_2023.value.not_nil!,
+        wen_2022: wen_2022.value.not_nil!,
+        wen_2021: wen_2021.value.not_nil!,
+        wen_2020: wen_2020.value.not_nil!,
+        bao_2023: bao_2023.value.not_nil!,
+        bao_2022: bao_2022.value.not_nil!,
+        bao_2021: bao_2021.value.not_nil!,
+        bao_2020: bao_2020.value.not_nil!,
+      )
     end
   end
 end

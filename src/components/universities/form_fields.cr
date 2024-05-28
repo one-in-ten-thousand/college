@@ -124,6 +124,8 @@ class Universities::FormFields < BaseComponent
       end
 
       br
+
+      input(type: "hidden", value: op.current_user_id.value.to_s, name: "university:current_user_id")
     end
   end
 end
