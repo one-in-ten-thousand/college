@@ -1,5 +1,7 @@
 class Me::Show < BrowserAction
   get "/me" do
-    html ShowPage
+    users = UserQuery.new.id.desc_order
+
+    html ShowPage, users: users
   end
 end
