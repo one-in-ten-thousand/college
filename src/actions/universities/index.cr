@@ -28,7 +28,8 @@ class Universities::Index < BrowserAction
   param page : Int32 = 1
 
   get "/universities" do
-    query = UniversityQuery.new
+    user_chong_wen_bao_query = ChongWenBaoQuery.new.user_id(current_user.id)
+    query = UniversityQuery.new.preload_chong_wen_baos(user_chong_wen_bao_query)
 
     if q.presence
       if q.matches? /\d+/
@@ -39,7 +40,7 @@ class Universities::Index < BrowserAction
         # query = Foo::BaseQuery.new.where do |q|
         #   q.name("foo1").or(&.description("bar1"))
         # end
-        query = query.where("(name &@~ ?", q).or(&.where("description &@~ ?)", q))
+        query = query.where("(name &@~ ?", q).or(&.where("chong_wen_baos.university_remark &@~ ?)", q))
       end
     end
 
@@ -49,12 +50,12 @@ class Universities::Index < BrowserAction
 
     query = query.is_good(true) if is_good
 
-    query = query.description.is_not_nil if is_exists_description
+    query = query.where_chong_wen_baos(user_chong_wen_bao_query.university_remark.is_not_nil) if is_exists_description
 
     if chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
        wen_2023 || wen_2022 || wen_2021 || wen_2020 ||
        bao_2023 || bao_2022 || bao_2021 || bao_2020
-      cwb_query = ChongWenBaoQuery.new.user_id(current_user.id)
+      cwb_query = user_chong_wen_bao_query
 
       cwb_query = cwb_query.chong_2023(true) if chong_2023
       cwb_query = cwb_query.chong_2022(true) if chong_2022
