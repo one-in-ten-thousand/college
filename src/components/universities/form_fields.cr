@@ -100,7 +100,7 @@ class Universities::FormFields < BaseComponent
       br
 
       div class: "row" do
-        mount Shared::Field, op.description, "附加信息", &.textarea(rows: 10, cols: 50, style: "min-width: 600px; min-height: 300px;", placeholder: "随便输入点啥, 可以方便的在首页模糊搜索", replace_class: "materialize-textarea")
+        mount Shared::Field, op.university_remark, "学校附加信息", &.textarea(rows: 10, cols: 50, style: "min-width: 600px; min-height: 300px;", placeholder: "随便输入点啥, 可以方便的在首页模糊搜索", replace_class: "materialize-textarea")
       end
 
       br

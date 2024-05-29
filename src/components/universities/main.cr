@@ -304,7 +304,7 @@ then set (next <input/>).value to my.value2
             end
             td university.batch_level.display_name
             td style: "max-width: 100px;", class: "double-line" do
-              text university.description.to_s
+              text university.remark(current_user)
             end
             mount(
               ClickEditTD,
