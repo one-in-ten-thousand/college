@@ -21,7 +21,7 @@ class Universities::ClickEditTD < BaseComponent
       "hx-trigger": "click",
     }
 
-    if false
+    if current_user.is_editable
       if tooltip.blank?
         td(**args1) do
           text column_value

@@ -128,22 +128,22 @@ then set (next <input/>).value to my.value2
     div class: "row" do
       fieldset class: "row", style: "width: 380px;" do
         legend "冲"
-        span class: "switch m3" do
+        span class: "m3" do
           span "2023"
           mount CheckBox, "chong_2023", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2022"
           mount CheckBox, "chong_2022", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2021"
           mount CheckBox, "chong_2021", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2020"
           mount CheckBox, "chong_2020", "", all_name_inputs
         end
@@ -151,22 +151,22 @@ then set (next <input/>).value to my.value2
 
       fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
         legend "稳", class: "valign-wrapper"
-        span class: "switch m3" do
+        span class: "m3" do
           span "2023"
           mount CheckBox, "wen_2023", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2022"
           mount CheckBox, "wen_2022", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2021"
           mount CheckBox, "wen_2021", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2020"
           mount CheckBox, "wen_2020", "", all_name_inputs
         end
@@ -174,22 +174,22 @@ then set (next <input/>).value to my.value2
 
       fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
         legend "保"
-        span class: "switch m3" do
+        span class: "m3" do
           span "2023"
           mount CheckBox, "bao_2023", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2022"
           mount CheckBox, "bao_2022", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2021"
           mount CheckBox, "bao_2021", "", all_name_inputs
         end
 
-        span class: "switch m3" do
+        span class: "m3" do
           span "2020"
           mount CheckBox, "bao_2020", "", all_name_inputs
         end
@@ -198,16 +198,16 @@ then set (next <input/>).value to my.value2
   end
 
   private def render_985_checkboxs
-    div class: "switch col m2" do
+    div class: "col m2" do
       mount CheckBox, "is_985", "仅显示985", all_name_inputs
     end
-    div class: "switch col m2" do
+    div class: "col m2" do
       mount CheckBox, "is_211", "仅显示211", all_name_inputs
     end
-    div class: "switch col m2" do
+    div class: "col m2" do
       mount CheckBox, "is_good", "仅显示包含双一流专业高校", all_name_inputs
     end
-    div class: "switch col m2" do
+    div class: "col m2" do
       mount CheckBox, "is_exists_description", "仅显示含备注学校", all_name_inputs
     end
   end
