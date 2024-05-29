@@ -60,6 +60,11 @@ function init () {
         enterDelay: 1000,
         // specify options here
     });
+
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {
+        // specify options here
+    });
 }
 
 htmx.onLoad(function (target) {

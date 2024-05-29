@@ -12,6 +12,18 @@ class Me::ShowPage < MainLayout
     edit_user_editable
 
     input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
+
+    mount Shared::PasswordDialog do
+      a(
+        "确认",
+        href: "#!",
+        class: "modal-close waves-effect btn-flat",
+        "hx-put": "aaaaaaaaaaaa",
+        "hx-swap": "none",
+        "hx-include": "[name='_csrf']",
+        id: "password"
+      )
+    end
   end
 
   private def clear_chong_wen_bao
@@ -63,6 +75,7 @@ class Me::ShowPage < MainLayout
           th "创建日期"
           th "修改日期"
           th "是否可编辑"
+          th "设置新密码"
         end
       end
 
@@ -97,6 +110,18 @@ class Me::ShowPage < MainLayout
                   span class: "lever"
                 end
               end
+            end
+
+            td do
+              a(
+                "修改密码",
+                href: "#modal1",
+                class: "waves-effect waves-light btn modal-trigger",
+                script: "
+on mouseenter put '修改 #{user.email} 的密码' into the <#modal1 h5/>
+then set @hx-put of <#modal1 a[hx-put]/> to '#{User::Htmx::Password.with(user_id).path}'
+"
+              )
             end
           end
         end
