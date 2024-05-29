@@ -15,7 +15,7 @@ class Universities::NewPage < MainLayout
     br
 
     form_for Create do
-      mount FormFields, operation
+      mount FormFields, operation, current_user
 
       submit "保存", data_disable_with: "保存中..."
     end

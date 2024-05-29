@@ -1,39 +1,44 @@
 class Universities::FormFields < BaseComponent
   needs op : SaveUniversity
+  needs current_user : User
 
   def render
     div do
-      div class: "row" do
-        mount Shared::Field, op.code, "学校代码(唯一)" do |tag|
-          tag.number_input(
-            placeholder: "输入数字, 这个可以自动查询大学是否已存在",
-            "hx-get": "/htmx/v1/universities/find_code",
-            "hx-target": "next span",
-            "hx-trigger": "change, keyup delay:400ms changed"
-          )
-        end
-        span do
-        end
-      end
-
-      div class: "row" do
-        label_for op.batch_level, "学校所属的录取批次"
-        div class: "s12 m8 input-field" do
-          select_input op.batch_level do
-            select_prompt("点击选择学校所属的录取批次") if op.record.nil?
-            optgroup label: "一本" do
-              options_for_select(op.batch_level, University::BatchLevel.select_options_level_one)
-            end
-            optgroup label: "二本" do
-              options_for_select(op.batch_level, University::BatchLevel.select_options_level_two)
-            end
+      if current_user.is_editable
+        div class: "row" do
+          mount Shared::Field, op.code, "学校代码(唯一)" do |tag|
+            tag.number_input(
+              placeholder: "输入数字, 这个可以自动查询大学是否已存在",
+              "hx-get": "/htmx/v1/universities/find_code",
+              "hx-target": "next span",
+              "hx-trigger": "change, keyup delay:400ms changed"
+            )
+          end
+          span do
           end
         end
-        mount Shared::FieldErrors, op.batch_level
       end
 
-      div class: "row" do
-        mount Shared::Field, op.name, "大学名称", &.text_input(placeholder: "大学完整名称")
+      if current_user.is_editable
+        div class: "row" do
+          label_for op.batch_level, "学校所属的录取批次"
+          div class: "s12 m8 input-field" do
+            select_input op.batch_level do
+              select_prompt("点击选择学校所属的录取批次") if op.record.nil?
+              optgroup label: "一本" do
+                options_for_select(op.batch_level, University::BatchLevel.select_options_level_one)
+              end
+              optgroup label: "二本" do
+                options_for_select(op.batch_level, University::BatchLevel.select_options_level_two)
+              end
+            end
+          end
+          mount Shared::FieldErrors, op.batch_level
+        end
+
+        div class: "row" do
+          mount Shared::Field, op.name, "大学名称", &.text_input(placeholder: "大学完整名称")
+        end
       end
 
       if op.record
@@ -94,33 +99,35 @@ class Universities::FormFields < BaseComponent
 
       br
 
-      fieldset style: "max-width: 800px;" do
-        legend "其他选项"
-        span class: "row" do
-          span class: "s4" do
-            mount CheckBoxFor, op.is_211, "is_211", "是否 211 大学", op.record
-          end
+      div class: "row" do
+        mount Shared::Field, op.description, "附加信息", &.textarea(rows: 10, cols: 50, style: "min-width: 600px; min-height: 300px;", placeholder: "随便输入点啥, 可以方便的在首页模糊搜索", replace_class: "materialize-textarea")
+      end
 
-          span class: "s4" do
-            mount CheckBoxFor, op.is_985, "is_985", "是否 985 大学", op.record
-          end
+      br
 
-          span class: "s4" do
-            mount CheckBoxFor, op.is_good, "is_good", "是否拥有双一流专业", op.record
+      if current_user.is_editable
+        fieldset style: "max-width: 800px;" do
+          legend "其他选项"
+          span class: "row" do
+            span class: "s4" do
+              mount CheckBoxFor, op.is_211, "is_211", "是否 211 大学", op.record
+            end
+
+            span class: "s4" do
+              mount CheckBoxFor, op.is_985, "is_985", "是否 985 大学", op.record
+            end
+
+            span class: "s4" do
+              mount CheckBoxFor, op.is_good, "is_good", "是否拥有双一流专业", op.record
+            end
           end
         end
-      end
 
-      br
+        br
 
-      div class: "row" do
-        mount Shared::Field, op.description, "附加信息", &.textarea(rows: 10, cols: 50, style: "min-width: 600px; min-height: 300px;", placeholder: "随便输入点啥, 可以方便搜索", replace_class: "materialize-textarea")
-      end
-
-      br
-
-      div class: "row" do
-        mount AddressSelector, op
+        div class: "row" do
+          mount AddressSelector, op
+        end
       end
 
       br
