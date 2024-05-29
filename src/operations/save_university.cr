@@ -1,5 +1,5 @@
 class SaveUniversity < University::SaveOperation
-  upsert_lookup_columns [code, batch_level]
+  upsert_lookup_columns code, batch_level
 
   permit_columns name, description, code,
                  is_211, is_985, is_good, batch_level,
