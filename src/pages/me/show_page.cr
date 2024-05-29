@@ -7,6 +7,54 @@ class Me::ShowPage < MainLayout
 
     clear_chong_wen_bao
 
+    br
+
+    edit_user_editable
+
+    input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
+  end
+
+  private def clear_chong_wen_bao
+    div class: "row" do
+      div class: "col m4" do
+        link(
+          "清除用户冲数据",
+          Me::ClearChong,
+          class: "btn",
+          "hx-put": Me::ClearChong.path,
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf']",
+          "hx-confirm": "确认要清除标记的冲数据吗？",
+        )
+      end
+
+      div class: "col m4" do
+        link(
+          "清除用户稳数据",
+          Me::ClearWen,
+          class: "btn",
+          "hx-put": Me::ClearWen.path,
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf']",
+          "hx-confirm": "确认要清除标记的稳数据吗？",
+        )
+      end
+
+      div class: "col m4" do
+        link(
+          "清除用户保数据",
+          Me::ClearChong,
+          class: "btn",
+          "hx-put": Me::ClearBao.path,
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf']",
+          "hx-confirm": "确认要清除标记的保数据吗？",
+        )
+      end
+    end
+  end
+
+  private def edit_user_editable
     table class: "highlight" do
       thead do
         tr do
@@ -52,48 +100,6 @@ class Me::ShowPage < MainLayout
             end
           end
         end
-      end
-    end
-
-    input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
-  end
-
-  private def clear_chong_wen_bao
-    div class: "row" do
-      div class: "col m4" do
-        link(
-          "清除用户冲数据",
-          Me::ClearChong,
-          class: "btn",
-          "hx-put": Me::ClearChong.path,
-          "hx-swap": "none",
-          "hx-include": "[name='_csrf']",
-          "hx-confirm": "确认要清除标记的冲数据吗？",
-        )
-      end
-
-      div class: "col m4" do
-        link(
-          "清除用户稳数据",
-          Me::ClearWen,
-          class: "btn",
-          "hx-put": Me::ClearWen.path,
-          "hx-swap": "none",
-          "hx-include": "[name='_csrf']",
-          "hx-confirm": "确认要清除标记的稳数据吗？",
-        )
-      end
-
-      div class: "col m4" do
-        link(
-          "清除用户保数据",
-          Me::ClearChong,
-          class: "btn",
-          "hx-put": Me::ClearBao.path,
-          "hx-swap": "none",
-          "hx-include": "[name='_csrf']",
-          "hx-confirm": "确认要清除标记的保数据吗？",
-        )
       end
     end
   end
