@@ -2,20 +2,42 @@ class Me::ShowPage < MainLayout
   def content
     h2 "个人信息"
     h3 "邮箱名:  #{@current_user.email}"
-    # helpful_tips
-  end
+    link(
+      "清除用户冲数据",
+      Me::ClearChong,
+      class: "btn",
+      "hx-put": Me::ClearChong.path,
+      "hx-swap": "none",
+      "hx-include": "[name='_csrf']",
+      "hx-confirm": "确认要清除标记的冲数据吗？",
+    )
 
-  private def helpful_tips
-    h3 "Next, you may want to:"
-    ul do
-      li { link_to_authentication_guides }
-      li "Modify this page: src/pages/me/show_page.cr"
-      li "Change where you go after sign in: src/actions/home/index.cr"
-    end
-  end
+    br
+    br
 
-  private def link_to_authentication_guides
-    a "Check out the authentication guides",
-      href: "https://luckyframework.org/guides/authentication"
+    link(
+      "清除用户稳数据",
+      Me::ClearWen,
+      class: "btn",
+      "hx-put": Me::ClearWen.path,
+      "hx-swap": "none",
+      "hx-include": "[name='_csrf']",
+      "hx-confirm": "确认要清除标记的稳数据吗？",
+    )
+
+    br
+    br
+
+    link(
+      "清除用户保数据",
+      Me::ClearChong,
+      class: "btn",
+      "hx-put": Me::ClearBao.path,
+      "hx-swap": "none",
+      "hx-include": "[name='_csrf']",
+      "hx-confirm": "确认要清除标记的保数据吗？",
+    )
+
+    input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
   end
 end
