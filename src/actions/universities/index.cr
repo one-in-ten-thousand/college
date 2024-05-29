@@ -99,6 +99,7 @@ class Universities::Index < BrowserAction
         range_max: range_max.to_i,
         range_min: range_min.to_i,
         all_name_inputs: all_name_inputs,
+        current_user: current_user
       )
     else
       html(

@@ -32,7 +32,8 @@ class Universities::IndexPage < MainLayout
       pages: pages,
       range_max: range_max,
       range_min: range_min,
-      all_name_inputs: all_name_inputs
+      all_name_inputs: all_name_inputs,
+      current_user: current_user
     )
   end
 
