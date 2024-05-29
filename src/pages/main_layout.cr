@@ -38,7 +38,7 @@ abstract class MainLayout
   end
 
   private def render_signed_in_user
-    text current_user.email
+    link current_user.email, to: Me::Show
     text " - "
     link(
       "Sign out",

@@ -1,8 +1,8 @@
 class Me::ShowPage < MainLayout
   def content
-    h2 "This is your profile"
-    h3 "Email:  #{@current_user.email}"
-    helpful_tips
+    h2 "个人信息"
+    h3 "邮箱名:  #{@current_user.email}"
+    # helpful_tips
   end
 
   private def helpful_tips

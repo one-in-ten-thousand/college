@@ -6,7 +6,7 @@ class Universities::IndexPage < MainLayout
   needs range_max : Int32
   needs range_min : Int32
   needs all_name_inputs : Array(String)
-  quick_def page_title, "All Universities"
+  quick_def page_title, "大学列表"
 
   def content
     h3 do
@@ -43,7 +43,7 @@ class Universities::IndexPage < MainLayout
       name: "q",
       id: "search",
       class: "s12 m8 input-field",
-      placeholder: "输入大学名称模糊搜索",
+      placeholder: "输入大学名称、备注或编码模糊搜索",
       "hx-get": "/universities",
       "hx-target": "#main",
       "hx-trigger": "search, keyup delay:400ms changed",
