@@ -18,37 +18,37 @@ class Me::ShowPage < MainLayout
     div class: "row" do
       div class: "col m4" do
         link(
-          "清除用户冲数据",
+          "删除 冲 数据",
           Me::ClearChong,
           class: "btn",
           "hx-put": Me::ClearChong.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
-          "hx-confirm": "确认要清除标记的冲数据吗？",
+          "hx-confirm": "确认要清除冲数据吗？",
         )
       end
 
       div class: "col m4" do
         link(
-          "清除用户稳数据",
+          "删除 稳 数据",
           Me::ClearWen,
           class: "btn",
           "hx-put": Me::ClearWen.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
-          "hx-confirm": "确认要清除标记的稳数据吗？",
+          "hx-confirm": "确认要删除 稳 数据吗？",
         )
       end
 
       div class: "col m4" do
         link(
-          "清除用户保数据",
+          "删除 保 数据",
           Me::ClearChong,
           class: "btn",
           "hx-put": Me::ClearBao.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
-          "hx-confirm": "确认要清除标记的保数据吗？",
+          "hx-confirm": "确认要删除 保 数据吗？",
         )
       end
     end
