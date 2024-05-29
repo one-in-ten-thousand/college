@@ -2,6 +2,7 @@ class Universities::CheckBox < BaseComponent
   needs name : String
   needs description : String
   needs all_name_inputs : Array(String)
+  needs disabled : Bool = false
 
   def render
     div class: "switch" do
@@ -16,13 +17,17 @@ class Universities::CheckBox < BaseComponent
           "hx-target":    "#main",
           "hx-push-url":  "true",
           "hx-include":   all_name_inputs.reject { |x| x == name }.join(",") { |e| "[name='#{e}']" },
-          "hx-indicator": "#spinner",
+          "hx-indicator": "#spinner"
         }
 
-        if context.request.query_params[name]?
-          input(**args.merge(checked: "checked"))
+        if disabled?
+          input(**args.merge(disabled: ""))
         else
-          input(**args)
+          if context.request.query_params[name]?
+            input(**args.merge(checked: "checked"))
+          else
+            input(**args)
+          end
         end
 
         span class: "lever"

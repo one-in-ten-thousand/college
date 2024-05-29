@@ -130,22 +130,21 @@ then set (next <input/>).value to my.value2
         legend "冲"
         span class: "m3" do
           span "2023"
-          mount CheckBox, "chong_2023", "", all_name_inputs
+          mount CheckBox, "chong_2023", "", all_name_inputs, !!(context.request.query_params["wen_2023"]? || context.request.query_params["bao_2023"]?)
         end
-
         span class: "m3" do
           span "2022"
-          mount CheckBox, "chong_2022", "", all_name_inputs
+          mount CheckBox, "chong_2022", "", all_name_inputs, !!(context.request.query_params["wen_2022"]? || context.request.query_params["bao_2022"]?)
         end
 
         span class: "m3" do
           span "2021"
-          mount CheckBox, "chong_2021", "", all_name_inputs
+          mount CheckBox, "chong_2021", "", all_name_inputs, !!(context.request.query_params["wen_2021"]? || context.request.query_params["bao_2021"]?)
         end
 
         span class: "m3" do
           span "2020"
-          mount CheckBox, "chong_2020", "", all_name_inputs
+          mount CheckBox, "chong_2020", "", all_name_inputs, !!(context.request.query_params["wen_2020"]? || context.request.query_params["bao_2020"]?)
         end
       end
 
@@ -153,22 +152,22 @@ then set (next <input/>).value to my.value2
         legend "稳", class: "valign-wrapper"
         span class: "m3" do
           span "2023"
-          mount CheckBox, "wen_2023", "", all_name_inputs
+          mount CheckBox, "wen_2023", "", all_name_inputs, !!(context.request.query_params["chong_2023"]? || context.request.query_params["bao_2023"]?)
         end
 
         span class: "m3" do
           span "2022"
-          mount CheckBox, "wen_2022", "", all_name_inputs
+          mount CheckBox, "wen_2022", "", all_name_inputs, !!(context.request.query_params["chong_2022"]? || context.request.query_params["bao_2022"]?)
         end
 
         span class: "m3" do
           span "2021"
-          mount CheckBox, "wen_2021", "", all_name_inputs
+          mount CheckBox, "wen_2021", "", all_name_inputs, !!(context.request.query_params["chong_2021"]? || context.request.query_params["bao_2021"]?)
         end
 
         span class: "m3" do
           span "2020"
-          mount CheckBox, "wen_2020", "", all_name_inputs
+          mount CheckBox, "wen_2020", "", all_name_inputs, !!(context.request.query_params["chong_2020"]? || context.request.query_params["bao_2020"]?)
         end
       end
 
@@ -176,22 +175,22 @@ then set (next <input/>).value to my.value2
         legend "保"
         span class: "m3" do
           span "2023"
-          mount CheckBox, "bao_2023", "", all_name_inputs
+          mount CheckBox, "bao_2023", "", all_name_inputs, !!(context.request.query_params["chong_2023"]? || context.request.query_params["wen_2023"]?)
         end
 
         span class: "m3" do
           span "2022"
-          mount CheckBox, "bao_2022", "", all_name_inputs
+          mount CheckBox, "bao_2022", "", all_name_inputs, !!(context.request.query_params["chong_2022"]? || context.request.query_params["wen_2022"]?)
         end
 
         span class: "m3" do
           span "2021"
-          mount CheckBox, "bao_2021", "", all_name_inputs
+          mount CheckBox, "bao_2021", "", all_name_inputs, !!(context.request.query_params["chong_2021"]? || context.request.query_params["wen_2021"]?)
         end
 
         span class: "m3" do
           span "2020"
-          mount CheckBox, "bao_2020", "", all_name_inputs
+          mount CheckBox, "bao_2020", "", all_name_inputs, !!(context.request.query_params["chong_2020"]? || context.request.query_params["wen_2020"]?)
         end
       end
     end
