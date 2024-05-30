@@ -17,9 +17,8 @@ class Me::ShowPage < MainLayout
       div class: "modal-content" do
         h5 "修改密码"
         input(
-          type: "text",
+          type: "password",
           name: "password",
-          id: "password",
           script: "on change set x to me.value
 then set y to (next <input/>).value
 then if x == y and x != ''
@@ -30,9 +29,8 @@ end
 "
         )
         input(
-          type: "text",
-          name: "confirm_password",
-          id: "confirm_password",
+          type: "password",
+          name: "password_confirmation",
           script: "on change set x to me.value
 then set y to (previous <input/>).value
 then if x == y and x != ''
@@ -52,7 +50,7 @@ end
           class: "modal-close waves-effect btn-flat",
           "hx-put": "will_be_replace_when_clicking",
           "hx-swap": "none",
-          "hx-include": "[name='_csrf'],[name='password']",
+          "hx-include": "[name='_csrf'],[name='password'],[name='password_confirmation']",
           id: "set_password",
         )
       end
