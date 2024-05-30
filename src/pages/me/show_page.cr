@@ -18,9 +18,9 @@ class Me::ShowPage < MainLayout
         "确认",
         href: "#!",
         class: "modal-close waves-effect btn-flat",
-        "hx-put": "aaaaaaaaaaaa",
+        "hx-put": "will_be_replace_when_clicking",
         "hx-swap": "none",
-        "hx-include": "[name='_csrf']",
+        "hx-include": "[name='_csrf'],[name='password']",
         id: "password"
       )
     end
@@ -91,14 +91,14 @@ class Me::ShowPage < MainLayout
               span class: "switch" do
                 label for: "#{user_id}_is_editable" do
                   args = {
-                    type: "checkbox",
-                    name: "is_editable",
-                    value: true,
-                    id: "#{user_id}_is_editable",
-                    "hx-put": User::Htmx::Editable.with(user.id).path,
-                    "hx-swap": "none",
+                    type:         "checkbox",
+                    name:         "is_editable",
+                    value:        true,
+                    id:           "#{user_id}_is_editable",
+                    "hx-put":     User::Htmx::Editable.with(user.id).path,
+                    "hx-swap":    "none",
                     "hx-confirm": "确认？",
-                    "hx-include": "[name='_csrf']"
+                    "hx-include": "[name='_csrf']",
                   }
 
                   if user.is_editable
@@ -118,8 +118,9 @@ class Me::ShowPage < MainLayout
                 href: "#modal1",
                 class: "waves-effect waves-light btn modal-trigger",
                 script: "
-on mouseenter put '修改 #{user.email} 的密码' into the <#modal1 h5/>
+on click put '修改 #{user.email} 的密码' into the <#modal1 h5/>
 then set @hx-put of <#modal1 a[hx-put]/> to '#{User::Htmx::Password.with(user_id).path}'
+then js htmx.process(document.body) end
 "
               )
             end
