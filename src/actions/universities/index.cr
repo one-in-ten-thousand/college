@@ -35,12 +35,13 @@ class Universities::Index < BrowserAction
       if q.matches? /\d+/
         query = query.code(q)
       else
-        # 这里如果是正常的参数 = 比较, 可以使用 where 的 block 像是来生成圆括号.
-        # 例如:
-        # query = Foo::BaseQuery.new.where do |q|
-        #   q.name("foo1").or(&.description("bar1"))
-        # end
-        query = query.where("(name &@~ ?", q).or(&.where("chong_wen_baos.university_remark &@~ ?)", q))
+        query = query.where("(name &@~ ?", q)
+                .or(
+                  &.where_chong_wen_baos(
+                    ChongWenBaoQuery.new.where("chong_wen_baos.university_remark &@~ ?)", q),
+                    auto_inner_join: false
+                  ).left_join_chong_wen_baos
+                )
       end
     end
 
@@ -49,6 +50,8 @@ class Universities::Index < BrowserAction
     query = query.is_211(true) if is_211
 
     query = query.is_good(true) if is_good
+
+    query = query.batch_level(batch_level) if batch_level.presence
 
     query = query.where_chong_wen_baos(user_chong_wen_bao_query.university_remark.is_not_nil) if is_exists_description
 
@@ -78,8 +81,6 @@ class Universities::Index < BrowserAction
     range_max, range_min, query = filter_by_column_action(query)
 
     query = order_by_action(query)
-
-    query = query.batch_level(batch_level) if batch_level.presence
 
     pages, universities = paginate(query.id.desc_order, per_page: 50)
 
