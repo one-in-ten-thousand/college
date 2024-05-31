@@ -5,8 +5,6 @@ class SaveUser < User::SaveOperation
   attribute action : String
 
   before_save do
-    pp! action
-    pp! action.value
     case action.value
     when "reset_password"
       validate_required password

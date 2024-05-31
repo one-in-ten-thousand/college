@@ -57,7 +57,7 @@ class SaveUniversity < University::SaveOperation
   end
 
   after_save code_and_batch_level_must_uniq
-  after_save update_chong_wen_bao_options
+  after_save update_user_chong_wen_baos
 
   private def code_and_batch_level_must_uniq(saved_record : University)
     code.value.try do |code_value|
@@ -70,24 +70,29 @@ class SaveUniversity < University::SaveOperation
     end
   end
 
-  private def update_chong_wen_bao_options(saved_record : University)
-    user_id = current_user_id.value.not_nil!
-    SaveChongWenBao.upsert!(
-      university_id: saved_record.id,
-      user_id: user_id,
-      university_remark: university_remark.value,
-      chong_2023: chong_2023.value.not_nil!,
-      chong_2022: chong_2022.value.not_nil!,
-      chong_2021: chong_2021.value.not_nil!,
-      chong_2020: chong_2020.value.not_nil!,
-      wen_2023: wen_2023.value.not_nil!,
-      wen_2022: wen_2022.value.not_nil!,
-      wen_2021: wen_2021.value.not_nil!,
-      wen_2020: wen_2020.value.not_nil!,
-      bao_2023: bao_2023.value.not_nil!,
-      bao_2022: bao_2022.value.not_nil!,
-      bao_2021: bao_2021.value.not_nil!,
-      bao_2020: bao_2020.value.not_nil!,
-    )
+  private def update_user_chong_wen_baos(saved_record : University)
+    user_id = current_user_id.value
+
+    if !user_id.nil?
+      # 冲稳保数据和 current_user 数据是关联的。
+      # 客户端在设定冲稳保数据时，会确保传递 current_user_id 上来
+      SaveChongWenBao.upsert!(
+        university_id: saved_record.id,
+        user_id: user_id,
+        university_remark: university_remark.value,
+        chong_2023: chong_2023.value.not_nil!,
+        chong_2022: chong_2022.value.not_nil!,
+        chong_2021: chong_2021.value.not_nil!,
+        chong_2020: chong_2020.value.not_nil!,
+        wen_2023: wen_2023.value.not_nil!,
+        wen_2022: wen_2022.value.not_nil!,
+        wen_2021: wen_2021.value.not_nil!,
+        wen_2020: wen_2020.value.not_nil!,
+        bao_2023: bao_2023.value.not_nil!,
+        bao_2022: bao_2022.value.not_nil!,
+        bao_2021: bao_2021.value.not_nil!,
+        bao_2020: bao_2020.value.not_nil!,
+      )
+    end
   end
 end
