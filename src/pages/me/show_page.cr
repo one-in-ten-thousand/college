@@ -13,48 +13,7 @@ class Me::ShowPage < MainLayout
 
     input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
 
-    div id: "modal1", class: "modal" do
-      div class: "modal-content" do
-        h5 "修改密码"
-        input(
-          type: "password",
-          name: "password",
-          script: "on change set x to me.value
-then set y to (next <input/>).value
-then if x == y and x != ''
- remove @disabled from <a#set_password/>
-else
- set @disabled of <a#set_password/> to 'disabled'
-end
-"
-        )
-        input(
-          type: "password",
-          name: "password_confirmation",
-          script: "on change set x to me.value
-then set y to (previous <input/>).value
-then if x == y and x != ''
- remove @disabled from <a#set_password/>
-else
- set @disabled of <a#set_password/> to 'disabled'
-end
-"
-        )
-      end
-
-      div class: "modal-footer" do
-        a "取消", href: "#!", class: "modal-close waves-effect btn-flat"
-        a(
-          "确认",
-          href: "#!",
-          class: "modal-close waves-effect btn-flat",
-          "hx-put": "will_be_replace_when_clicking",
-          "hx-swap": "none",
-          "hx-include": "[name='_csrf'],[name='password'],[name='password_confirmation']",
-          id: "set_password",
-        )
-      end
-    end
+    change_password_modal_dialog
   end
 
   private def clear_chong_wen_bao
@@ -157,6 +116,51 @@ then js htmx.process(document.body) end
             end
           end
         end
+      end
+    end
+  end
+
+  private def change_password_modal_dialog
+    div id: "modal1", class: "modal" do
+      div class: "modal-content" do
+        h5 "修改密码"
+        input(
+          type: "password",
+          name: "password",
+          script: "on change set x to me.value
+then set y to (next <input/>).value
+then if x == y and x != ''
+ remove @disabled from <a#set_password/>
+else
+ set @disabled of <a#set_password/> to 'disabled'
+end
+"
+        )
+        input(
+          type: "password",
+          name: "password_confirmation",
+          script: "on change set x to me.value
+then set y to (previous <input/>).value
+then if x == y and x != ''
+ remove @disabled from <a#set_password/>
+else
+ set @disabled of <a#set_password/> to 'disabled'
+end
+"
+        )
+      end
+
+      div class: "modal-footer" do
+        a "取消", href: "#!", class: "modal-close waves-effect btn-flat"
+        a(
+          "确认",
+          href: "#!",
+          class: "modal-close waves-effect btn-flat",
+          "hx-put": "will_be_replace_when_clicking",
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf'],[name='password'],[name='password_confirmation']",
+          id: "set_password",
+        )
       end
     end
   end
