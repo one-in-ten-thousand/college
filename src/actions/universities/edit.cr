@@ -2,9 +2,10 @@ class Universities::Edit < BrowserAction
   get "/universities/:university_id/edit" do
     user_id = current_user.id.not_nil!
     university = UniversityQuery.new
-                 .preload_province
-                 .preload_city
-                 .find(university_id)
+      .preload_province
+      .preload_city
+      .preload_chong_wen_baos
+      .find(university_id)
 
     chong_wen_bao = ChongWenBaoQuery.new.university_id(university.id).user_id(user_id).first?
 
@@ -30,7 +31,8 @@ class Universities::Edit < BrowserAction
       bao_2022: chong_wen_bao.bao_2022,
       bao_2021: chong_wen_bao.bao_2021,
       bao_2020: chong_wen_bao.bao_2020,
-      current_user_id: user_id
+      current_user_id: user_id,
+      university_remark: university.remark(current_user)
     )
 
     html EditPage, operation: op, university: university
