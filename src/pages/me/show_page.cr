@@ -185,7 +185,12 @@ end
         input(
           type: "text",
           name: "user:email",
-          id: "user_email"
+          id: "user_email",
+          script: "on change set x to me.value
+then if x != ''
+ remove @disabled from <a#create_new_user/>
+end
+"
         )
 
         label "密码", for: "user_password"
@@ -229,7 +234,12 @@ end
           "hx-target": "body",
           "hx-include": "[name='_csrf'],[name='user:password'],[name='user:password_confirmation'],[name='user:email']",
           id: "create_new_user",
-          disabled: "disabled"
+          disabled: "disabled",
+          script: "on mouseover set x to (<#user_email/>).value
+then if x == ''
+  set @disabled of me to 'disabled'
+end
+"
         )
       end
     end
