@@ -9,16 +9,13 @@ class Me::ShowPage < MainLayout
 
     br
 
-    a(
-      "新建用户",
-      href: "#modal2",
-      class: "waves-effect waves-light btn modal-trigger",
-#       script: "
-# on click put '修改 #{user.email} 的密码' into the <#modal1 h5/>
-# then set @hx-put of <#modal1 a[hx-put]/> to '#{User::Htmx::Password.with(user_id).path}'
-# then js htmx.process(document.body) end
-# "
-    )
+    if current_user.email == "zw963@163.com"
+      a(
+        "新建用户",
+        href: "#modal2",
+        class: "waves-effect waves-light btn modal-trigger",
+      )
+    end
 
     user_list
 
@@ -102,6 +99,8 @@ class Me::ShowPage < MainLayout
                     "hx-confirm": "确认？",
                     "hx-include": "[name='_csrf']",
                   }
+
+                  args = args.merge(disabled: "disabled") if current_user.email != "zw963@163.com"
 
                   if user.is_editable
                     input(args.merge(checked: "checked"))
