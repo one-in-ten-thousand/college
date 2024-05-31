@@ -4,7 +4,8 @@ class User::Htmx::Password < HtmxAction
     SaveUser.update!(
       user,
       password: params.get(:password),
-      password_confirmation: params.get(:password_confirmation)
+      password_confirmation: params.get(:password_confirmation),
+      action: "reset_password"
     )
 
     plain_text "ok"
