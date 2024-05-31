@@ -5,7 +5,7 @@ class User < BaseModel
   table do
     column email : String
     column encrypted_password : String
-    column is_editable : Bool
+    column is_editable : Bool = false
   end
 
   def emailable : Carbon::Address

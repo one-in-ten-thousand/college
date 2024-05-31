@@ -9,11 +9,23 @@ class Me::ShowPage < MainLayout
 
     br
 
-    edit_user_editable
+    a(
+      "新建用户",
+      href: "#modal2",
+      class: "waves-effect waves-light btn modal-trigger",
+#       script: "
+# on click put '修改 #{user.email} 的密码' into the <#modal1 h5/>
+# then set @hx-put of <#modal1 a[hx-put]/> to '#{User::Htmx::Password.with(user_id).path}'
+# then js htmx.process(document.body) end
+# "
+    )
+
+    user_list
 
     input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
 
     change_password_modal_dialog
+    create_new_user_dialog
   end
 
   private def clear_chong_wen_bao
@@ -56,7 +68,7 @@ class Me::ShowPage < MainLayout
     end
   end
 
-  private def edit_user_editable
+  private def user_list
     table class: "highlight" do
       thead do
         tr do
@@ -160,6 +172,64 @@ end
           "hx-swap": "none",
           "hx-include": "[name='_csrf'],[name='password'],[name='password_confirmation']",
           id: "set_password",
+        )
+      end
+    end
+  end
+
+  private def create_new_user_dialog
+    div id: "modal2", class: "modal" do
+      div class: "modal-content" do
+        h5 "创建新用户"
+        label "邮箱", for: "user_email"
+        input(
+          type: "text",
+          name: "user:email",
+          id: "user_email"
+        )
+
+        label "密码", for: "user_password"
+        input(
+          type: "password",
+          name: "user:password",
+          id: "user_password",
+          script: "on change set x to me.value
+then set y to (next <input/>).value
+then if x == y and x != ''
+ remove @disabled from <a#create_new_user/>
+else
+ set @disabled of <a#create_new_user/> to 'disabled'
+end
+"
+        )
+
+        label "确认密码", for: "user_password_confirmation"
+        input(
+          type: "password",
+          name: "user:password_confirmation",
+          id: "user_password_confirmation",
+          script: "on change set x to me.value
+then set y to (previous <input/>).value
+then if x == y and x != ''
+ remove @disabled from <a#create_new_user/>
+else
+ set @disabled of <a#create_new_user/> to 'disabled'
+end
+"
+        )
+      end
+
+      div class: "modal-footer" do
+        a "取消", href: "#!", class: "modal-close waves-effect btn-flat"
+        a(
+          "确认",
+          href: "#!",
+          class: "modal-close waves-effect btn-flat",
+          "hx-post": User::Htmx::Create.path,
+          "hx-target": "body",
+          "hx-include": "[name='_csrf'],[name='user:password'],[name='user:password_confirmation'],[name='user:email']",
+          id: "create_new_user",
+          disabled: "disabled"
         )
       end
     end
