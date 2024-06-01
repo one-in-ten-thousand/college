@@ -73,7 +73,7 @@ class SaveUniversity < University::SaveOperation
   private def update_user_chong_wen_baos(saved_record : University)
     user_id = current_user_id.value
 
-    if !user_id.nil?
+    if !user_id.nil? && !chong_2023.value.nil?
       # 冲稳保数据和 current_user 数据是关联的。
       # 客户端在设定冲稳保数据时，会确保传递 current_user_id 上来
       SaveChongWenBao.upsert!(
