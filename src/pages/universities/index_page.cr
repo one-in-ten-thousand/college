@@ -44,7 +44,7 @@ class Universities::IndexPage < MainLayout
       name: "q",
       id: "search",
       class: "s12 m8 input-field",
-      placeholder: "输入学校名称、备注的部分信息或完整编码搜索",
+      placeholder: "输入部分学校名称、学校备注及学校编码进行搜索",
       "hx-get": "/universities",
       "hx-target": "#main",
       "hx-trigger": "search, keyup delay:400ms changed",

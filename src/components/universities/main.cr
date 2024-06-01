@@ -253,7 +253,7 @@ then set (next <input/>).value to my.value2
         tr do
           th "ID编号"
           th "报考编码"
-          th "大学名称(点击名称编辑)"
+          th "大学名称(点击进入编辑)"
           th "录取批次"
           th "备注(如专业等，可模糊搜索)"
           order_by_score_description_2023 = "点击排序(低分优先)"
