@@ -14,15 +14,18 @@ class Universities::ShowPage < MainLayout
     section do
       link "编辑", Edit.with(university.id)
       text " | "
-      link(
-        "删除",
-        Delete.with(university.id),
-        "hx-target": "body",
-        "hx-confirm": "确定删除吗?",
-        "hx-push-url": "true",
-        "hx-delete": Delete.with(university.id).path,
-        "hx-include": "next input"
-      )
+
+      if current_user.email == "zw963@163.com"
+        link(
+          "删除",
+          Delete.with(university.id),
+          "hx-target": "body",
+          "hx-confirm": "确定删除吗?",
+          "hx-push-url": "true",
+          "hx-delete": Delete.with(university.id).path,
+          "hx-include": "next input"
+        )
+      end
       input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
     end
   end
@@ -117,8 +120,6 @@ class Universities::ShowPage < MainLayout
           end
         end
       end
-
-
 
       li do
         text "创建时间: "
