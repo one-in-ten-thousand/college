@@ -29,7 +29,7 @@ class Universities::Index < BrowserAction
 
   get "/universities" do
     user_chong_wen_bao_query = ChongWenBaoQuery.new.user_id(current_user.id)
-    query = UniversityQuery.new.preload_chong_wen_baos(user_chong_wen_bao_query)
+    query = UniversityQuery.new.preload_chong_wen_baos(user_chong_wen_bao_query).preload_city
 
     if q.presence
       if q.matches? /\d+/

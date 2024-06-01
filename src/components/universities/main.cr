@@ -253,9 +253,10 @@ then set (next <input/>).value to my.value2
         tr do
           th "ID编号"
           th "报考编码"
-          th "大学名称(点击进入编辑)"
+          th "大学名称(点击编辑)"
+          th "所在城市"
           th "录取批次"
-          th "备注(如专业等，可模糊搜索)"
+          th "学校备注"
           order_by_score_description_2023 = "点击排序(低分优先)"
           order_by_score_description_2022 = "点击排序(低分优先)"
           order_by_score_description_2021 = "点击排序(低分优先)"
@@ -302,6 +303,7 @@ then set (next <input/>).value to my.value2
             td do
               link university.name, Edit.with(university), "hx-boost": "false"
             end
+            td university.city.name
             td university.batch_level.display_name
             td style: "max-width: 100px;", class: "double-line" do
               text university.remark(current_user)
