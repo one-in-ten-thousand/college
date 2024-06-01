@@ -36,12 +36,10 @@ class Universities::Index < BrowserAction
         query = query.code(q)
       else
         query = query.where("(name &@~ ?", q)
-                .or(
-                  &.where_chong_wen_baos(
-                    ChongWenBaoQuery.new.where("chong_wen_baos.university_remark &@~ ?)", q),
-                    auto_inner_join: false
-                  ).left_join_chong_wen_baos
-                )
+          .or(&.where_chong_wen_baos(
+            ChongWenBaoQuery.new.where("chong_wen_baos.university_remark &@~ ?)", q),
+            auto_inner_join: false
+          ).left_join_chong_wen_baos).distinct
       end
     end
 
