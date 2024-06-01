@@ -12,10 +12,10 @@ class Universities::ShowPage < MainLayout
 
   def render_actions
     section do
-      link "编辑", Edit.with(university.id)
-      text " | "
-
       if current_user.email == "zw963@163.com"
+        link "编辑", Edit.with(university.id)
+        text " | "
+
         link(
           "删除",
           Delete.with(university.id),
