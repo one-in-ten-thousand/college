@@ -12,8 +12,11 @@ class Universities::ShowPage < MainLayout
 
   def render_actions
     section do
-      if current_user.email == "zw963@163.com"
+      if current_user.is_editable
         link "编辑", Edit.with(university.id)
+      end
+
+      if current_user.email == "zw963@163.com"
         text " | "
 
         link(
