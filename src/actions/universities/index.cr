@@ -89,6 +89,7 @@ class Universities::Index < BrowserAction
       "chong_2023", "chong_2022", "chong_2021", "chong_2020",
       "wen_2023", "wen_2022", "wen_2021", "wen_2020",
       "bao_2023", "bao_2022", "bao_2021", "bao_2020",
+      "is_exists_remark",
     ]
 
     if request.headers["HX-Trigger"]?
