@@ -207,7 +207,7 @@ then set (next <input/>).value to my.value2
       mount CheckBox, "is_good", "仅显示包含双一流专业高校", all_name_inputs
     end
     div class: "col m2" do
-      mount CheckBox, "is_exists_description", "仅显示含备注学校", all_name_inputs
+      mount CheckBox, "is_exists_remark", "仅显示含备注学校", all_name_inputs
     end
   end
 

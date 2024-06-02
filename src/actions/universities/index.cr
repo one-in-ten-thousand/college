@@ -3,7 +3,7 @@ class Universities::Index < BrowserAction
   param is_985 : Bool = false
   param is_211 : Bool = false
   param is_good : Bool = false
-  param is_exists_description : Bool = false
+  param is_exists_remark : Bool = false
   param chong_2023 : Bool = false
   param chong_2022 : Bool = false
   param chong_2021 : Bool = false
@@ -51,7 +51,7 @@ class Universities::Index < BrowserAction
 
     query = query.batch_level(batch_level) if batch_level.presence
 
-    query = query.where_chong_wen_baos(user_chong_wen_bao_query.university_remark.is_not_nil) if is_exists_description
+    query = query.where_chong_wen_baos(user_chong_wen_bao_query.university_remark.is_not_nil) if is_exists_remark
 
     if chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
        wen_2023 || wen_2022 || wen_2021 || wen_2020 ||
