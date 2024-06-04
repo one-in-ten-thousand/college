@@ -12,13 +12,22 @@ class Universities::Update < BrowserAction
           column_name = param_value[0]
           column_value = param_value[1]
 
+          case column_name
+          when /2023/
+            year = 2023
+          when /2022/
+            year = 2022
+          when /2021/
+            year = 2021
+          end
+
           component(
             ClickEditTD,
             id: university.id.to_s,
             column_name: column_name,
             column_value: column_value,
             action: "/htmx/v1/universities/render_update_score_input",
-            tooltip: show_ranking_number(column_value),
+            tooltip: show_ranking_info(university, year, column_value),
             current_user: current_user
           )
         elsif hx_trigger.in? [

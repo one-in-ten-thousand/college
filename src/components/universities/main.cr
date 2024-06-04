@@ -323,7 +323,7 @@ then set (next <input/>).value to my.value2
               column_value: university.ranking_2023_min.to_s,
               column_name: "ranking_2023_min",
               action: "/htmx/v1/universities/render_update_score_input",
-              tooltip: show_ranking_number(university.ranking_2023_min),
+              tooltip: show_ranking_info(university, 2023, university.ranking_2023_min),
               current_user: current_user
             )
             mount(
@@ -341,7 +341,7 @@ then set (next <input/>).value to my.value2
               column_value: university.ranking_2022_min.to_s,
               column_name: "ranking_2022_min",
               action: "/htmx/v1/universities/render_update_score_input",
-              tooltip: show_ranking_number(university.ranking_2022_min),
+              tooltip: show_ranking_info(university, 2022, university.ranking_2022_min),
               current_user: current_user
             )
             mount(
@@ -359,7 +359,7 @@ then set (next <input/>).value to my.value2
               column_value: university.ranking_2021_min.to_s,
               column_name: "ranking_2021_min",
               action: "/htmx/v1/universities/render_update_score_input",
-              tooltip: show_ranking_number(university.ranking_2021_min),
+              tooltip: show_ranking_info(university, 2021, university.ranking_2021_min),
               current_user: current_user
             )
             mount(
@@ -377,7 +377,7 @@ then set (next <input/>).value to my.value2
               column_value: university.ranking_2020_min.to_s,
               column_name: "ranking_2020_min",
               action: "/htmx/v1/universities/render_update_score_input",
-              tooltip: show_ranking_number(university.ranking_2020_min),
+              tooltip: show_ranking_info(university, 2020, university.ranking_2020_min),
               current_user: current_user
             )
           end
