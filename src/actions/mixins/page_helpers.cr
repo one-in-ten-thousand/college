@@ -34,11 +34,15 @@ module PageHelpers
         io << "同分段 #{same_ranking_count} 人"
 
         unless ranking_offset.nil?
-          io << "\n相较前一年位次 "
+          io << "\n位次比前一年"
           if ranking_offset > 0
-            io << "+"
+            io << "下降 "
+          else
+            io << "提升 "
           end
-          io << ranking_offset
+
+          io << ranking_offset.abs
+          io << " 位"
         end
       end
 
