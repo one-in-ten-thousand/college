@@ -72,6 +72,9 @@ class University < BaseModel
     column ranking_2021_max : Float64?
     column ranking_2020_max : Float64?
 
+    column zhaosheng_zhangcheng_url : String?
+    column linian_fenshu_url : String?
+
     belongs_to province : Province
     belongs_to city : City
 

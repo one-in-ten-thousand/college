@@ -2,11 +2,13 @@ class SaveUniversity < University::SaveOperation
   upsert_lookup_columns code, batch_level
 
   permit_columns name, code,
-                 is_211, is_985, is_good, batch_level,
-                 score_2023_min, ranking_2023_min,
-                 score_2022_min, ranking_2022_min,
-                 score_2021_min, ranking_2021_min,
-                 score_2020_min, ranking_2020_min
+    is_211, is_985, is_good, batch_level,
+    score_2023_min, ranking_2023_min,
+    score_2022_min, ranking_2022_min,
+    score_2021_min, ranking_2021_min,
+    score_2020_min, ranking_2020_min,
+    zhaosheng_zhangcheng_url,
+    linian_fenshu_url
 
   attribute province_code : Int32
   attribute province_name : String

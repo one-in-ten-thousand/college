@@ -105,6 +105,18 @@ class Universities::FormFields < BaseComponent
 
       br
 
+      div class: "row" do
+        mount Shared::Field, op.linian_fenshu_url, "历年分数(网址)", &.text_input(placeholder: "输入历年分数网址 URL")
+      end
+
+      br
+
+      div class: "row" do
+        mount Shared::Field, op.zhaosheng_zhangcheng_url, "招生章程(网址)", &.text_input(placeholder: "输入招生章程网址 URL")
+      end
+
+      br
+
       if current_user.is_editable
         fieldset style: "max-width: 800px;" do
           legend "其他选项"

@@ -298,8 +298,32 @@ then set (next <input/>).value to my.value2
       tbody do
         universities.each do |university|
           tr do
-            td university.id
-            td university.code.to_s
+            if (url1 = university.linian_fenshu_url).nil?
+              td university.id
+            else
+              td do
+                a(university.id,
+                  href: url1,
+                  class: "tooltipped",
+                  "data-position": "top",
+                  "data-tooltip": "历年分数"
+                )
+              end
+            end
+
+            if (url2 = university.zhaosheng_zhangcheng_url).nil?
+              td university.code.to_s
+            else
+              td do
+                a(university.code,
+                  href: url2,
+                  class: "tooltipped",
+                  "data-position": "top",
+                  "data-tooltip": "招生章程"
+                )
+              end
+            end
+
             td do
               link university.name, Edit.with(university), "hx-boost": "false"
             end

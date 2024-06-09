@@ -19,6 +19,8 @@ class Universities::Edit < BrowserAction
       province_code: university.province.code,
       city_name: university.city.name,
       city_code: university.city.code,
+      zhaosheng_zhangcheng_url: university.zhaosheng_zhangcheng_url,
+      linian_fenshu_url: university.linian_fenshu_url,
       chong_2023: chong_wen_bao.chong_2023,
       chong_2022: chong_wen_bao.chong_2022,
       chong_2021: chong_wen_bao.chong_2021,
