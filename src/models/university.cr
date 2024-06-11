@@ -92,4 +92,8 @@ class University < BaseModel
       cwb.university_remark.to_s
     end
   end
+
+  def city_display_name
+    "#{province.name} #{city.name}"
+  end
 end

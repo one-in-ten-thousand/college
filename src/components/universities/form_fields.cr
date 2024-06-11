@@ -39,6 +39,27 @@ class Universities::FormFields < BaseComponent
         div class: "row" do
           mount Shared::Field, op.name, "大学名称", &.text_input(placeholder: "大学完整名称")
         end
+      else
+        div class: "row" do
+          div class: "m3" do
+            h4 op.name.value.to_s
+          end
+          div class: "m3" do
+            h4 op.batch_level.value.not_nil!.display_name
+          end
+          div class: "m3" do
+            if op.is_211.value
+              h4 "211 院校"
+            elsif op.is_985.value
+              h4 "985 院校"
+            elsif op.is_good.value
+              h4 "拥有双一流专业"
+            end
+          end
+          div class: "m3" do
+            h4 "#{op.record.not_nil!.city_display_name}"
+          end
+        end
       end
 
       if op.record
