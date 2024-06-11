@@ -14,7 +14,7 @@ class Universities::OrderByTH < BaseComponent
       "hx-target": "#main",
       "hx-push-url": "true",
       "hx-vals": "{\"order_by\": \"#{column_name}\", \"click_on\": \"#{column_name}\"}",
-      "hx-include": all_name_inputs.reject { |e| e == "order_by" }.join(",") { |e| "[name='#{e}']" },
+      "hx-include": all_name_inputs.join(",") { |e| "[name='#{e}']" },
       "hx-indicator": "#spinner"
     ) do
       text text

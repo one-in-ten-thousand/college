@@ -190,9 +190,7 @@ class Universities::Index < BrowserAction
   def order_by_action(query)
     # 检测在哪一个 tab head 上点击, 只要每次点击一次, 就判断有没有 cookie
     # 如果没有, 就默认排序, 如果有, 就反转
-    if click_on.presence
-      params.from_query["click_on"] = ""
-
+    if click_on.presence && !context.request.headers["Referer"]?.nil?
       case click_on
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
@@ -246,6 +244,8 @@ class Universities::Index < BrowserAction
     end
 
     if order_by.presence
+      # query_params["order_by"] = order_by
+
       case order_by
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"

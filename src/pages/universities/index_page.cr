@@ -11,8 +11,6 @@ class Universities::IndexPage < MainLayout
   def content
     h3 do
       link "所有学校", Index
-
-      span "       2024 年山西省考生: 三十五万, 临汾市考生: 三万八千"
     end
 
     div class: "row" do
