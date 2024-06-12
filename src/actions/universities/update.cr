@@ -2,7 +2,7 @@ class Universities::Update < BrowserAction
   include PageHelpers
 
   put "/universities/:university_id" do
-    university = UniversityQuery.find(university_id)
+    university = UniversityQuery.new.preload_province.preload_city.find(university_id)
 
     SaveUniversity.update(university, params) do |operation, updated_university|
       if operation.saved?
