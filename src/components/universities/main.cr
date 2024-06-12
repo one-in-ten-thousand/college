@@ -193,6 +193,29 @@ then set (next <input/>).value to my.value2
           mount CheckBox, "bao_2020", "", all_name_inputs, !!(context.request.query_params["chong_2020"]? || context.request.query_params["wen_2020"]?)
         end
       end
+
+      fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
+        legend "已标记"
+        span class: "m3" do
+          span "2023"
+          mount CheckBox, "is_marked_2023", "", all_name_inputs
+        end
+
+        span class: "m3" do
+          span "2022"
+          mount CheckBox, "is_marked_2022", "", all_name_inputs
+        end
+
+        span class: "m3" do
+          span "2021"
+          mount CheckBox, "is_marked_2021", "", all_name_inputs
+        end
+
+        span class: "m3" do
+          span "2020"
+          mount CheckBox, "is_marked_2020", "", all_name_inputs
+        end
+      end
     end
   end
 
@@ -208,9 +231,6 @@ then set (next <input/>).value to my.value2
     end
     div class: "col m2" do
       mount CheckBox, "is_exists_remark", "仅显示含备注学校", all_name_inputs
-    end
-    div class: "col m2" do
-      mount CheckBox, "is_marked", "仅显示标记的学校", all_name_inputs
     end
   end
 
@@ -328,7 +348,43 @@ then set (next <input/>).value to my.value2
             end
 
             td do
-              mount NameLink, university: university, current_user: current_user
+              a(
+                university.name,
+                href: "#",
+                class: "dropdown-trigger",
+                data_target: "dropdown3",
+                marked_2023: university.marked_2023(current_user),
+                marked_2022: university.marked_2022(current_user),
+                marked_2021: university.marked_2021(current_user),
+                marked_2020: university.marked_2021(current_user),
+                script: "on click set @href of <ul#dropdown3 li a[href='data_edit_url']/> to '#{Edit.with(university).path}'
+then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2023_url']/> to '#{Universities::Htmx::Marked2023.with(university.id).path}'
+then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2022_url']/> to '#{Universities::Htmx::Marked2022.with(university.id).path}'
+then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2021_url']/> to '#{Universities::Htmx::Marked2021.with(university.id).path}'
+then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2020_url']/> to '#{Universities::Htmx::Marked2020.with(university.id).path}'
+then js htmx.process(document.body) end
+then if @marked-2023 as String == 'true'
+  js document.getElementById('marked_2023').checked = true; end
+else
+  js document.getElementById('marked_2023').checked = false; end
+end
+then if @marked-2022 as String == 'true'
+  js document.getElementById('marked_2022').checked = true; end
+else
+  js document.getElementById('marked_2022').checked = false; end
+end
+then if @marked-2021 as String == 'true'
+  js document.getElementById('marked_2021').checked = true; end
+else
+  js document.getElementById('marked_2021').checked = false; end
+end
+then if @marked-2020 as String == 'true'
+  js document.getElementById('marked_2020').checked = true; end
+else
+  js document.getElementById('marked_2020').checked = false; end
+end
+"
+              )
             end
             td university.city.name
             td university.batch_level.display_name
@@ -414,22 +470,73 @@ then set (next <input/>).value to my.value2
 
       ul id: "dropdown3", class: "dropdown-content" do
         li do
-          a "编辑", href: "data_edit_url", "hx-boost": "false"
+          a "点击编辑", href: "data_edit_url", "hx-boost": "false"
         end
         li do
           label do
-            input(type: "hidden", name: "university:marked", value: "false", id: "marked_unmark")
+            input(type: "hidden", name: "university:is_marked_2023", value: "false", id: "marked_unmark")
             input(
               type: "checkbox",
-              name: "university:marked",
+              name: "university:is_marked_2023",
               value: "true",
-              id: "marked",
-              "hx-put": "data_marked_url",
+              id: "marked_2023",
+              "hx-put": "data_marked_2023_url",
               "hx-swap": "#main",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_unmark"
             )
-            span "标记"
+            span "标记2023"
+          end
+        end
+
+        li do
+          label do
+            input(type: "hidden", name: "university:is_marked_2022", value: "false", id: "marked_unmark")
+            input(
+              type: "checkbox",
+              name: "university:is_marked_2022",
+              value: "true",
+              id: "marked_2022",
+              "hx-put": "data_marked_2022_url",
+              "hx-swap": "#main",
+              "hx-indicator": "#spinner",
+              "hx-include": "[name='_csrf'],input#marked_unmark"
+            )
+            span "标记2022"
+          end
+        end
+
+        li do
+          label do
+            input(type: "hidden", name: "university:is_marked_2021", value: "false", id: "marked_unmark")
+            input(
+              type: "checkbox",
+              name: "university:is_marked_2021",
+              value: "true",
+              id: "marked_2021",
+              "hx-put": "data_marked_2021_url",
+              "hx-swap": "#main",
+              "hx-indicator": "#spinner",
+              "hx-include": "[name='_csrf'],input#marked_unmark"
+            )
+            span "标记2021"
+          end
+        end
+
+        li do
+          label do
+            input(type: "hidden", name: "university:is_marked_2020", value: "false", id: "marked_unmark")
+            input(
+              type: "checkbox",
+              name: "university:is_marked_2020",
+              value: "true",
+              id: "marked_2020",
+              "hx-put": "data_marked_2020_url",
+              "hx-swap": "#main",
+              "hx-indicator": "#spinner",
+              "hx-include": "[name='_csrf'],input#marked_unmark"
+            )
+            span "标记2020"
           end
         end
       end

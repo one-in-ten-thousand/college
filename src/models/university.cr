@@ -93,15 +93,49 @@ class University < BaseModel
     end
   end
 
-  def marked(user)
-    cwb = chong_wen_baos.find do |x|
+  def chong_wen_bao_for(user)
+    chong_wen_baos.find do |x|
       x.user_id == user.id
     end
+  end
+
+  def marked_2023(user)
+    cwb = chong_wen_bao_for(user)
 
     if cwb.nil?
       false
     else
-      cwb.is_marked
+      cwb.is_marked_2023
+    end
+  end
+
+  def marked_2022(user)
+    cwb = chong_wen_bao_for(user)
+
+    if cwb.nil?
+      false
+    else
+      cwb.is_marked_2022
+    end
+  end
+
+  def marked_2021(user)
+    cwb = chong_wen_bao_for(user)
+
+    if cwb.nil?
+      false
+    else
+      cwb.is_marked_2021
+    end
+  end
+
+  def marked_2020(user)
+    cwb = chong_wen_bao_for(user)
+
+    if cwb.nil?
+      false
+    else
+      cwb.is_marked_2020
     end
   end
 
