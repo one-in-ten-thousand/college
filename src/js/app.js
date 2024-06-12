@@ -65,6 +65,12 @@ function init () {
     var instances = M.Modal.init(elems, {
         // specify options here
     });
+
+    // htmx.logger = function (elt, event, data) {
+    //     if (console) {
+    //         console.log(event, elt, data);
+    //     }
+    // };
 }
 
 htmx.onLoad(function (target) {
