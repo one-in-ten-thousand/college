@@ -41,19 +41,19 @@ class Universities::FormFields < BaseComponent
         end
       else
         div class: "row" do
-          div class: "m3" do
-            h4 op.name.value.to_s
+          div class: "m4" do
+            h4 "#{op.name.value}(#{op.code.value})"
           end
-          div class: "m3" do
+          div class: "m2" do
             h4 op.batch_level.value.not_nil!.display_name
           end
-          div class: "m3" do
+          div class: "m2" do
             if op.is_211.value
               h4 "211 院校"
             elsif op.is_985.value
               h4 "985 院校"
             elsif op.is_good.value
-              h4 "拥有双一流专业"
+              h4 "双一流"
             end
           end
           div class: "m3" do
