@@ -4,6 +4,8 @@ class Universities::Index < BrowserAction
   param is_211 : Bool = false
   param is_good : Bool = false
   param is_exists_remark : Bool = false
+  param is_marked : Bool = false
+
   param chong_2023 : Bool = false
   param chong_2022 : Bool = false
   param chong_2021 : Bool = false
@@ -53,10 +55,13 @@ class Universities::Index < BrowserAction
 
     query = query.where_chong_wen_baos(user_chong_wen_bao_query.university_remark.is_not_nil) if is_exists_remark
 
-    if chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
+    if is_marked ||
+       chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
        wen_2023 || wen_2022 || wen_2021 || wen_2020 ||
        bao_2023 || bao_2022 || bao_2021 || bao_2020
       cwb_query = user_chong_wen_bao_query
+
+      cwb_query = cwb_query.is_marked(true) if is_marked
 
       cwb_query = cwb_query.chong_2023(true) if chong_2023
       cwb_query = cwb_query.chong_2022(true) if chong_2022

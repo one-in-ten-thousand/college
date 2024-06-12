@@ -93,6 +93,18 @@ class University < BaseModel
     end
   end
 
+  def marked(user)
+    cwb = chong_wen_baos.find do |x|
+      x.user_id == user.id
+    end
+
+    if cwb.nil?
+      false
+    else
+      cwb.is_marked
+    end
+  end
+
   def city_display_name
     "#{province.name} #{city.name}"
   end

@@ -209,6 +209,9 @@ then set (next <input/>).value to my.value2
     div class: "col m2" do
       mount CheckBox, "is_exists_remark", "仅显示含备注学校", all_name_inputs
     end
+    div class: "col m2" do
+      mount CheckBox, "is_marked", "仅显示标记的学校", all_name_inputs
+    end
   end
 
   private def render_batch_level_dropdown
@@ -253,7 +256,7 @@ then set (next <input/>).value to my.value2
         tr do
           th "ID编号"
           th "报考编码"
-          th "大学名称(点击编辑)"
+          th "大学名称"
           th "所在城市"
           th "录取批次"
           th "学校备注"
@@ -325,7 +328,7 @@ then set (next <input/>).value to my.value2
             end
 
             td do
-              link university.name, Edit.with(university), "hx-boost": "false"
+              mount NameLink, university: university, current_user: current_user
             end
             td university.city.name
             td university.batch_level.display_name
@@ -407,6 +410,28 @@ then set (next <input/>).value to my.value2
           end
         end
         input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
+      end
+
+      ul id: "dropdown3", class: "dropdown-content" do
+        li do
+          a "编辑", href: "data_edit_url", "hx-boost": "false"
+        end
+        li do
+          label do
+            input(type: "hidden", name: "university:marked", value: "false", id: "marked_unmark")
+            input(
+              type: "checkbox",
+              name: "university:marked",
+              value: "true",
+              id: "marked",
+              "hx-put": "data_marked_url",
+              "hx-swap": "#main",
+              "hx-indicator": "#spinner",
+              "hx-include": "[name='_csrf'],input#marked_unmark"
+            )
+            span "标记"
+          end
+        end
       end
     end
   end
