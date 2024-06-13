@@ -64,49 +64,51 @@ class Me::ShowPage < MainLayout
       end
     end
 
+    br
+
     div class: "row" do
       div class: "col m3" do
         link(
           "删除 2023 标记数据",
-          Me::ClearChong,
+          Universities::Htmx::Clear2023Mark,
           class: "btn",
-          "hx-put": Me::ClearChong.path,
+          "hx-put": Universities::Htmx::Clear2023Mark.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
           "hx-confirm": "确认要删除 2023 标记数据吗？",
         )
       end
 
-      div class: "col m4" do
+      div class: "col m3" do
         link(
           "删除 2022 标记数据",
-          Me::ClearWen,
+          Universities::Htmx::Clear2022Mark,
           class: "btn",
-          "hx-put": Me::ClearWen.path,
+          "hx-put": Universities::Htmx::Clear2022Mark.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
           "hx-confirm": "确认要删除 2022 标记数据吗？",
         )
       end
 
-      div class: "col m4" do
+      div class: "col m3" do
         link(
           "删除 2021 标记数据",
-          Me::ClearChong,
+          Universities::Htmx::Clear2021Mark,
           class: "btn",
-          "hx-put": Me::ClearBao.path,
+          "hx-put": Universities::Htmx::Clear2021Mark.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
           "hx-confirm": "确认要删除 2021 标记数据吗？",
         )
       end
 
-      div class: "col m4" do
+      div class: "col m3" do
         link(
           "删除 2020 标记数据",
-          Me::ClearChong,
+          Universities::Htmx::Clear2020Mark,
           class: "btn",
-          "hx-put": Me::ClearBao.path,
+          "hx-put": Universities::Htmx::Clear2020Mark.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
           "hx-confirm": "确认要删除 2020 标记数据吗？",
