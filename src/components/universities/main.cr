@@ -357,50 +357,7 @@ then set (next <input/>).value to my.value2
             end
 
             td do
-              a(
-                university.name,
-                href: "#",
-                class: "dropdown-trigger",
-                data_target: "dropdown3",
-                marked_2023: university.marked_2023(current_user),
-                marked_2022: university.marked_2022(current_user),
-                marked_2021: university.marked_2021(current_user),
-                marked_2020: university.marked_2020(current_user),
-                marked: university.marked(current_user),
-                script: "on click set @href of <ul#dropdown3 li a[href='data_edit_url']/> to '#{Edit.with(university).path}'
-then set @hx-put of <ul#dropdown3 li input[name='university:is_marked']/> to '#{Universities::Htmx::Marked.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2023']/> to '#{Universities::Htmx::Marked2023.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2022']/> to '#{Universities::Htmx::Marked2022.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2021']/> to '#{Universities::Htmx::Marked2021.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2020']/> to '#{Universities::Htmx::Marked2020.with(university.id).path}'
-then js htmx.process(document.body) end
-then if @marked-2023 as String == 'true'
-  js document.getElementById('marked_2023').checked = true; end
-else
-  js document.getElementById('marked_2023').checked = false; end
-end
-then if @marked-2022 as String == 'true'
-  js document.getElementById('marked_2022').checked = true; end
-else
-  js document.getElementById('marked_2022').checked = false; end
-end
-then if @marked-2021 as String == 'true'
-  js document.getElementById('marked_2021').checked = true; end
-else
-  js document.getElementById('marked_2021').checked = false; end
-end
-then if @marked-2020 as String == 'true'
-  js document.getElementById('marked_2020').checked = true; end
-else
-  js document.getElementById('marked_2020').checked = false; end
-end
-then if @marked as String == 'true'
-  js document.getElementById('marked').checked = true; end
-else
-  js document.getElementById('marked').checked = false; end
-end
-"
-              )
+              mount NameLink, university, current_user
             end
             td university.city.name
             td university.batch_level.display_name
@@ -497,7 +454,8 @@ end
               value: "true",
               id: "marked_2023",
               "hx-put": "data_marked_2023_url",
-              "hx-swap": "none",
+              "hx-target": "",
+              "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2023_unmark"
             )
@@ -514,7 +472,8 @@ end
               value: "true",
               id: "marked_2022",
               "hx-put": "data_marked_2022_url",
-              "hx-swap": "none",
+              "hx-target": "",
+              "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2022_unmark"
             )
@@ -531,7 +490,8 @@ end
               value: "true",
               id: "marked_2021",
               "hx-put": "data_marked_2021_url",
-              "hx-swap": "none",
+              "hx-target": "",
+              "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2021_unmark"
             )
@@ -548,7 +508,8 @@ end
               value: "true",
               id: "marked_2020",
               "hx-put": "data_marked_2020_url",
-              "hx-swap": "none",
+              "hx-target": "",
+              "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2020_unmark"
             )
@@ -565,7 +526,8 @@ end
               value: "true",
               id: "marked",
               "hx-put": "data_marked_url",
-              "hx-swap": "none",
+              "hx-target": "",
+              "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_unmark"
             )

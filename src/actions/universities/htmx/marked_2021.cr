@@ -1,15 +1,14 @@
 class Universities::Htmx::Marked2021 < HtmxAction
   put "/universities/:university_id/marked_2021" do
     user_id = current_user.id
+    university = UniversityQuery.new.preload_chong_wen_baos.find(university_id)
 
-    chong_wen_bao = ChongWenBaoQuery.new.user_id(user_id).university_id(university_id).first?
+    chong_wen_bao = ChongWenBaoQuery.new.user_id(user_id).university_id(university.id).first?
 
-    chong_wen_bao = SaveChongWenBao.create!(user_id: user_id, university_id: university_id.to_i64) if chong_wen_bao.nil?
+    chong_wen_bao = SaveChongWenBao.create!(user_id: user_id, university_id: university.id) if chong_wen_bao.nil?
 
     SaveChongWenBao.update!(chong_wen_bao, is_marked_2021: !chong_wen_bao.is_marked_2021)
 
-    # context.response.headers["HX-Refresh"] = "true"
-
-    plain_text "ok"
+    component NameLink, university: university.reload(&.preload_chong_wen_baos), current_user: current_user
   end
 end
