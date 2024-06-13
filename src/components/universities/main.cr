@@ -368,11 +368,11 @@ then set (next <input/>).value to my.value2
                 marked_2020: university.marked_2020(current_user),
                 marked: university.marked(current_user),
                 script: "on click set @href of <ul#dropdown3 li a[href='data_edit_url']/> to '#{Edit.with(university).path}'
-then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_url']/> to '#{Universities::Htmx::Marked.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2023_url']/> to '#{Universities::Htmx::Marked2023.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2022_url']/> to '#{Universities::Htmx::Marked2022.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2021_url']/> to '#{Universities::Htmx::Marked2021.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2020_url']/> to '#{Universities::Htmx::Marked2020.with(university.id).path}'
+then set @hx-put of <ul#dropdown3 li input[name='university:is_marked']/> to '#{Universities::Htmx::Marked.with(university.id).path}'
+then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2023']/> to '#{Universities::Htmx::Marked2023.with(university.id).path}'
+then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2022']/> to '#{Universities::Htmx::Marked2022.with(university.id).path}'
+then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2021']/> to '#{Universities::Htmx::Marked2021.with(university.id).path}'
+then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2020']/> to '#{Universities::Htmx::Marked2020.with(university.id).path}'
 then js htmx.process(document.body) end
 then if @marked-2023 as String == 'true'
   js document.getElementById('marked_2023').checked = true; end
