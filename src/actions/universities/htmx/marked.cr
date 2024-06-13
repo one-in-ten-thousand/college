@@ -8,7 +8,7 @@ class Universities::Htmx::Marked < HtmxAction
 
     SaveChongWenBao.update!(chong_wen_bao, is_marked: !chong_wen_bao.is_marked)
 
-    context.response.headers["HX-Refresh"] = "true"
+    # context.response.headers["HX-Refresh"] = "true"
 
     plain_text "ok"
   end

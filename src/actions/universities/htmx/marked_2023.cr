@@ -8,7 +8,7 @@ class Universities::Htmx::Marked2023 < HtmxAction
 
     SaveChongWenBao.update!(chong_wen_bao, is_marked_2023: !chong_wen_bao.is_marked_2023)
 
-    context.response.headers["HX-Refresh"] = "true"
+    # context.response.headers["HX-Refresh"] = "true"
 
     plain_text "ok"
   end
