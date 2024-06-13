@@ -81,21 +81,19 @@ class University < BaseModel
     has_many chong_wen_baos : ChongWenBao
   end
 
-  def remark(user)
-    cwb = chong_wen_baos.find do |x|
+  def chong_wen_bao_for(user)
+    chong_wen_baos.find do |x|
       x.user_id == user.id
     end
+  end
+
+  def remark(user)
+    cwb = chong_wen_bao_for(user)
 
     if cwb.nil?
       ""
     else
       cwb.university_remark.to_s
-    end
-  end
-
-  def chong_wen_bao_for(user)
-    chong_wen_baos.find do |x|
-      x.user_id == user.id
     end
   end
 

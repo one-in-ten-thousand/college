@@ -35,7 +35,7 @@ class Me::ShowPage < MainLayout
           "hx-put": Me::ClearChong.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
-          "hx-confirm": "确认要清除冲数据吗？",
+          "hx-confirm": "确认要删除 冲 数据吗？",
         )
       end
 
@@ -60,6 +60,56 @@ class Me::ShowPage < MainLayout
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
           "hx-confirm": "确认要删除 保 数据吗？",
+        )
+      end
+    end
+
+    div class: "row" do
+      div class: "col m3" do
+        link(
+          "删除 2023 标记数据",
+          Me::ClearChong,
+          class: "btn",
+          "hx-put": Me::ClearChong.path,
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf']",
+          "hx-confirm": "确认要删除 2023 标记数据吗？",
+        )
+      end
+
+      div class: "col m4" do
+        link(
+          "删除 2022 标记数据",
+          Me::ClearWen,
+          class: "btn",
+          "hx-put": Me::ClearWen.path,
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf']",
+          "hx-confirm": "确认要删除 2022 标记数据吗？",
+        )
+      end
+
+      div class: "col m4" do
+        link(
+          "删除 2021 标记数据",
+          Me::ClearChong,
+          class: "btn",
+          "hx-put": Me::ClearBao.path,
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf']",
+          "hx-confirm": "确认要删除 2021 标记数据吗？",
+        )
+      end
+
+      div class: "col m4" do
+        link(
+          "删除 2020 标记数据",
+          Me::ClearChong,
+          class: "btn",
+          "hx-put": Me::ClearBao.path,
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf']",
+          "hx-confirm": "确认要删除 2020 标记数据吗？",
         )
       end
     end

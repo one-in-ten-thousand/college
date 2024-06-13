@@ -356,7 +356,7 @@ then set (next <input/>).value to my.value2
                 marked_2023: university.marked_2023(current_user),
                 marked_2022: university.marked_2022(current_user),
                 marked_2021: university.marked_2021(current_user),
-                marked_2020: university.marked_2021(current_user),
+                marked_2020: university.marked_2020(current_user),
                 script: "on click set @href of <ul#dropdown3 li a[href='data_edit_url']/> to '#{Edit.with(university).path}'
 then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2023_url']/> to '#{Universities::Htmx::Marked2023.with(university.id).path}'
 then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2022_url']/> to '#{Universities::Htmx::Marked2022.with(university.id).path}'
@@ -474,7 +474,7 @@ end
         end
         li do
           label do
-            input(type: "hidden", name: "university:is_marked_2023", value: "false", id: "marked_unmark")
+            input(type: "hidden", name: "university:is_marked_2023", value: "false", id: "marked_2023_unmark")
             input(
               type: "checkbox",
               name: "university:is_marked_2023",
@@ -483,7 +483,7 @@ end
               "hx-put": "data_marked_2023_url",
               "hx-swap": "#main",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_unmark"
+              "hx-include": "[name='_csrf'],input#marked_2023_unmark"
             )
             span "标记2023"
           end
@@ -491,7 +491,7 @@ end
 
         li do
           label do
-            input(type: "hidden", name: "university:is_marked_2022", value: "false", id: "marked_unmark")
+            input(type: "hidden", name: "university:is_marked_2022", value: "false", id: "marked_2022_unmark")
             input(
               type: "checkbox",
               name: "university:is_marked_2022",
@@ -500,7 +500,7 @@ end
               "hx-put": "data_marked_2022_url",
               "hx-swap": "#main",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_unmark"
+              "hx-include": "[name='_csrf'],input#marked_2022_unmark"
             )
             span "标记2022"
           end
@@ -508,7 +508,7 @@ end
 
         li do
           label do
-            input(type: "hidden", name: "university:is_marked_2021", value: "false", id: "marked_unmark")
+            input(type: "hidden", name: "university:is_marked_2021", value: "false", id: "marked_2021_unmark")
             input(
               type: "checkbox",
               name: "university:is_marked_2021",
@@ -517,7 +517,7 @@ end
               "hx-put": "data_marked_2021_url",
               "hx-swap": "#main",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_unmark"
+              "hx-include": "[name='_csrf'],input#marked_2021_unmark"
             )
             span "标记2021"
           end
@@ -525,7 +525,7 @@ end
 
         li do
           label do
-            input(type: "hidden", name: "university:is_marked_2020", value: "false", id: "marked_unmark")
+            input(type: "hidden", name: "university:is_marked_2020", value: "false", id: "marked_2020_unmark")
             input(
               type: "checkbox",
               name: "university:is_marked_2020",
@@ -534,7 +534,7 @@ end
               "hx-put": "data_marked_2020_url",
               "hx-swap": "#main",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_unmark"
+              "hx-include": "[name='_csrf'],input#marked_2020_unmark"
             )
             span "标记2020"
           end
