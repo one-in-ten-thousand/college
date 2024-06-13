@@ -81,7 +81,7 @@ class University < BaseModel
     has_many chong_wen_baos : ChongWenBao
   end
 
-  def chong_wen_bao_for(user)
+  memoize def chong_wen_bao_for(user : User) : ChongWenBao?
     chong_wen_baos.find do |x|
       x.user_id == user.id
     end
