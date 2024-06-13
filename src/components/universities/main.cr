@@ -497,7 +497,7 @@ end
               value: "true",
               id: "marked_2023",
               "hx-put": "data_marked_2023_url",
-              "hx-swap": "#main",
+              "hx-swap": "none",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2023_unmark"
             )
@@ -514,7 +514,7 @@ end
               value: "true",
               id: "marked_2022",
               "hx-put": "data_marked_2022_url",
-              "hx-swap": "#main",
+              "hx-swap": "none",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2022_unmark"
             )
@@ -531,7 +531,7 @@ end
               value: "true",
               id: "marked_2021",
               "hx-put": "data_marked_2021_url",
-              "hx-swap": "#main",
+              "hx-swap": "none",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2021_unmark"
             )
@@ -548,7 +548,7 @@ end
               value: "true",
               id: "marked_2020",
               "hx-put": "data_marked_2020_url",
-              "hx-swap": "#main",
+              "hx-swap": "none",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2020_unmark"
             )
@@ -565,7 +565,7 @@ end
               value: "true",
               id: "marked",
               "hx-put": "data_marked_url",
-              "hx-swap": "#main",
+              "hx-swap": "none",
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_unmark"
             )
