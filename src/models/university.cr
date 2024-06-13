@@ -97,6 +97,16 @@ class University < BaseModel
     end
   end
 
+  def marked(user)
+    cwb = chong_wen_bao_for(user)
+
+    if cwb.nil?
+      false
+    else
+      cwb.is_marked
+    end
+  end
+
   def marked_2023(user)
     cwb = chong_wen_bao_for(user)
 

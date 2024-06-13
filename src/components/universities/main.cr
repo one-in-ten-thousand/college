@@ -232,6 +232,9 @@ then set (next <input/>).value to my.value2
     div class: "col m2" do
       mount CheckBox, "is_exists_remark", "仅显示含备注学校", all_name_inputs
     end
+    div class: "col m2" do
+      mount CheckBox, "is_marked", "仅显示手动标记的学校", all_name_inputs
+    end
   end
 
   private def render_batch_level_dropdown
@@ -357,7 +360,9 @@ then set (next <input/>).value to my.value2
                 marked_2022: university.marked_2022(current_user),
                 marked_2021: university.marked_2021(current_user),
                 marked_2020: university.marked_2020(current_user),
+                marked: university.marked(current_user),
                 script: "on click set @href of <ul#dropdown3 li a[href='data_edit_url']/> to '#{Edit.with(university).path}'
+then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_url']/> to '#{Universities::Htmx::Marked.with(university.id).path}'
 then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2023_url']/> to '#{Universities::Htmx::Marked2023.with(university.id).path}'
 then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2022_url']/> to '#{Universities::Htmx::Marked2022.with(university.id).path}'
 then set @hx-put of <ul#dropdown3 li input[hx-put='data_marked_2021_url']/> to '#{Universities::Htmx::Marked2021.with(university.id).path}'
@@ -382,6 +387,11 @@ then if @marked-2020 as String == 'true'
   js document.getElementById('marked_2020').checked = true; end
 else
   js document.getElementById('marked_2020').checked = false; end
+end
+then if @marked as String == 'true'
+  js document.getElementById('marked').checked = true; end
+else
+  js document.getElementById('marked').checked = false; end
 end
 "
               )
@@ -537,6 +547,23 @@ end
               "hx-include": "[name='_csrf'],input#marked_2020_unmark"
             )
             span "标记2020"
+          end
+        end
+
+        li do
+          label do
+            input(type: "hidden", name: "university:is_marked", value: "false", id: "marked_unmark")
+            input(
+              type: "checkbox",
+              name: "university:is_marked",
+              value: "true",
+              id: "marked",
+              "hx-put": "data_marked_url",
+              "hx-swap": "#main",
+              "hx-indicator": "#spinner",
+              "hx-include": "[name='_csrf'],input#marked_unmark"
+            )
+            span "手动标记"
           end
         end
       end

@@ -4,6 +4,7 @@ class Universities::Index < BrowserAction
   param is_211 : Bool = false
   param is_good : Bool = false
   param is_exists_remark : Bool = false
+  param is_marked : Bool = false
   param is_marked_2023 : Bool = false
   param is_marked_2022 : Bool = false
   param is_marked_2021 : Bool = false
@@ -58,12 +59,13 @@ class Universities::Index < BrowserAction
 
     query = query.where_chong_wen_baos(user_chong_wen_bao_query.university_remark.is_not_nil) if is_exists_remark
 
-    if is_marked_2023 || is_marked_2022 || is_marked_2021 || is_marked_2020 ||
+    if is_marked_2023 || is_marked_2022 || is_marked_2021 || is_marked_2020 || is_marked ||
        chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
        wen_2023 || wen_2022 || wen_2021 || wen_2020 ||
        bao_2023 || bao_2022 || bao_2021 || bao_2020
       cwb_query = user_chong_wen_bao_query
 
+      cwb_query = cwb_query.is_marked(true) if is_marked
       cwb_query = cwb_query.is_marked_2023(true) if is_marked_2023
       cwb_query = cwb_query.is_marked_2022(true) if is_marked_2022
       cwb_query = cwb_query.is_marked_2021(true) if is_marked_2021
@@ -94,7 +96,7 @@ class Universities::Index < BrowserAction
     pages, universities = paginate(query.id.desc_order, per_page: 50)
 
     all_name_inputs = [
-      "q", "is_985", "is_211", "is_good", "is_exists_remark",
+      "q", "is_985", "is_211", "is_good", "is_exists_remark", "is_marked",
       "is_marked_2023", "is_marked_2022", "is_marked_2021", "is_marked_2020",
       "order_by", "batch_level", "filter_by_column",
       "range_min_value", "range_max_value",

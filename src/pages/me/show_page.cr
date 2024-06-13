@@ -28,9 +28,9 @@ class Me::ShowPage < MainLayout
   private def clear_chong_wen_bao
     div class: "row" do
       div class: "col m4" do
-        link(
+        a(
           "删除 冲 数据",
-          Me::ClearChong,
+          href: "#!",
           class: "btn",
           "hx-put": Me::ClearChong.path,
           "hx-swap": "none",
@@ -40,9 +40,9 @@ class Me::ShowPage < MainLayout
       end
 
       div class: "col m4" do
-        link(
+        a(
           "删除 稳 数据",
-          Me::ClearWen,
+          href: "#!",
           class: "btn",
           "hx-put": Me::ClearWen.path,
           "hx-swap": "none",
@@ -52,9 +52,9 @@ class Me::ShowPage < MainLayout
       end
 
       div class: "col m4" do
-        link(
+        a(
           "删除 保 数据",
-          Me::ClearChong,
+          href: "#!",
           class: "btn",
           "hx-put": Me::ClearBao.path,
           "hx-swap": "none",
@@ -67,10 +67,10 @@ class Me::ShowPage < MainLayout
     br
 
     div class: "row" do
-      div class: "col m3" do
-        link(
+      div class: "col m2" do
+        a(
           "删除 2023 标记数据",
-          Universities::Htmx::Clear2023Mark,
+          href: "#!",
           class: "btn",
           "hx-put": Universities::Htmx::Clear2023Mark.path,
           "hx-swap": "none",
@@ -79,10 +79,10 @@ class Me::ShowPage < MainLayout
         )
       end
 
-      div class: "col m3" do
-        link(
+      div class: "col m2" do
+        a(
           "删除 2022 标记数据",
-          Universities::Htmx::Clear2022Mark,
+          href: "#!",
           class: "btn",
           "hx-put": Universities::Htmx::Clear2022Mark.path,
           "hx-swap": "none",
@@ -91,10 +91,10 @@ class Me::ShowPage < MainLayout
         )
       end
 
-      div class: "col m3" do
-        link(
+      div class: "col m2" do
+        a(
           "删除 2021 标记数据",
-          Universities::Htmx::Clear2021Mark,
+          href: "#!",
           class: "btn",
           "hx-put": Universities::Htmx::Clear2021Mark.path,
           "hx-swap": "none",
@@ -103,15 +103,27 @@ class Me::ShowPage < MainLayout
         )
       end
 
-      div class: "col m3" do
-        link(
+      div class: "col m2" do
+        a(
           "删除 2020 标记数据",
-          Universities::Htmx::Clear2020Mark,
+          href: "#!",
           class: "btn",
           "hx-put": Universities::Htmx::Clear2020Mark.path,
           "hx-swap": "none",
           "hx-include": "[name='_csrf']",
           "hx-confirm": "确认要删除 2020 标记数据吗？",
+        )
+      end
+
+      div class: "col m2" do
+        a(
+          "删除 手动 标记数据",
+          href: "#!",
+          class: "btn",
+          "hx-put": Universities::Htmx::ClearMark.path,
+          "hx-swap": "none",
+          "hx-include": "[name='_csrf']",
+          "hx-confirm": "确认要删除 手动 标记数据吗？",
         )
       end
     end
