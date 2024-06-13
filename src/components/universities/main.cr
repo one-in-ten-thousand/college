@@ -35,6 +35,10 @@ class Universities::Main < BaseComponent
 
       br
 
+      render_marked
+
+      br
+
       mount PaginationLinks, pages unless pages.one_page?
       render_universities
       mount PaginationLinks, pages unless pages.one_page?
@@ -193,28 +197,30 @@ then set (next <input/>).value to my.value2
           mount CheckBox, "bao_2020", "", all_name_inputs, !!(context.request.query_params["chong_2020"]? || context.request.query_params["wen_2020"]?)
         end
       end
+    end
+  end
 
-      fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
-        legend "已标记"
-        span class: "m3" do
-          span "2023"
-          mount CheckBox, "is_marked_2023", "", all_name_inputs
-        end
+  private def render_marked
+    fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
+      legend "已标记"
+      span class: "m3" do
+        span "2023"
+        mount CheckBox, "is_marked_2023", "", all_name_inputs
+      end
 
-        span class: "m3" do
-          span "2022"
-          mount CheckBox, "is_marked_2022", "", all_name_inputs
-        end
+      span class: "m3" do
+        span "2022"
+        mount CheckBox, "is_marked_2022", "", all_name_inputs
+      end
 
-        span class: "m3" do
-          span "2021"
-          mount CheckBox, "is_marked_2021", "", all_name_inputs
-        end
+      span class: "m3" do
+        span "2021"
+        mount CheckBox, "is_marked_2021", "", all_name_inputs
+      end
 
-        span class: "m3" do
-          span "2020"
-          mount CheckBox, "is_marked_2020", "", all_name_inputs
-        end
+      span class: "m3" do
+        span "2020"
+        mount CheckBox, "is_marked_2020", "", all_name_inputs
       end
     end
   end
