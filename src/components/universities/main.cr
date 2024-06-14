@@ -459,7 +459,7 @@ then set (next <input/>).value to my.value2
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2023_unmark"
             )
-            span "标记2023"
+            span "2023"
           end
         end
 
@@ -477,7 +477,7 @@ then set (next <input/>).value to my.value2
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2022_unmark"
             )
-            span "标记2022"
+            span "2022"
           end
         end
 
@@ -495,7 +495,7 @@ then set (next <input/>).value to my.value2
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2021_unmark"
             )
-            span "标记2021"
+            span "2021"
           end
         end
 
@@ -513,7 +513,7 @@ then set (next <input/>).value to my.value2
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_2020_unmark"
             )
-            span "标记2020"
+            span "2020"
           end
         end
 
@@ -531,7 +531,7 @@ then set (next <input/>).value to my.value2
               "hx-indicator": "#spinner",
               "hx-include": "[name='_csrf'],input#marked_unmark"
             )
-            span "手动标记"
+            span "手动"
           end
         end
       end
