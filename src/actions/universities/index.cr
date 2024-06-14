@@ -203,7 +203,13 @@ class Universities::Index < BrowserAction
   def order_by_action(query)
     # 检测在哪一个 tab head 上点击, 只要每次点击一次, 就判断有没有 cookie
     # 如果没有, 就默认排序, 如果有, 就反转
+
+    # !context.request.headers["Referer"] 解决的是当用户点击 back 按钮时, (不期望的)重新排序的问题.
+    # 当用户点 back 按钮时, context.request.headers["Referer"] 是 Nil
     if click_on.presence && !context.request.headers["Referer"]?.nil?
+      # 确保用户点下一页时, click_on 参数为空.
+      params.from_query["click_on"] = ""
+
       case click_on
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
