@@ -279,6 +279,7 @@ then set (next <input/>).value to my.value2
   end
 
   private def render_universities
+    order_by_id_description = "点击排序(从小到大)"
     order_by_code_description = "点击排序(从小到大)"
     order_by_score_description_2023 = "点击排序(低分优先)"
     order_by_score_description_2022 = "点击排序(低分优先)"
@@ -290,6 +291,8 @@ then set (next <input/>).value to my.value2
     order_by_ranking_description_2020 = "点击排序(低位次优先)"
 
     case context.cookies.get?("order_by")
+    when "id_asc_order"
+      order_by_id_description = "点击排序(从大到小)"
     when "code_asc_order"
       order_by_code_description = "点击排序(从大到小)"
     when "score_2023_min_asc_order"
@@ -314,7 +317,7 @@ then set (next <input/>).value to my.value2
     table class: "highlight" do
       thead do
         tr do
-          th "ID编号"
+          mount OrderByTH, "id", order_by_id_description, "ID编号", all_name_inputs
           mount OrderByTH, "code", order_by_code_description, "报考编码", all_name_inputs
           th "大学名称"
           th "所在城市"
