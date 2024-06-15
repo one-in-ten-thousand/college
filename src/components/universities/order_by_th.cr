@@ -8,6 +8,7 @@ class Universities::OrderByTH < BaseComponent
     th(
       class: "tooltipped",
       id: "order_by_column",
+      style: "color: blue;",
       "data-position": "top",
       "data-tooltip": "#{order_description}",
       "hx-get": "/universities",
