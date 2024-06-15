@@ -131,7 +131,7 @@ then set (next <input/>).value to my.value2
   private def render_chong_wen_bao_checkboxs
     div class: "row" do
       fieldset class: "row", style: "width: 380px;" do
-        legend "冲"
+        legend "仅显示 冲 的学校"
         span class: "m3" do
           span "2023"
           mount CheckBox, "chong_2023", "", all_name_inputs, !!(context.request.query_params["wen_2023"]? || context.request.query_params["bao_2023"]?)
@@ -153,7 +153,7 @@ then set (next <input/>).value to my.value2
       end
 
       fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
-        legend "稳", class: "valign-wrapper"
+        legend "仅显示 稳 的学校", class: "valign-wrapper"
         span class: "m3" do
           span "2023"
           mount CheckBox, "wen_2023", "", all_name_inputs, !!(context.request.query_params["chong_2023"]? || context.request.query_params["bao_2023"]?)
@@ -176,7 +176,7 @@ then set (next <input/>).value to my.value2
       end
 
       fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
-        legend "保"
+        legend "仅显示 保 的学校"
         span class: "m3" do
           span "2023"
           mount CheckBox, "bao_2023", "", all_name_inputs, !!(context.request.query_params["chong_2023"]? || context.request.query_params["wen_2023"]?)
@@ -201,26 +201,31 @@ then set (next <input/>).value to my.value2
   end
 
   private def render_marked
-    fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
-      legend "已标记"
-      span class: "m3" do
+    fieldset class: "row", style: "width: 500px; margin-left: 20px;" do
+      legend "仅显示标记的学校"
+      span class: "col m2" do
         span "2023"
         mount CheckBox, "is_marked_2023", "", all_name_inputs
       end
 
-      span class: "m3" do
+      span class: "col m2" do
         span "2022"
         mount CheckBox, "is_marked_2022", "", all_name_inputs
       end
 
-      span class: "m3" do
+      span class: "col m2" do
         span "2021"
         mount CheckBox, "is_marked_2021", "", all_name_inputs
       end
 
-      span class: "m3" do
+      span class: "col m2" do
         span "2020"
         mount CheckBox, "is_marked_2020", "", all_name_inputs
+      end
+
+      span class: "col m4" do
+        span "手动标记"
+        mount CheckBox, "is_marked", "", all_name_inputs
       end
     end
   end
@@ -237,9 +242,6 @@ then set (next <input/>).value to my.value2
     end
     div class: "col m2" do
       mount CheckBox, "is_exists_remark", "仅显示含备注学校", all_name_inputs
-    end
-    div class: "col m2" do
-      mount CheckBox, "is_marked", "仅显示手动标记的学校", all_name_inputs
     end
   end
 
