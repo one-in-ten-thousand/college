@@ -39,9 +39,9 @@ class Universities::Main < BaseComponent
 
       br
 
-      mount PaginationLinks, pages unless pages.one_page?
+      mount PaginationLinks, pages
       render_universities
-      mount PaginationLinks, pages unless pages.one_page?
+      mount PaginationLinks, pages
     end
   end
 
