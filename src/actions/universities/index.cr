@@ -211,6 +211,12 @@ class Universities::Index < BrowserAction
       params.from_query["click_on"] = ""
 
       case click_on
+      when "code"
+        if cookies.get?("order_by") == "code_asc_order"
+          cookies.set("order_by", "code_desc_order")
+        else
+          cookies.set("order_by", "code_asc_order")
+        end
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
           cookies.set("order_by", "score_2023_min_desc_order")
@@ -266,6 +272,12 @@ class Universities::Index < BrowserAction
       # query_params["order_by"] = order_by
 
       case order_by
+      when "code"
+        if cookies.get?("order_by") == "code_asc_order"
+          query = query.code.asc_order(:nulls_last)
+        else
+          query = query.code.desc_order(:nulls_last)
+        end
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
           query = query.score_2023_min.asc_order(:nulls_last)

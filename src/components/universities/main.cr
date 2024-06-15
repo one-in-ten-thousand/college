@@ -279,43 +279,47 @@ then set (next <input/>).value to my.value2
   end
 
   private def render_universities
+    order_by_code_description = "点击排序(从小到大)"
+    order_by_score_description_2023 = "点击排序(低分优先)"
+    order_by_score_description_2022 = "点击排序(低分优先)"
+    order_by_score_description_2021 = "点击排序(低分优先)"
+    order_by_score_description_2020 = "点击排序(低分优先)"
+    order_by_ranking_description_2023 = "点击排序(低位次优先)"
+    order_by_ranking_description_2022 = "点击排序(低位次优先)"
+    order_by_ranking_description_2021 = "点击排序(低位次优先)"
+    order_by_ranking_description_2020 = "点击排序(低位次优先)"
+
+    case context.cookies.get?("order_by")
+    when "code_asc_order"
+      order_by_code_description = "点击排序(从大到小)"
+    when "score_2023_min_asc_order"
+      order_by_score_description_2023 = "点击排序(高分优先)"
+    when "score_2022_min_asc_order"
+      order_by_score_description_2022 = "点击排序(高分优先)"
+    when "score_2021_min_asc_order"
+      order_by_score_description_2021 = "点击排序(高分优先)"
+    when "score_2020_min_asc_order"
+      order_by_score_description_2020 = "点击排序(高分优先)"
+    when "ranking_2023_min_desc_order"
+      order_by_ranking_description_2023 = "点击排序(高位次优先)"
+    when "ranking_2022_min_desc_order"
+      order_by_ranking_description_2022 = "点击排序(高位次优先)"
+    when "ranking_2021_min_desc_order"
+      order_by_ranking_description_2021 = "点击排序(高位次优先)"
+    when "ranking_2020_min_desc_order"
+      order_by_ranking_description_2020 = "点击排序(高位次优先)"
+    end
+
     input type: "hidden", name: "order_by", value: context.request.query_params["order_by"]?.to_s
     table class: "highlight" do
       thead do
         tr do
           th "ID编号"
-          th "报考编码"
+          mount OrderByTH, "code", order_by_code_description, "报考编码", all_name_inputs
           th "大学名称"
           th "所在城市"
           th "录取批次"
           th "学校备注"
-          order_by_score_description_2023 = "点击排序(低分优先)"
-          order_by_score_description_2022 = "点击排序(低分优先)"
-          order_by_score_description_2021 = "点击排序(低分优先)"
-          order_by_score_description_2020 = "点击排序(低分优先)"
-          order_by_ranking_description_2023 = "点击排序(低位次优先)"
-          order_by_ranking_description_2022 = "点击排序(低位次优先)"
-          order_by_ranking_description_2021 = "点击排序(低位次优先)"
-          order_by_ranking_description_2020 = "点击排序(低位次优先)"
-
-          case context.cookies.get?("order_by")
-          when "score_2023_min_asc_order"
-            order_by_score_description_2023 = "点击排序(高分优先)"
-          when "score_2022_min_asc_order"
-            order_by_score_description_2022 = "点击排序(高分优先)"
-          when "score_2021_min_asc_order"
-            order_by_score_description_2021 = "点击排序(高分优先)"
-          when "score_2020_min_asc_order"
-            order_by_score_description_2020 = "点击排序(高分优先)"
-          when "ranking_2023_min_desc_order"
-            order_by_ranking_description_2023 = "点击排序(高位次优先)"
-          when "ranking_2022_min_desc_order"
-            order_by_ranking_description_2022 = "点击排序(高位次优先)"
-          when "ranking_2021_min_desc_order"
-            order_by_ranking_description_2021 = "点击排序(高位次优先)"
-          when "ranking_2020_min_desc_order"
-            order_by_ranking_description_2020 = "点击排序(高位次优先)"
-          end
           mount OrderByTH, "score_2023_min", order_by_score_description_2023, "2023投档分", all_name_inputs
           mount OrderByTH, "ranking_2023_min", order_by_ranking_description_2023, "2023投档位次", all_name_inputs
           mount OrderByTH, "score_2022_min", order_by_score_description_2022, "2022投档分", all_name_inputs
