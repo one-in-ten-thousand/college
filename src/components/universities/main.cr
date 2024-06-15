@@ -316,14 +316,14 @@ then set (next <input/>).value to my.value2
           when "ranking_2020_min_desc_order"
             order_by_ranking_description_2020 = "点击排序(高位次优先)"
           end
-          mount OrderByTH, "score_2023_min", order_by_score_description_2023, "2023最低分", all_name_inputs
-          mount OrderByTH, "ranking_2023_min", order_by_ranking_description_2023, "2023位次区间", all_name_inputs
-          mount OrderByTH, "score_2022_min", order_by_score_description_2022, "2022最低分", all_name_inputs
-          mount OrderByTH, "ranking_2022_min", order_by_ranking_description_2022, "2022位次区间", all_name_inputs
-          mount OrderByTH, "score_2021_min", order_by_score_description_2021, "2021最低分", all_name_inputs
-          mount OrderByTH, "ranking_2021_min", order_by_ranking_description_2021, "2021位次区间", all_name_inputs
-          mount OrderByTH, "score_2020_min", order_by_score_description_2020, "2020最低分", all_name_inputs
-          mount OrderByTH, "ranking_2020_min", order_by_ranking_description_2020, "2020位次区间", all_name_inputs
+          mount OrderByTH, "score_2023_min", order_by_score_description_2023, "2023投档分", all_name_inputs
+          mount OrderByTH, "ranking_2023_min", order_by_ranking_description_2023, "2023投档位次", all_name_inputs
+          mount OrderByTH, "score_2022_min", order_by_score_description_2022, "2022投档分", all_name_inputs
+          mount OrderByTH, "ranking_2022_min", order_by_ranking_description_2022, "2022投档位次", all_name_inputs
+          mount OrderByTH, "score_2021_min", order_by_score_description_2021, "2021投档分", all_name_inputs
+          mount OrderByTH, "ranking_2021_min", order_by_ranking_description_2021, "2021投档位次", all_name_inputs
+          mount OrderByTH, "score_2020_min", order_by_score_description_2020, "2020投档分", all_name_inputs
+          mount OrderByTH, "ranking_2020_min", order_by_ranking_description_2020, "2020投档位次", all_name_inputs
         end
       end
 
