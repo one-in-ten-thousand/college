@@ -130,7 +130,7 @@ then set (next <input/>).value to my.value2
 
   private def render_chong_wen_bao_checkboxs
     div class: "row" do
-      fieldset class: "row", style: "width: 380px;" do
+      fieldset class: "row", style: "width: 360px;" do
         legend "仅显示 冲 的学校"
         span class: "m3" do
           span "2023"
@@ -152,7 +152,7 @@ then set (next <input/>).value to my.value2
         end
       end
 
-      fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
+      fieldset class: "row", style: "width: 360px; margin-left: 20px;" do
         legend "仅显示 稳 的学校", class: "valign-wrapper"
         span class: "m3" do
           span "2023"
@@ -175,7 +175,7 @@ then set (next <input/>).value to my.value2
         end
       end
 
-      fieldset class: "row", style: "width: 380px; margin-left: 20px;" do
+      fieldset class: "row", style: "width: 360px; margin-left: 20px;" do
         legend "仅显示 保 的学校"
         span class: "m3" do
           span "2023"
@@ -196,6 +196,10 @@ then set (next <input/>).value to my.value2
           span "2020"
           mount CheckBox, "bao_2020", "", all_name_inputs, !!(context.request.query_params["chong_2020"]? || context.request.query_params["wen_2020"]?)
         end
+      end
+
+      div class: "valign-wrapper", style: "width: 200px; margin-left: 20px;" do
+        mount CheckBox, "cwb_union_set", "冲稳保返回并集", all_name_inputs
       end
     end
   end

@@ -25,6 +25,8 @@ class Universities::Index < BrowserAction
   param bao_2021 : Bool = false
   param bao_2020 : Bool = false
 
+  param cwb_union_set : Bool = false
+
   param order_by : String = ""
   param click_on : String = ""
   param batch_level : String = ""
@@ -45,7 +47,7 @@ class Universities::Index < BrowserAction
           .or(&.where_chong_wen_baos(
             ChongWenBaoQuery.new.where("chong_wen_baos.university_remark &@~ ?)", q),
             auto_inner_join: false
-          ).left_join_chong_wen_baos).distinct
+          ).left_join_chong_wen_baos)
       end
     end
 
@@ -71,20 +73,42 @@ class Universities::Index < BrowserAction
       cwb_query = cwb_query.is_marked_2021(true) if is_marked_2021
       cwb_query = cwb_query.is_marked_2020(true) if is_marked_2020
 
-      cwb_query = cwb_query.chong_2023(true) if chong_2023
-      cwb_query = cwb_query.chong_2022(true) if chong_2022
-      cwb_query = cwb_query.chong_2021(true) if chong_2021
-      cwb_query = cwb_query.chong_2020(true) if chong_2020
+      if cwb_union_set
+        cwb_query = cwb_query.where do |q|
+          q = q.none
+          q = chong_2023 ? q.or(&.chong_2023(true)) : q
+          q = chong_2022 ? q.or(&.chong_2022(true)) : q
+          q = chong_2021 ? q.or(&.chong_2021(true)) : q
+          q = chong_2020 ? q.or(&.chong_2020(true)) : q
 
-      cwb_query = cwb_query.bao_2023(true) if bao_2023
-      cwb_query = cwb_query.bao_2022(true) if bao_2022
-      cwb_query = cwb_query.bao_2021(true) if bao_2021
-      cwb_query = cwb_query.bao_2020(true) if bao_2020
+          q = wen_2023 ? q.or(&.wen_2023(true)) : q
+          q = wen_2022 ? q.or(&.wen_2022(true)) : q
+          q = wen_2021 ? q.or(&.wen_2021(true)) : q
+          q = wen_2020 ? q.or(&.wen_2020(true)) : q
 
-      cwb_query = cwb_query.wen_2023(true) if wen_2023
-      cwb_query = cwb_query.wen_2022(true) if wen_2022
-      cwb_query = cwb_query.wen_2021(true) if wen_2021
-      cwb_query = cwb_query.wen_2020(true) if wen_2020
+          q = bao_2023 ? q.or(&.bao_2023(true)) : q
+          q = bao_2022 ? q.or(&.bao_2022(true)) : q
+          q = bao_2021 ? q.or(&.bao_2021(true)) : q
+          q = bao_2020 ? q.or(&.bao_2020(true)) : q
+
+          q
+        end
+      else
+        cwb_query = cwb_query.chong_2023(true) if chong_2023
+        cwb_query = cwb_query.chong_2022(true) if chong_2022
+        cwb_query = cwb_query.chong_2021(true) if chong_2021
+        cwb_query = cwb_query.chong_2020(true) if chong_2020
+
+        cwb_query = cwb_query.wen_2023(true) if wen_2023
+        cwb_query = cwb_query.wen_2022(true) if wen_2022
+        cwb_query = cwb_query.wen_2021(true) if wen_2021
+        cwb_query = cwb_query.wen_2020(true) if wen_2020
+
+        cwb_query = cwb_query.bao_2023(true) if bao_2023
+        cwb_query = cwb_query.bao_2022(true) if bao_2022
+        cwb_query = cwb_query.bao_2021(true) if bao_2021
+        cwb_query = cwb_query.bao_2020(true) if bao_2020
+      end
 
       query = query.where_chong_wen_baos(cwb_query)
     end
@@ -93,7 +117,7 @@ class Universities::Index < BrowserAction
 
     query = order_by_action(query)
 
-    pages, universities = paginate(query.id.desc_order, per_page: 50)
+    pages, universities = paginate(query.id.desc_order.distinct, per_page: 50)
 
     all_name_inputs = [
       "q", "is_985", "is_211", "is_good", "is_exists_remark", "is_marked",
