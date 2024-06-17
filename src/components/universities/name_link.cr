@@ -4,8 +4,18 @@ class Universities::NameLink < BaseComponent
 
   def render
     id = "university-#{university.id}"
+    name = university.name
+
+    if university.is_985
+      name = "#{name}/985"
+    elsif university.is_211
+      name = "#{name}/211"
+    elsif university.is_good
+      name = "#{name}/双一流"
+    end
+
     a(
-      university.name,
+      name,
       href: "#",
       class: "dropdown-trigger",
       data_target: "dropdown3",
