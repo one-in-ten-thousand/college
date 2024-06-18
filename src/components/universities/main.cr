@@ -199,7 +199,7 @@ then set (next <input/>).value to my.value2
       end
 
       div class: "valign-wrapper", style: "width: 200px; margin-left: 20px;" do
-        mount CheckBox, "cwb_union_set", "冲稳保返回并集", all_name_inputs
+        mount CheckBox, "cwb_union_set", "是否冲稳保返回并集", all_name_inputs
       end
     end
   end
@@ -545,6 +545,24 @@ then set (next <input/>).value to my.value2
               "hx-include": "[name='_csrf'],input#marked_unmark"
             )
             span "手动"
+          end
+        end
+
+        li do
+          label do
+            input(type: "hidden", name: "university:is_excluded", value: "false", id: "excluded_unexclude")
+            input(
+              type: "checkbox",
+              name: "university:is_excluded",
+              value: "true",
+              id: "excluded",
+              "hx-put": "data_excluded_url",
+              "hx-target": "",
+              "hx-swap": "outerHTML",
+              "hx-indicator": "#spinner",
+              "hx-include": "[name='_csrf'],input#excluded_unexclude"
+            )
+            span "排除"
           end
         end
       end

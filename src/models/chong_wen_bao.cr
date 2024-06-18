@@ -14,6 +14,7 @@ class ChongWenBao < BaseModel
     column bao_2020 : Bool = false
     column university_remark : String?
     column is_marked : Bool = false
+    column is_excluded : Bool = false
     column is_marked_2023 : Bool = false
     column is_marked_2022 : Bool = false
     column is_marked_2021 : Bool = false

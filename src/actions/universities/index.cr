@@ -61,12 +61,12 @@ class Universities::Index < BrowserAction
 
     query = query.where_chong_wen_baos(user_chong_wen_bao_query.university_remark.is_not_nil) if is_exists_remark
 
+    cwb_query = user_chong_wen_bao_query.is_excluded(false)
+
     if is_marked_2023 || is_marked_2022 || is_marked_2021 || is_marked_2020 || is_marked ||
        chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
        wen_2023 || wen_2022 || wen_2021 || wen_2020 ||
        bao_2023 || bao_2022 || bao_2021 || bao_2020
-      cwb_query = user_chong_wen_bao_query
-
       cwb_query = cwb_query.is_marked(true) if is_marked
       cwb_query = cwb_query.is_marked_2023(true) if is_marked_2023
       cwb_query = cwb_query.is_marked_2022(true) if is_marked_2022
@@ -109,9 +109,9 @@ class Universities::Index < BrowserAction
         cwb_query = cwb_query.bao_2021(true) if bao_2021
         cwb_query = cwb_query.bao_2020(true) if bao_2020
       end
-
-      query = query.where_chong_wen_baos(cwb_query)
     end
+
+    query = query.where_chong_wen_baos(cwb_query)
 
     range_max, range_min, query = filter_by_column_action(query)
 
