@@ -37,6 +37,8 @@ class Universities::Index < BrowserAction
 
   get "/universities" do
     user_chong_wen_bao_query = ChongWenBaoQuery.new.user_id(current_user.id)
+    # 这里的 preload 是 lazy 的, 即, 它并不会立即 preload 所有的记录, 而是在最后 paginate
+    # 的时候, 考虑实际的 where 条件, 仅 select 所需的记录.
     query = UniversityQuery.new.preload_chong_wen_baos(user_chong_wen_bao_query).preload_city
 
     if q.presence
