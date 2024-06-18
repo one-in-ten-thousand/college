@@ -21,7 +21,12 @@ class Me::ShowPage < MainLayout
 
     user_list
 
+    br
+    br
+
+    mount PaginationLinks, pages
     excluded_universities_list
+    mount PaginationLinks, pages
 
     # 这些都是隐藏的
     input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
