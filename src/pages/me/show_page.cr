@@ -1,5 +1,7 @@
 class Me::ShowPage < MainLayout
   needs users : UserQuery
+  needs pages : Lucky::Paginator
+  needs universities : UniversityQuery
 
   def content
     br
@@ -19,8 +21,10 @@ class Me::ShowPage < MainLayout
 
     user_list
 
-    input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
+    excluded_universities_list
 
+    # 这些都是隐藏的
+    input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
     change_password_modal_dialog
     create_new_user_dialog
   end
@@ -152,12 +156,13 @@ class Me::ShowPage < MainLayout
             td user.updated_at.to_s("%m月%d日 %H:%M:%S")
             td do
               span class: "switch" do
-                label for: "#{user_id}_is_editable" do
+                id = "user_is_editable"
+                label for: id do
                   args = {
                     type:         "checkbox",
                     name:         "is_editable",
                     value:        true,
-                    id:           "#{user_id}_is_editable",
+                    id:           id,
                     "hx-put":     User::Htmx::Editable.with(user.id).path,
                     "hx-swap":    "none",
                     "hx-confirm": "确认？",
@@ -304,6 +309,50 @@ then if x == ''
 end
 "
         )
+      end
+    end
+  end
+
+  def excluded_universities_list
+    h3 "隐藏的学校"
+
+    table class: "hightlight" do
+      thead do
+        tr do
+          th "ID"
+          th "大学名称"
+          th "重新在搜索页面显示"
+        end
+      end
+
+      tbody do
+        universities.each do |university|
+          tr do
+            td university.id
+            td university.name
+            td do
+              span class: "switch" do
+                id = "university_is_unexcluded"
+                label for: id do
+                  args = {
+                    type:         "checkbox",
+                    name:         "chong_wen_bao:is_excluded",
+                    value:        false,
+                    id:           id,
+                    "hx-put":     Universities::Htmx::Excluded.with(university.id).path,
+                    "hx-swap":    "outerHTML swap:1s",
+                    "hx-target":  "closest tr",
+                    "hx-include": "[name='_csrf']",
+                  }
+
+                  input(args)
+
+                  span class: "lever"
+                end
+              end
+            end
+          end
+        end
       end
     end
   end

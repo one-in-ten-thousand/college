@@ -37,8 +37,8 @@ then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2023']/> t
 then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2022']/> to '#{Universities::Htmx::Marked2022.with(university.id).path}'
 then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2021']/> to '#{Universities::Htmx::Marked2021.with(university.id).path}'
 then set @hx-put of <ul#dropdown3 li input[name='university:is_marked_2020']/> to '#{Universities::Htmx::Marked2020.with(university.id).path}'
-then set @hx-put of <ul#dropdown3 li input[name='university:is_excluded']/> to '#{Universities::Htmx::Excluded.with(university.id).path}'
-then set @hx-target of <ul#dropdown3 li input[name='university:is_excluded']/> to '##{id}'
+then set @hx-put of <ul#dropdown3 li input[name='chong_wen_bao:is_excluded']/> to '#{Universities::Htmx::Excluded.with(university.id).path}'
+then set @hx-target of <ul#dropdown3 li input[name='chong_wen_bao:is_excluded']/> to '##{id}'
 then js htmx.process(document.body) end
 then if @marked-2023 as String == 'true'
   js document.getElementById('marked_2023').checked = true; end

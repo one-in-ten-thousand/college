@@ -23,8 +23,8 @@
 // Delete these when you're ready to bring in your own CSS.
 body {
   font-family: system-ui, BlinkMacSystemFont, -apple-system, Segoe UI,
-    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serif;
+               Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+               sans-serif;
   margin: 0 auto;
   max-width: 1920px;
   padding: 20px 40px;
@@ -92,4 +92,9 @@ p.range-field {
   overflow: hidden;
   word-break: break-all;
   white-space: nowrap;
+}
+
+tr.htmx-swapping {
+  opacity: 0;
+  transition: opacity 1s ease-out;
 }

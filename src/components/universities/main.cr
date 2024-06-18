@@ -550,10 +550,9 @@ then set (next <input/>).value to my.value2
 
         li do
           label do
-            input(type: "hidden", name: "university:is_excluded", value: "false", id: "excluded_unexclude")
             input(
               type: "checkbox",
-              name: "university:is_excluded",
+              name: "chong_wen_bao:is_excluded",
               value: "true",
               id: "excluded",
               "hx-put": "data_excluded_url",
