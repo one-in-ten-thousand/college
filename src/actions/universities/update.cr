@@ -21,13 +21,20 @@ class Universities::Update < BrowserAction
             year = 2021
           end
 
+          case column_name
+          when /ranking/
+            tooltip = show_ranking_info(university, year, column_value)
+          when /score/
+            tooltip = show_score_info(university, year, column_value)
+          end
+
           component(
             ClickEditTD,
             id: university.id.to_s,
             column_name: column_name,
             column_value: column_value,
             action: "/htmx/v1/universities/render_update_score_input",
-            tooltip: show_ranking_info(university, year, column_value),
+            tooltip: tooltip.to_s,
             current_user: current_user
           )
         elsif hx_trigger.in? [
