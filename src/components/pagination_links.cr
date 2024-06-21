@@ -12,6 +12,9 @@ class PaginationLinks < Lucky::BaseComponent
       li do
         span "总数: #{@pages.item_count}", class: "valign-wrapper"
       end
+      div class: "col m1" do
+        img id: "spinner", class: "htmx-indicator", src: asset("images/spinning-circles.svg"), style: "max-width: 30px;"
+      end
     end
   end
 
@@ -22,6 +25,8 @@ class PaginationLinks < Lucky::BaseComponent
         "hx-get": link || "#!",
         "hx-push-url": "true",
         "hx-target": "#main",
+        "hx-select": "#main",
+        "hx-swap": "outerHTML",
         id: "page_number",
         "hx-indicator": "#spinner"
       ) do
@@ -44,6 +49,8 @@ class PaginationLinks < Lucky::BaseComponent
         "hx-get": page.path,
         "hx-push-url": true,
         "hx-target": "#main",
+        "hx-select": "#main",
+        "hx-swap": "outerHTML",
         id: "page_number",
         "hx-indicator": "#spinner"
       )
