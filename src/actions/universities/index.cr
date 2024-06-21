@@ -36,10 +36,10 @@ class Universities::Index < BrowserAction
   param page : Int32 = 1
 
   get "/universities" do
-    user_chong_wen_bao_query = ChongWenBaoQuery.new.user_id(current_user.id)
+    cwb_query = ChongWenBaoQuery.new
     # 这里的 preload 是 lazy 的, 即, 它并不会立即 preload 所有的记录, 而是在最后 paginate
     # 的时候, 考虑实际的 where 条件, 仅 select 所需的记录.
-    query = UniversityQuery.new.preload_chong_wen_baos(user_chong_wen_bao_query).preload_city
+    query = UniversityQuery.new.preload_chong_wen_baos(cwb_query).preload_city
 
     if q.presence
       if q.matches? /^\d{4}$/
@@ -47,7 +47,7 @@ class Universities::Index < BrowserAction
       else
         query = query.where("(name &@~ ?", q)
           .or(&.where_chong_wen_baos(
-            ChongWenBaoQuery.new.where("chong_wen_baos.university_remark &@~ ?)", q),
+            cwb_query.where("chong_wen_baos.university_remark &@~ ?)", q),
             auto_inner_join: false
           ).left_join_chong_wen_baos)
       end
@@ -61,9 +61,11 @@ class Universities::Index < BrowserAction
 
     query = query.batch_level(batch_level) if batch_level.presence
 
-    query = query.where_chong_wen_baos(user_chong_wen_bao_query.university_remark.is_not_nil) if is_exists_remark
+    cwb_query = cwb_query.where do |wh|
+      wh.is_excluded(false).or(&.is_excluded.is_nil)
+    end
 
-    cwb_query = user_chong_wen_bao_query.is_excluded(false)
+    cwb_query = cwb_query.university_remark.is_not_nil if is_exists_remark
 
     if is_marked_2023 || is_marked_2022 || is_marked_2021 || is_marked_2020 || is_marked ||
        chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
@@ -113,7 +115,7 @@ class Universities::Index < BrowserAction
       end
     end
 
-    query = query.where_chong_wen_baos(cwb_query)
+    query = query.join("left join chong_wen_baos on universities.id = chong_wen_baos.university_id AND chong_wen_baos.user_id = '#{current_user.id}'").where_chong_wen_baos(cwb_query, auto_inner_join: false)
 
     range_max, range_min, query = filter_by_column_action(query)
 
