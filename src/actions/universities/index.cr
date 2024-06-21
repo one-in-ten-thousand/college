@@ -5,6 +5,7 @@ class Universities::Index < BrowserAction
   param is_good : Bool = false
   param is_exists_remark : Bool = false
   param is_marked : Bool = false
+  param is_excluded : Bool = false
   param is_marked_2023 : Bool = false
   param is_marked_2022 : Bool = false
   param is_marked_2021 : Bool = false
@@ -35,6 +36,8 @@ class Universities::Index < BrowserAction
   param filter_by_column : String = ""
   param page : Int32 = 1
 
+  param search_all : Bool = false
+
   get "/universities" do
     cwb_query = ChongWenBaoQuery.new
     # 这里的 preload 是 lazy 的, 即, 它并不会立即 preload 所有的记录, 而是在最后 paginate
@@ -61,57 +64,18 @@ class Universities::Index < BrowserAction
 
     query = query.batch_level(batch_level) if batch_level.presence
 
-    cwb_query = cwb_query.where do |wh|
-      wh.is_excluded(false).or(&.is_excluded.is_nil)
-    end
-
     cwb_query = cwb_query.university_remark.is_not_nil if is_exists_remark
 
-    if is_marked_2023 || is_marked_2022 || is_marked_2021 || is_marked_2020 || is_marked ||
-       chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
-       wen_2023 || wen_2022 || wen_2021 || wen_2020 ||
-       bao_2023 || bao_2022 || bao_2021 || bao_2020
-      cwb_query = cwb_query.is_marked(true) if is_marked
-      cwb_query = cwb_query.is_marked_2023(true) if is_marked_2023
-      cwb_query = cwb_query.is_marked_2022(true) if is_marked_2022
-      cwb_query = cwb_query.is_marked_2021(true) if is_marked_2021
-      cwb_query = cwb_query.is_marked_2020(true) if is_marked_2020
-
-      if cwb_union_set
-        cwb_query = cwb_query.where do |q|
-          q = q.none
-          q = chong_2023 ? q.or(&.chong_2023(true)) : q
-          q = chong_2022 ? q.or(&.chong_2022(true)) : q
-          q = chong_2021 ? q.or(&.chong_2021(true)) : q
-          q = chong_2020 ? q.or(&.chong_2020(true)) : q
-
-          q = wen_2023 ? q.or(&.wen_2023(true)) : q
-          q = wen_2022 ? q.or(&.wen_2022(true)) : q
-          q = wen_2021 ? q.or(&.wen_2021(true)) : q
-          q = wen_2020 ? q.or(&.wen_2020(true)) : q
-
-          q = bao_2023 ? q.or(&.bao_2023(true)) : q
-          q = bao_2022 ? q.or(&.bao_2022(true)) : q
-          q = bao_2021 ? q.or(&.bao_2021(true)) : q
-          q = bao_2020 ? q.or(&.bao_2020(true)) : q
-
-          q
-        end
+    unless search_all
+      if is_excluded
+        cwb_query = cwb_query.is_excluded(true)
       else
-        cwb_query = cwb_query.chong_2023(true) if chong_2023
-        cwb_query = cwb_query.chong_2022(true) if chong_2022
-        cwb_query = cwb_query.chong_2021(true) if chong_2021
-        cwb_query = cwb_query.chong_2020(true) if chong_2020
+        cwb_query = cwb_query.where do |wh|
+          # is_excluded.is_nil 代表 left join 右表中, 对应的冲稳保数据不存在
+          wh.is_excluded(false).or(&.is_excluded.is_nil)
+        end
 
-        cwb_query = cwb_query.wen_2023(true) if wen_2023
-        cwb_query = cwb_query.wen_2022(true) if wen_2022
-        cwb_query = cwb_query.wen_2021(true) if wen_2021
-        cwb_query = cwb_query.wen_2020(true) if wen_2020
-
-        cwb_query = cwb_query.bao_2023(true) if bao_2023
-        cwb_query = cwb_query.bao_2022(true) if bao_2022
-        cwb_query = cwb_query.bao_2021(true) if bao_2021
-        cwb_query = cwb_query.bao_2020(true) if bao_2020
+        cwb_query = handle_marked(cwb_query)
       end
     end
 
@@ -186,7 +150,7 @@ class Universities::Index < BrowserAction
     {max || 0, min || 0}
   end
 
-  def filter_by_column_action(query)
+  private def filter_by_column_action(query)
     range_max, range_min = fetch_range_max_min(filter_by_column, query)
 
     min_value = range_min_value.zero? ? range_min.to_i : range_min_value
@@ -228,7 +192,7 @@ class Universities::Index < BrowserAction
     {range_max, range_min, query}
   end
 
-  def order_by_action(query)
+  private def order_by_action(query)
     # 检测在哪一个 tab head 上点击, 只要每次点击一次, 就判断有没有 cookie
     # 如果没有, 就默认排序, 如果有, 就反转
 
@@ -372,5 +336,57 @@ class Universities::Index < BrowserAction
     end
 
     query
+  end
+
+  private def handle_marked(cwb_query)
+    if is_marked_2023 || is_marked_2022 || is_marked_2021 || is_marked_2020 || is_marked ||
+       chong_2023 || chong_2022 || chong_2021 || chong_2020 ||
+       wen_2023 || wen_2022 || wen_2021 || wen_2020 ||
+       bao_2023 || bao_2022 || bao_2021 || bao_2020
+      cwb_query = cwb_query.is_marked(true) if is_marked
+      cwb_query = cwb_query.is_marked_2023(true) if is_marked_2023
+      cwb_query = cwb_query.is_marked_2022(true) if is_marked_2022
+      cwb_query = cwb_query.is_marked_2021(true) if is_marked_2021
+      cwb_query = cwb_query.is_marked_2020(true) if is_marked_2020
+
+      if cwb_union_set
+        cwb_query = cwb_query.where do |q|
+          q = q.none
+          q = chong_2023 ? q.or(&.chong_2023(true)) : q
+          q = chong_2022 ? q.or(&.chong_2022(true)) : q
+          q = chong_2021 ? q.or(&.chong_2021(true)) : q
+          q = chong_2020 ? q.or(&.chong_2020(true)) : q
+
+          q = wen_2023 ? q.or(&.wen_2023(true)) : q
+          q = wen_2022 ? q.or(&.wen_2022(true)) : q
+          q = wen_2021 ? q.or(&.wen_2021(true)) : q
+          q = wen_2020 ? q.or(&.wen_2020(true)) : q
+
+          q = bao_2023 ? q.or(&.bao_2023(true)) : q
+          q = bao_2022 ? q.or(&.bao_2022(true)) : q
+          q = bao_2021 ? q.or(&.bao_2021(true)) : q
+          q = bao_2020 ? q.or(&.bao_2020(true)) : q
+
+          q
+        end
+      else
+        cwb_query = cwb_query.chong_2023(true) if chong_2023
+        cwb_query = cwb_query.chong_2022(true) if chong_2022
+        cwb_query = cwb_query.chong_2021(true) if chong_2021
+        cwb_query = cwb_query.chong_2020(true) if chong_2020
+
+        cwb_query = cwb_query.wen_2023(true) if wen_2023
+        cwb_query = cwb_query.wen_2022(true) if wen_2022
+        cwb_query = cwb_query.wen_2021(true) if wen_2021
+        cwb_query = cwb_query.wen_2020(true) if wen_2020
+
+        cwb_query = cwb_query.bao_2023(true) if bao_2023
+        cwb_query = cwb_query.bao_2022(true) if bao_2022
+        cwb_query = cwb_query.bao_2021(true) if bao_2021
+        cwb_query = cwb_query.bao_2020(true) if bao_2020
+      end
+    end
+
+    cwb_query
   end
 end

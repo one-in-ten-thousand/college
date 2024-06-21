@@ -205,31 +205,41 @@ then set (next <input/>).value to my.value2
   end
 
   private def render_marked
-    fieldset class: "row", style: "width: 500px; margin-left: 20px;" do
-      legend "仅显示标记的学校"
-      span class: "col m2" do
+    fieldset class: "row", style: "width: 800px; margin-left: 20px;" do
+      legend "按照标记过滤"
+      span class: "col m1" do
         span "2023"
         mount CheckBox, "is_marked_2023", "", all_name_inputs
       end
 
-      span class: "col m2" do
+      span class: "col m1" do
         span "2022"
         mount CheckBox, "is_marked_2022", "", all_name_inputs
       end
 
-      span class: "col m2" do
+      span class: "col m1" do
         span "2021"
         mount CheckBox, "is_marked_2021", "", all_name_inputs
       end
 
-      span class: "col m2" do
+      span class: "col m1" do
         span "2020"
         mount CheckBox, "is_marked_2020", "", all_name_inputs
       end
 
-      span class: "col m4" do
-        span "手动标记"
+      span class: "col m2" do
+        span "手动标记的"
         mount CheckBox, "is_marked", "", all_name_inputs
+      end
+
+      span class: "col m3" do
+        span "手动排除的学校"
+        mount CheckBox, "is_excluded", "", all_name_inputs
+      end
+
+      span class: "col m3" do
+        span "显示所有的学校"
+        mount CheckBox, "search_all", "", all_name_inputs
       end
     end
   end

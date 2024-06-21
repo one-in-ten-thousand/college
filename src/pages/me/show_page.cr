@@ -21,14 +21,14 @@ class Me::ShowPage < MainLayout
 
     user_list
 
-    br
-    br
+    # br
+    # br
 
-    div id: "main" do
-      mount PaginationLinks, pages
-      excluded_universities_list
-      mount PaginationLinks, pages
-    end
+    # div id: "main" do
+    #   mount PaginationLinks, pages
+    #   excluded_universities_list
+    #   mount PaginationLinks, pages
+    # end
 
     # 这些都是隐藏的
     input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
