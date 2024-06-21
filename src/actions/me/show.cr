@@ -8,7 +8,7 @@ class Me::Show < BrowserAction
 
     excluded_query = ChongWenBaoQuery.new.user_id(current_user.id).is_excluded(true)
     query = UniversityQuery.new.preload_chong_wen_baos(excluded_query)
-    query = query.where_chong_wen_baos(excluded_query)
+    query = query.join("inner join chong_wen_baos on universities.id = chong_wen_baos.university_id").where_chong_wen_baos(excluded_query)
 
     pages, universities = paginate(query.id.desc_order.distinct, per_page: 50)
 
