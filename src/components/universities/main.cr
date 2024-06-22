@@ -469,7 +469,7 @@ then set (next <input/>).value to my.value2
         end
         li do
           label do
-            input(type: "hidden", name: "university:is_marked_2023", value: "false", id: "marked_2023_unmark")
+            input(type: "hidden", name: "university:is_marked_2023", value: "false")
             input(
               type: "checkbox",
               name: "university:is_marked_2023",
@@ -479,7 +479,7 @@ then set (next <input/>).value to my.value2
               "hx-target": "",
               "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_2023_unmark"
+              "hx-include": "[name='_csrf'],[name='university:is_marked_2023']"
             )
             span "2023"
           end
@@ -487,7 +487,7 @@ then set (next <input/>).value to my.value2
 
         li do
           label do
-            input(type: "hidden", name: "university:is_marked_2022", value: "false", id: "marked_2022_unmark")
+            input(type: "hidden", name: "university:is_marked_2022", value: "false")
             input(
               type: "checkbox",
               name: "university:is_marked_2022",
@@ -497,7 +497,7 @@ then set (next <input/>).value to my.value2
               "hx-target": "",
               "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_2022_unmark"
+              "hx-include": "[name='_csrf'],[name='university:is_marked_2022']"
             )
             span "2022"
           end
@@ -505,7 +505,7 @@ then set (next <input/>).value to my.value2
 
         li do
           label do
-            input(type: "hidden", name: "university:is_marked_2021", value: "false", id: "marked_2021_unmark")
+            input(type: "hidden", name: "university:is_marked_2021", value: "false")
             input(
               type: "checkbox",
               name: "university:is_marked_2021",
@@ -515,7 +515,7 @@ then set (next <input/>).value to my.value2
               "hx-target": "",
               "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_2021_unmark"
+              "hx-include": "[name='_csrf'],[name='university:is_marked_2021']"
             )
             span "2021"
           end
@@ -523,7 +523,7 @@ then set (next <input/>).value to my.value2
 
         li do
           label do
-            input(type: "hidden", name: "university:is_marked_2020", value: "false", id: "marked_2020_unmark")
+            input(type: "hidden", name: "university:is_marked_2020", value: "false")
             input(
               type: "checkbox",
               name: "university:is_marked_2020",
@@ -533,7 +533,7 @@ then set (next <input/>).value to my.value2
               "hx-target": "",
               "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_2020_unmark"
+              "hx-include": "[name='_csrf'],[name='university:is_marked_2020']"
             )
             span "2020"
           end
@@ -541,7 +541,7 @@ then set (next <input/>).value to my.value2
 
         li do
           label do
-            input(type: "hidden", name: "university:is_marked", value: "false", id: "marked_unmark")
+            input(type: "hidden", name: "university:is_marked", value: "false")
             input(
               type: "checkbox",
               name: "university:is_marked",
@@ -551,16 +551,15 @@ then set (next <input/>).value to my.value2
               "hx-target": "",
               "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#marked_unmark"
+              "hx-include": "[name='_csrf'],[name='university:is_marked']"
             )
             span "手动"
           end
-          input(type: "hidden", name: "university:is_marked", value: "false", id: "marked_unmark")
         end
 
         li do
           label do
-            input(type: "hidden", name: "chong_wen_bao:is_excluded", value: "false", id: "excluded_unexclude")
+            input(type: "hidden", name: "chong_wen_bao:is_excluded", value: "false")
             input(
               type: "checkbox",
               name: "chong_wen_bao:is_excluded",
@@ -570,7 +569,7 @@ then set (next <input/>).value to my.value2
               "hx-target": "",
               "hx-swap": "outerHTML",
               "hx-indicator": "#spinner",
-              "hx-include": "[name='_csrf'],input#excluded_unexclude"
+              "hx-include": "[name='_csrf'],[name='chong_wen_bao:is_excluded']"
             )
             span "排除"
           end
