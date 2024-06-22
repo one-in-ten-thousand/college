@@ -560,6 +560,7 @@ then set (next <input/>).value to my.value2
 
         li do
           label do
+            input(type: "hidden", name: "chong_wen_bao:is_excluded", value: "false", id: "excluded_unexclude")
             input(
               type: "checkbox",
               name: "chong_wen_bao:is_excluded",
