@@ -31,7 +31,6 @@ class Me::ShowPage < MainLayout
     # end
 
     # 这些都是隐藏的
-    input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
     change_password_modal_dialog
     create_new_user_dialog
   end

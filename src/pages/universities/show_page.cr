@@ -26,10 +26,9 @@ class Universities::ShowPage < MainLayout
           "hx-confirm": "确定删除吗?",
           "hx-push-url": "true",
           "hx-delete": Delete.with(university.id).path,
-          "hx-include": "next input"
+          "hx-include": "[name='_csrf']"
         )
       end
-      input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
     end
   end
 

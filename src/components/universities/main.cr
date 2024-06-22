@@ -461,7 +461,6 @@ then set (next <input/>).value to my.value2
             )
           end
         end
-        input(type: "hidden", value: context.session.get("X-CSRF-TOKEN"), name: "_csrf")
       end
 
       ul id: "dropdown3", class: "dropdown-content" do
@@ -556,6 +555,7 @@ then set (next <input/>).value to my.value2
             )
             span "手动"
           end
+          input(type: "hidden", name: "university:is_marked", value: "false", id: "marked_unmark")
         end
 
         li do
