@@ -11,7 +11,7 @@ class Universities::Htmx::UpdateScoreInputPage < NoLayout
         name: "university:#{column_name}",
         id: "update_score_input",
         "hx-put": Universities::Update.with(id).path,
-        "hx-include": "next input[name='_csrf']",
+        "hx-include": "input[name='_csrf']",
         "hx-target": "closest td",
         "hx-swap": "outherHTML",
         style: "min-width: 25px; max-height: 30px;"
