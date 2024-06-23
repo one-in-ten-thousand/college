@@ -6,8 +6,8 @@ shards:
     version: 1.0.0
 
   avram: # Overridden
-    git: https://github.com/luckyframework/avram.git
-    version: 1.2.0+git.commit.af42b9449a8cccb21632dac3a239d5849428ff9f
+    git: https://github.com/zw963/avram.git
+    version: 1.2.0+git.commit.40ad4512f88f2a2db1dc374274938f9c37b77e63
 
   backtracer:
     git: https://github.com/sija/backtracer.cr.git

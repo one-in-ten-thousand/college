@@ -79,7 +79,7 @@ class Universities::Index < BrowserAction
       end
     end
 
-    query = query.join("left join chong_wen_baos on universities.id = chong_wen_baos.university_id AND chong_wen_baos.user_id = '#{current_user.id}'").where_chong_wen_baos(cwb_query, auto_inner_join: false)
+    query = query.join("left join chong_wen_baos on universities.id = chong_wen_baos.university_id AND chong_wen_baos.user_id = ?", current_user.id).where_chong_wen_baos(cwb_query, auto_inner_join: false)
 
     range_max, range_min, query = filter_by_column_action(query)
 

@@ -1,4 +1,4 @@
 dependencies:
   avram:
-    github: luckyframework/avram
-    branch: main
+    github: zw963/avram
+    commit: "40ad451"
