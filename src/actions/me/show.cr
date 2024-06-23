@@ -6,12 +6,12 @@ class Me::Show < BrowserAction
       users = users.id(current_user.id)
     end
 
-    excluded_query = ChongWenBaoQuery.new.user_id(current_user.id).is_excluded(true)
-    query = UniversityQuery.new.preload_chong_wen_baos(excluded_query)
-    query = query.join("inner join chong_wen_baos on universities.id = chong_wen_baos.university_id").where_chong_wen_baos(excluded_query)
+    # excluded_query = ChongWenBaoQuery.new.user_id(current_user.id).is_excluded(true)
+    # query = UniversityQuery.new.preload_chong_wen_baos(excluded_query)
+    # query = query.join("inner join chong_wen_baos on universities.id = chong_wen_baos.university_id").where_chong_wen_baos(excluded_query)
 
-    pages, universities = paginate(query.id.desc_order.distinct, per_page: 50)
+    # pages, universities = paginate(query.id.desc_order.distinct, per_page: 50)
 
-    html ShowPage, users: users, pages: pages, universities: universities
+    html ShowPage, users: users
   end
 end

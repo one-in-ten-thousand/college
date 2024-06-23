@@ -1,7 +1,8 @@
 class Me::ShowPage < MainLayout
   needs users : UserQuery
-  needs pages : Lucky::Paginator
-  needs universities : UniversityQuery
+
+  # needs pages : Lucky::Paginator
+  # needs universities : UniversityQuery
 
   def content
     br
