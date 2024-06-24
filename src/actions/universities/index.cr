@@ -85,7 +85,9 @@ class Universities::Index < BrowserAction
 
     query = order_by_action(query)
 
-    pages, universities = paginate(query.id.desc_order.distinct, per_page: 50)
+    query = query.id.desc_order unless query.query.ordered?
+
+    pages, universities = paginate(query.distinct, per_page: 50)
 
     all_name_inputs = [
       "q", "is_985", "is_211", "is_good", "is_exists_remark", "is_marked",
@@ -159,7 +161,7 @@ class Universities::Index < BrowserAction
     if filter_by_column.presence
       params.from_query["range_min_value"] = min_value.to_s
       params.from_query["range_max_value"] = max_value.to_s
-      params.from_query["order_by"] = "#{filter_by_column}_min" if click_on.blank?
+      params.from_query["order_by"] = "#{filter_by_column}_min" if click_on.blank? && order_by.blank?
 
       case filter_by_column
       when "ranking_2023"
