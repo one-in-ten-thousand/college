@@ -93,8 +93,13 @@ class Universities::Main < BaseComponent
     default_max = context.request.query_params["range_max_value"]?.presence || range_max.to_s
 
     para class: "range-field col m8", style: "margin-right: 120px; margin-left: 30px;" do
-      input type: "hidden", name: "range_min_value", value: default_min
-      span default_min, style: "margin-right: 10px;"
+      input(
+        name: "range_min_value",
+        value: default_min,
+        style: "margin-right: 10px;",
+        script: "on change set @value1 of <tc-range-slider/> to me.value"
+      )
+
       tag(
         "tc-range-slider",
         "slider-width": "800px",
@@ -105,14 +110,16 @@ class Universities::Main < BaseComponent
         round: 0,
         # put 的默认目标就是 innerHTML, 因此特别适合 span 这种设置 html
         # set 则更适合设置某个属性的值, 例如: input
-        script: "on change put my.value1 into the previous <span/>
-then put my.value2 into the next <span/>
-then set (previous <input/>).value to my.value1
+        script: "on change set (previous <input/>).value to my.value1
 then set (next <input/>).value to my.value2
 ") do
       end
-      span default_max, style: "margin-left: 10px;"
-      input type: "hidden", name: "range_max_value", value: default_max
+      input(
+        name: "range_max_value",
+        value: default_max,
+        style: "margin-left: 10px;",
+        script: "on change set @value2 of <tc-range-slider/> to me.value"
+      )
     end
 
     div class: "col m1 valign-wrapper" do
