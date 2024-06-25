@@ -1,4 +1,25 @@
 module PageHelpers
+  def show_university_batch_levels(university_name, university_code, university_batch_level)
+    batch_names = UniversityQuery.new
+      .name.like("#{university_name}%")
+      .reject { |e| e.code == university_code && e.batch_level == university_batch_level }
+      .map { |e| [e.name, e.batch_level.display_name] }
+
+    str = String.build do |io|
+      io << "名称相似的其他学校:"
+
+      if batch_names.blank?
+        io << " 无"
+      else
+        io << "\n\n"
+
+        batch_names.each do |e|
+          io << "#{e[0]}, #{e[1]}\n"
+        end
+      end
+    end
+  end
+
   def show_score_info(university, year, score_value)
     if score_value.blank?
       ""

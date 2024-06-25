@@ -1,4 +1,6 @@
 class Universities::NameLink < BaseComponent
+  include PageHelpers
+
   needs university : University
   needs current_user : User
 
@@ -7,17 +9,21 @@ class Universities::NameLink < BaseComponent
     name = university.name
 
     if university.is_985
-      name = "#{name}/985"
+      full_name = "#{name}/985"
     elsif university.is_211
-      name = "#{name}/211"
+      full_name = "#{name}/211"
     elsif university.is_good
-      name = "#{name}/双一流"
+      full_name = "#{name}/双一流"
+    else
+      full_name = name
     end
 
     a(
-      name,
+      full_name,
       href: "#",
-      class: "dropdown-trigger",
+      class: "dropdown-trigger tooltipped",
+      "data-position": "top",
+      "data-tooltip": show_university_batch_levels(name, university.code, university.batch_level),
       data_target: "dropdown3",
       id: id,
       marked_2023: university.marked_2023(current_user),
