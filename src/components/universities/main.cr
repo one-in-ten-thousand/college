@@ -368,7 +368,8 @@ then set (next <input/>).value to my.value2
                   href: url1,
                   class: "tooltipped",
                   "data-position": "top",
-                  "data-tooltip": "历年分数"
+                  "data-tooltip": "历年分数",
+                  "target": "_blank"
                 )
               end
             end
@@ -381,7 +382,8 @@ then set (next <input/>).value to my.value2
                   href: url2,
                   class: "tooltipped",
                   "data-position": "top",
-                  "data-tooltip": "招生章程"
+                  "data-tooltip": "招生章程",
+                  "target": "_blank"
                 )
               end
             end
