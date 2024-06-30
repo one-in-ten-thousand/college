@@ -217,6 +217,12 @@ class Universities::Index < BrowserAction
         else
           cookies.set("order_by", "code_asc_order")
         end
+      when "updated_at"
+        if cookies.get?("order_by") == "updated_at_desc_order"
+          cookies.set("order_by", "updated_at_asc_order")
+        else
+          cookies.set("order_by", "updated_at_desc_order")
+        end
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"
           cookies.set("order_by", "score_2023_min_desc_order")
@@ -283,6 +289,12 @@ class Universities::Index < BrowserAction
           query = query.code.asc_order(:nulls_last)
         else
           query = query.code.desc_order(:nulls_last)
+        end
+      when "updated_at"
+        if cookies.get?("order_by") == "updated_at_asc_order"
+          query = query.updated_at.asc_order(:nulls_last)
+        else
+          query = query.updated_at.desc_order(:nulls_last)
         end
       when "score_2023_min"
         if cookies.get?("order_by") == "score_2023_min_asc_order"

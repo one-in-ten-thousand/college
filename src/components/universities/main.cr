@@ -312,6 +312,7 @@ then set (next <input/>).value to my.value2
     order_by_ranking_description_2022 = "点击排序(低位次优先)"
     order_by_ranking_description_2021 = "点击排序(低位次优先)"
     order_by_ranking_description_2020 = "点击排序(低位次优先)"
+    order_by_updated_at = "点击排序(最新修改优先)"
 
     case context.cookies.get?("order_by")
     when "id_asc_order"
@@ -334,6 +335,8 @@ then set (next <input/>).value to my.value2
       order_by_ranking_description_2021 = "点击排序(高位次优先)"
     when "ranking_2020_min_desc_order"
       order_by_ranking_description_2020 = "点击排序(高位次优先)"
+    when "updated_at_desc_order"
+      order_by_updated_at = "点击排序(最后修改优先)"
     end
 
     input type: "hidden", name: "order_by", value: context.request.query_params["order_by"]?.to_s
@@ -354,6 +357,7 @@ then set (next <input/>).value to my.value2
           mount OrderByTH, "ranking_2021_min", order_by_ranking_description_2021, "2021投档位次", all_name_inputs
           mount OrderByTH, "score_2020_min", order_by_score_description_2020, "2020投档分", all_name_inputs
           mount OrderByTH, "ranking_2020_min", order_by_ranking_description_2020, "2020投档位次", all_name_inputs
+          mount OrderByTH, "updated_at", order_by_updated_at, "修改时间", all_name_inputs
         end
       end
 
@@ -468,6 +472,7 @@ then set (next <input/>).value to my.value2
               tooltip: show_ranking_info(university, 2020, university.ranking_2020_min),
               current_user: current_user
             )
+            td university.updated_at.to_s("%m月%d日 %H:%M:%S")
           end
         end
       end
