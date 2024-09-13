@@ -32,7 +32,9 @@ abstract class MainLayout
       body "hx-boost": true do
         mount Shared::FlashMessages, context.flash
         render_signed_in_user
-        content
+        main do
+          content
+        end
       end
     end
   end

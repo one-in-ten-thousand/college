@@ -98,3 +98,18 @@ tr.htmx-swapping {
   opacity: 0;
   transition: opacity 1s ease-out;
 }
+
+/* :root { */
+/*   --main-font: "Source Sans 3", -apple-system, system-ui, sans-serif; */
+/* } */
+/* dfn > code { */
+/*   font-style: normal; */
+/*   text-decoration: 1px dashed var(--muted-fg) underline; */
+/* } */
+/* code a { */
+/*   font-family: inherit; */
+/* } */
+
+input[type=range] {
+  background-color: var(--md-sys-color-primary);
+}
