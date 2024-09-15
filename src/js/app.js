@@ -8,8 +8,7 @@ import { M } from '@materializecss/materialize';
 import { iosProvinces, iosCitys } from './areaData_v2.js';
 import 'toolcool-range-slider';
 import IosSelect from "iosselect";
-import 'htmx.org';
-window.htmx = require('htmx.org');
+import htmx from 'htmx.org';
 import _hyperscript from 'hyperscript.org';
 _hyperscript.browserInit();
 
@@ -73,10 +72,4 @@ function init () {
     // };
 }
 
-htmx.onLoad(function (target) {
-    init();
-});
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     init();
-// });
+htmx.onLoad(init);
