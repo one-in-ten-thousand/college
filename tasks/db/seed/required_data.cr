@@ -10,7 +10,9 @@ class Db::Seed::RequiredData < LuckyTask::Task
   summary "Add database records required for the app to work"
 
   def call
-    SignUpUser.create!(email: "zw963@163.com", password: "temp1234", password_confirmation: "temp1234")
+    unless UserQuery.new.email("zw963@163.com").first?
+      SignUpUser.create!(email: "zw963@163.com", password: "temp1234", password_confirmation: "temp1234")
+    end
     # SaveProvince.create! &.name("北京市").code("110000")
     # SaveCity.create! &.name("北京市").code("110100")
     # Using a Avram::Factory:
