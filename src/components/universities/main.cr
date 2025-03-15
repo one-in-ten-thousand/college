@@ -110,8 +110,10 @@ class Universities::Main < BaseComponent
         round: 0,
         # put 的默认目标就是 innerHTML, 因此特别适合 span 这种设置 html
         # set 则更适合设置某个属性的值, 例如: input
+
+        # then set (next <input/>).value to my.value2
         script: "on change set (previous <input/>).value to my.value1
-then set (next <input/>).value to my.value2
+then set the value of the next <input/> to my value2
 ") do
       end
       input(
